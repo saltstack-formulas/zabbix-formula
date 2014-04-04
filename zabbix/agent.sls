@@ -30,7 +30,7 @@ zabbix-agent:
   file:
     - managed
     - source:
-      - salt://zabbix/files/etc/zabbix/zabbix_agentd.conf.{{ grains['id'] }}.jinja
+      - salt://zabbix/files/{{ grains['id'] }}/etc/zabbix/zabbix_agentd.conf.jinja
       - salt://zabbix/files/etc/zabbix/zabbix_agentd.conf.jinja
     - template: jinja
     - require:
