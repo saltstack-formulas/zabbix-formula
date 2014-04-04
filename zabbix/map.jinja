@@ -1,0 +1,19 @@
+{% set zabbix = salt['grains.filter_by']({
+  'Debian': {
+    'version_repo': '2.2',
+    'pkg_agent': 'zabbix-agent',
+    'service_agent': 'zabbix-agent',
+    'config_agent': '/etc/zabbix/zabbix_agentd.conf',
+    'pkg_server': 'zabbix-server-mysql',
+    'service_server': 'zabbix-server',
+    'config_server': '/etc/zabbix/zabbix_server.conf',
+  },
+  'default': {
+    'pkg_agent': 'zabbix-agent',
+    'service_agent': 'zabbix-agent',
+    'config_agent': '/etc/zabbix/zabbix_agentd.conf',
+    'pkg_server': 'zabbix-server-mysql',
+    'service_server': 'zabbix-server',
+    'config_server': '/etc/zabbix/zabbix_server.conf',
+  },
+}, merge=salt['pillar.get']('zabbix:lookup')) %}

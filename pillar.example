@@ -1,0 +1,10 @@
+zabbix_agent:
+  server: localhost
+  listenport: 10050
+  listenip: 0.0.0.0
+  serveractive: localhost
+  userparameters:
+    - net.ping[*],/usr/bin/fping -q -c3 $1 2>&1 | sed 's,.*/\([0-9.]*\)/.*,\1,'
+    - custom.vfs.dev.discovery,/usr/local/bin/dev-discovery.sh
+  extra_conf: |
+    # Here we can set extra conf lines like user parameters
