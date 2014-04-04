@@ -31,7 +31,7 @@ zabbix-agent:
     - managed
     - source:
       - salt://zabbix/files/{{ grains['id'] }}/etc/zabbix/zabbix_agentd.conf.jinja
-      - salt://zabbix/files/etc/zabbix/zabbix_agentd.conf.jinja
+      - salt://zabbix/files/default/etc/zabbix/zabbix_agentd.conf.jinja
     - template: jinja
     - require:
       - pkg: zabbix-agent
