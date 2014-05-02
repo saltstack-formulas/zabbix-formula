@@ -3,11 +3,11 @@
 
 zabbix-agent:
   pkg:
-    - name: {{ zabbix.pkg_agent }}
     - installed
+    - name: {{ zabbix.pkg_agent }}
   service:
-    - name: {{ zabbix.service_agent }}
     - running
+    - name: {{ zabbix.service_agent }}
     - enable: True
     - require:
       - pkg: zabbix-agent
