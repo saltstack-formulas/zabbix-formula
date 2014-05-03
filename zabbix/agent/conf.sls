@@ -5,11 +5,16 @@ include:
   - zabbix.agent
 
 
+{% set files_switch = salt['pillar.get']('zabbix-agent:files_switch', ['id']) %}
+
+
 {{ zabbix.config_agent }}:
   file:
     - managed
     - source:
-      - salt://zabbix/files/{{ grains['id'] }}/etc/zabbix/zabbix_agentd.conf.jinja
+      {% for grain in files_switch if salt['grains.get'](grain) is defined -%}
+      - salt://zabbix/files/{{ salt['grains.get'](grain) }}/etc/zabbix/zabbix_agentd.conf.jinja
+      {% endfor -%}
       - salt://zabbix/files/default/etc/zabbix/zabbix_agentd.conf.jinja
     - template: jinja
     - require:

@@ -10,6 +10,9 @@ include:
   - mysql.client
 
 
+{% set files_switch = salt['pillar.get']('zabbix-mysql:files_switch', ['id']) %}
+
+
 {% for file in [
   '/usr/share/zabbix-server-mysql/schema.sql',
   '/usr/share/zabbix-server-mysql/images.sql',
@@ -19,7 +22,9 @@ include:
   file:
     - managed
     - source:
-      - salt://zabbix/files/{{ grains['id'] }}{{ file }}
+      {% for grain in files_switch if salt['grains.get'](grain) is defined -%}
+      - salt://zabbix/files/{{ salt['grains.get'](grain) }}{{ file }}
+      {% endfor -%}
       - salt://zabbix/files/default{{ file }}
   cmd:
     - run
