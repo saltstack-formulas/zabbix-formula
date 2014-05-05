@@ -42,16 +42,16 @@ General customization strategies
 
       files
         |-- minion01
-        |       |-- etc
-        |       |    |-- foo.conf.jinja
-        |       |    `-- bar.conf.jinja
-        |       `-- usr/share/thingy/*
+        |       `-- etc
+        |            `-- foo.conf.jinja
         |-- Debian
         |       `-- etc
         |            `-- foo.conf.jinja
         `-- default
-                `-- etc
-                     `-- foo.conf.jinja
+                |-- etc
+                |    |-- foo.conf.jinja
+                |    `-- bar.conf.jinja
+                `-- usr/share/thingy/*
 
   With this, we have the following:
 
