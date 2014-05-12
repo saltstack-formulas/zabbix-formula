@@ -7,8 +7,10 @@ include:
 
 
 # Here we just add a requisite declaration to ensure correct order
+{% if salt['grains.get']('os_family') == 'Debian' %}
 extend:
   zabbix_repo:
     pkgrepo:
       - require_in:
         - pkg: zabbix-agent
+{% endif %}
