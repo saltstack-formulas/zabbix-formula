@@ -5,8 +5,8 @@
 # the repo.
 
 
-{% if salt['grains.get']('os_family') == 'Debian' %}
 zabbix_repo:
+{%- if salt['grains.get']('os_family') == 'Debian' %}
   pkgrepo.managed:
     - name: deb http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/ubuntu {{grains['oscodename']}} main
     - file: /etc/apt/sources.list.d/zabbix.list
@@ -47,4 +47,5 @@ zabbix_repo_add_gpg:
         kQIoV3KTQAIzr6IvbZoAn12XXt4GP89xHuzPDZ86YJVAgnfK
         =+200
         -----END PGP PUBLIC KEY BLOCK-----
+{% else %} {}
 {% endif %}

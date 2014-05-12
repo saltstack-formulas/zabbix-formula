@@ -9,10 +9,12 @@ include:
 # Here we just add a requisite declaration to ensure correct order
 extend:
   zabbix_repo:
+{%- if salt['grains.get']('os_family') == 'Debian' %}
     pkgrepo:
       - require_in:
         - pkg: zabbix-server
-
+{% else %} {}
+{% endif %}
 
 # IMPORTANT NOTE: This is needed in Debian to ensure that installing the
 # server doesn't trigger a install of mysql-server. The official package of
