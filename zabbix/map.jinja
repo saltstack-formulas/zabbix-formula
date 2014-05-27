@@ -10,6 +10,14 @@
     'pkg_frontend': 'zabbix-frontend-php',
     'config_frontend': '/etc/zabbix/web/zabbix.conf.php',
   },
+  'FreeBSD': {
+    'pkg_agent': 'zabbix22-agent',
+    'service_agent': 'zabbix_agentd',
+    'config_agent': '/usr/local/etc/zabbix22/zabbix_agentd.conf',
+    'pkg_server': 'zabbix22-server',
+    'service_server': 'zabbix',
+    'config_server': '/usr/local/etc/zabbix22/zabbix_server.conf',
+  },
   'default': {
     'pkg_agent': 'zabbix-agent',
     'service_agent': 'zabbix-agent',
