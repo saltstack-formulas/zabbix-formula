@@ -1,7 +1,7 @@
 {% set zabbix = salt['grains.filter_by']({
   'Debian': {
     'version_repo': '2.2',
-    'pkg_agent': 'zabbix-agent',
+    'pkg_agent': 'zabbix3-agent',
     'service_agent': 'zabbix-agent',
     'config_agent': '/etc/zabbix/zabbix_agentd.conf',
     'pkg_server': 'zabbix-server-mysql',
@@ -16,10 +16,10 @@
     'config_agent': '/usr/local/etc/zabbix22/zabbix_agentd.conf',
     'pkg_server': 'zabbix22-server',
     'service_server': 'zabbix',
-    'config_server': '/usr/local/etc/zabbix/zabbix_server.conf',
+    'config_server': '/usr/local/etc/zabbix22/zabbix_server.conf',
   },
   'default': {
-    'pkg_agent': 'zabbix-agent',
+    'pkg_agent': 'zabbix4-agent',
     'service_agent': 'zabbix-agent',
     'config_agent': '/etc/zabbix/zabbix_agentd.conf',
     'pkg_server': 'zabbix-server-mysql',
