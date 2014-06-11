@@ -9,6 +9,10 @@ make it usable in most situations. It should be useful in scenarios ranging from
 a simple install of the packages (without any special configuration) to a more
 complex set-up with different nodes for agent, server, database and frontend.
 
+.. note::
+
+    For RedHat os_family you also need epel formula or working epel repository.
+
 General customization strategies
 ================================
 
