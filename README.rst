@@ -105,9 +105,6 @@ installation.
 
 .. note::
 
-    So far this formula is mostly designed for Debian os_family and apache
-    2.4.x. Support for RedHat os_family will be appearing one of these days.
-
     See the full `Salt Formulas
     <http://docs.saltstack.com/en/latest/topics/development/conventions/formulas.html>`_ doc.
 

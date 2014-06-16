@@ -247,7 +247,9 @@ Hostname={{ salt['pillar.get']('zabbix-agent:hostname',grains['id']) }}
 # Default:
 # Include=
 
-Include={{ salt['pillar.get']('zabbix-agent:include','/etc/zabbix/zabbix_agentd.d/') }}
+{% if salt['pillar.get']('zabbix-agent:include') %}
+Include={{ salt['pillar.get']('zabbix-agent:include') }}
+{% endif %}
 
 # Include=/usr/local/etc/zabbix_agentd.userparams.conf
 # Include=/usr/local/etc/zabbix_agentd.conf.d/
