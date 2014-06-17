@@ -26,6 +26,7 @@ include:
       - salt://zabbix/files/{{ salt['grains.get'](grain) }}{{ file }}
       {% endfor -%}
       - salt://zabbix/files/default{{ file }}
+    - makedirs: true
   cmd:
     - run
     - name: /usr/bin/mysql -h {{ dbhost }} -u {{ dbuser }} --password={{ dbpass }} {{ dbname }} < {{ file }} && touch {{ file }}.applied
