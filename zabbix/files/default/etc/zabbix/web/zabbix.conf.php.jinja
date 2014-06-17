@@ -13,7 +13,7 @@ $DB["SCHEMA"]			= '';
 
 $ZBX_SERVER				= '{{ salt['pillar.get']('zabbix-frontend:zbxserver', 'localhost') }}';
 $ZBX_SERVER_PORT		= '{{ salt['pillar.get']('zabbix-frontend:zbxserverport', '10051') }}';
-$ZBX_SERVER_NAME		= '{{ salt['pillar.get']('zabbix-frontend:zbxservername', '') }}';
+$ZBX_SERVER_NAME		= '{{ salt['pillar.get']('zabbix-frontend:zbxservername', 'Zabbix installed with saltstack') }}';
 
 $IMAGE_FORMAT_DEFAULT	= IMAGE_FORMAT_PNG;
 ?>

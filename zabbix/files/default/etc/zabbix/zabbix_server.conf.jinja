@@ -108,7 +108,7 @@ DBName={{ salt['pillar.get']('zabbix-server:dbname', 'zabbix') }}
 # Default:
 # DBUser=
 
-DBUser={{ salt['pillar.get']('zabbix-server:dbuser', '') }}
+DBUser={{ salt['pillar.get']('zabbix-server:dbuser', 'zabbixuser') }}
 
 ### Option: DBPassword
 #	Database password. Ignored for SQLite.
@@ -118,7 +118,7 @@ DBUser={{ salt['pillar.get']('zabbix-server:dbuser', '') }}
 # Default:
 # DBPassword=
 
-DBPassword={{ salt['pillar.get']('zabbix-server:dbpass', '') }}
+DBPassword={{ salt['pillar.get']('zabbix-server:dbpass', 'zabbixpass') }}
 
 ### Option: DBSocket
 #	Path to MySQL socket.
