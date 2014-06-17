@@ -72,6 +72,28 @@ General customization strategies
   request that you can bring back it would be taken in account ;-)
 
 
+Using RedHat EPEL repo Zabbix packages
+======================================
+
+If you want to use the EPEL repo packages, as the naming conventions are
+different, you need to tweak the default values of ``map.jinja`` to obtain the
+desired results. In short:
+
+* Don't use the ``zabbix.agent.repo`` sls assuming that EPEL repos are already
+  configured
+
+* Override the ``map.jinja`` definitions using pillar values like this
+
+```yaml
+zabbix:
+  lookup:
+    pkg_agent: zabbix22-agent
+    pkg_server: zabbix22-server-mysql
+```
+
+Now you just have to use ``zabbix.agent.conf`` sls file and that's it.
+
+
 Example of usage
 ================
 
