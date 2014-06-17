@@ -84,12 +84,13 @@ desired results. In short:
 
 * Override the ``map.jinja`` definitions using pillar values like this
 
-```yaml
-zabbix:
-  lookup:
-    pkg_agent: zabbix22-agent
-    pkg_server: zabbix22-server-mysql
-```
+.. code:: yaml
+
+    zabbix:
+      lookup:
+        pkg_agent: zabbix22-agent
+        pkg_server: zabbix22-server-mysql
+
 
 Now you just have to use ``zabbix.agent.conf`` sls file and that's it.
 
