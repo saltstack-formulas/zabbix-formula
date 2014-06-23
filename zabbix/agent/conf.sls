@@ -8,7 +8,7 @@ include:
 {% set files_switch = salt['pillar.get']('zabbix-agent:files_switch', ['id']) %}
 
 
-{{ zabbix.config_agent }}:
+{{ zabbix.agent.config }}:
   file:
     - managed
     - source:

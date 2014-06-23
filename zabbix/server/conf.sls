@@ -14,7 +14,7 @@ include:
 zabbix-server_debconf:
   debconf:
     - set
-    - name: {{ zabbix.pkg_server}}
+    - name: {{ zabbix.server.pkg}}
     - data:
         'zabbix-server-mysql/internal/skip-preseed': {'type': 'boolean', 'value': True}
         'zabbix-server-mysql/dbconfig-install': {'type': 'boolean', 'value': False}
@@ -24,7 +24,7 @@ zabbix-server_debconf:
 {% endif %}
 
 
-{{ zabbix.config_server }}:
+{{ zabbix.server.config }}:
   file:
     - managed
     - source:

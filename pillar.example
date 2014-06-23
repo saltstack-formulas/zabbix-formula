@@ -1,9 +1,12 @@
 zabbix:
   # Examples of values for map.jinja overriding
   lookup:
-    version_agent: 1:2.2.3-1+precise
-    version_frontend: 1:2.2.3-1+precise
-    version_server: 1:2.2.3-1+precise
+    agent:
+      version: 1:2.2.3-1+precise
+    frontend:
+      version: 1:2.2.3-1+precise
+    server:
+      version: 1:2.2.3-1+precise
 
 zabbix-agent:
   # The files_switch key serves as a selector for alternative directories under

@@ -9,7 +9,7 @@ include:
 {% set files_switch = salt['pillar.get']('zabbix-frontend:files_switch', ['id']) %}
 
 
-{{ zabbix.config_frontend }}:
+{{ zabbix.frontend.config }}:
   file:
     - managed
     - source:

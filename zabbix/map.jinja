@@ -1,29 +1,45 @@
 {% set zabbix = salt['grains.filter_by']({
   'Debian': {
     'version_repo': '2.2',
-    'pkg_agent': 'zabbix-agent',
-    'service_agent': 'zabbix-agent',
-    'config_agent': '/etc/zabbix/zabbix_agentd.conf',
-    'pkg_server': 'zabbix-server-mysql',
-    'service_server': 'zabbix-server',
-    'config_server': '/etc/zabbix/zabbix_server.conf',
-    'pkg_frontend': 'zabbix-frontend-php',
-    'config_frontend': '/etc/zabbix/web/zabbix.conf.php',
+    'agent': {
+      'pkg': 'zabbix-agent',
+      'service': 'zabbix-agent',
+      'config': '/etc/zabbix/zabbix_agentd.conf'
+    },
+    'server': {
+      'pkg': 'zabbix-server-mysql',
+      'service': 'zabbix-server',
+      'config': '/etc/zabbix/zabbix_server.conf'
+    },
+    'frontend': {
+      'pkg': 'zabbix-frontend-php',
+      'config': '/etc/zabbix/web/zabbix.conf.php'
+    }
   },
+
   'FreeBSD': {
-    'pkg_agent': 'zabbix22-agent',
-    'service_agent': 'zabbix_agentd',
-    'config_agent': '/usr/local/etc/zabbix22/zabbix_agentd.conf',
-    'pkg_server': 'zabbix22-server',
-    'service_server': 'zabbix',
-    'config_server': '/usr/local/etc/zabbix22/zabbix_server.conf',
+    'agent': {
+      'pkg': 'zabbix22-agent',
+      'service': 'zabbix_agentd',
+      'config': '/usr/local/etc/zabbix22/zabbix_agentd.conf'
+    },
+    'server': {
+      'pkg': 'zabbix22-server',
+      'service': 'zabbix',
+      'config': '/usr/local/etc/zabbix22/zabbix_server.conf'
+    }
   },
+
   'default': {
-    'pkg_agent': 'zabbix-agent',
-    'service_agent': 'zabbix-agent',
-    'config_agent': '/etc/zabbix/zabbix_agentd.conf',
-    'pkg_server': 'zabbix-server-mysql',
-    'service_server': 'zabbix-server',
-    'config_server': '/etc/zabbix/zabbix_server.conf',
+    'agent': {
+      'pkg': 'zabbix-agent',
+      'service': 'zabbix-agent',
+      'config': '/etc/zabbix/zabbix_agentd.conf'
+    },
+    'server': {
+      'pkg': 'zabbix-server-mysql',
+      'service': 'zabbix-server',
+      'config': '/etc/zabbix/zabbix_server.conf'
+    }
   },
 }, merge=salt['pillar.get']('zabbix:lookup')) %}
