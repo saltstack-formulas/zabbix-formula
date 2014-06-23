@@ -88,8 +88,10 @@ desired results. In short:
 
     zabbix:
       lookup:
-        pkg_agent: zabbix22-agent
-        pkg_server: zabbix22-server-mysql
+        agent:
+          pkg: zabbix22-agent
+        server:
+          pkg: zabbix22-server-mysql
 
 
 Now you just have to use ``zabbix.agent.conf`` sls file and that's it.
