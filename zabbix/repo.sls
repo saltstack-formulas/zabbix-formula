@@ -4,28 +4,38 @@
 # sources. Here we do the same as that package does, including the PGP key for
 # the repo.
 
+{% if sls == "zabbix.agent.repo" %}
+  {% set id_prefix = "zabbix_agent" %}
+{% elif sls == "zabbix.server.repo" %}
+  {% set id_prefix = "zabbix_server" %}
+{% elif sls == "zabbix.frontend.repo" %}
+  {% set id_prefix = "zabbix_frontend" %}
+{% else %}
+  {% set id_prefix = "zabbix" %}
+{% endif %}
 
 {%- if salt['grains.get']('os_family') == 'Debian' %}
-zabbix_repo:
+{{ id_prefix }}_repo:
   pkgrepo:
     - managed
     - name: deb http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/ubuntu {{grains['oscodename']}} main
     - file: /etc/apt/sources.list.d/zabbix.list
     - require:
-      - cmd: zabbix_repo_add_gpg
+      - cmd: {{ id_prefix }}_repo_add_gpg
 
 
-zabbix_repo_add_gpg:
+{{ id_prefix }}_repo_add_gpg:
   cmd:
     - wait
     - name: /usr/bin/apt-key add /var/tmp/zabbix-official-repo.gpg
     - watch:
-      - file: /var/tmp/zabbix-official-repo.gpg
+      - file: {{ id_prefix }}_repo_gpg_file
 
 
-/var/tmp/zabbix-official-repo.gpg:
+{{ id_prefix }}_repo_gpg_file:
   file:
     - managed
+    - name: /var/tmp/zabbix-official-repo.gpg
     - contents: |
         -----BEGIN PGP PUBLIC KEY BLOCK-----
 
@@ -52,7 +62,7 @@ zabbix_repo_add_gpg:
         -----END PGP PUBLIC KEY BLOCK-----
 {%- elif salt['grains.get']('os_family') == 'RedHat' and
          salt['grains.get']('osmajorrelease')[0] == '6' %}
-zabbix_repo:
+{{ id_prefix }}_repo:
   pkgrepo:
     - managed
     - name: zabbix
@@ -61,9 +71,9 @@ zabbix_repo:
     - gpgcheck: 1
     - gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
     - require:
-      - file: /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+      - file: {{ id_prefix }}_repo_gpg_file
 
-zabbix_non_supported_repo:
+{{ id_prefix }}_non_supported_repo:
   pkgrepo:
     - managed
     - name: zabbix_non_supported
@@ -72,11 +82,12 @@ zabbix_non_supported_repo:
     - gpgcheck: 1
     - gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
     - require:
-      - file: /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+      - file: {{ id_prefix }}_repo_gpg_file
 
-/etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX:
+{{ id_prefix }}_repo_gpg_file:
   file:
     - managed
+    - name: /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
     - contents: |
         -----BEGIN PGP PUBLIC KEY BLOCK-----
 
@@ -102,5 +113,5 @@ zabbix_non_supported_repo:
         =+200
         -----END PGP PUBLIC KEY BLOCK-----
 {% else %}
-zabbix_repo: {}
+{{ id_prefix }}_repo: {}
 {% endif %}

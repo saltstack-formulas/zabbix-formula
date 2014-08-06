@@ -1,14 +1,13 @@
 {% from "zabbix/map.jinja" import zabbix with context %}
 
 
-# We have a common state file for the official Zabbix repo
-include:
-  - zabbix.repo
+# We have a common template for the official Zabbix repo
+{% include "zabbix/repo.sls" %}
 
 
 # Here we just add a requisite declaration to ensure correct order
 extend:
-  zabbix_repo:
+  zabbix_server_repo:
 {%- if salt['grains.get']('os_family') == 'Debian' %}
     pkgrepo:
       - require_in:
@@ -28,5 +27,5 @@ extend:
     - managed
     - contents: 'APT::Install-Recommends "false";'
     - require_in:
-      - pkgrepo: zabbix_repo
+      - pkgrepo: zabbix_server_repo
 {% endif %}
