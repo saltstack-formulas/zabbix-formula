@@ -1,13 +1,10 @@
-{% from "mysql/map.jinja" import mysql with context %}
+{% from "zabbix/map.jinja" import zabbix with context %}
+
 
 {% set dbhost = salt['pillar.get']('zabbix-mysql:dbhost', 'localhost') %}
 {% set dbname = salt['pillar.get']('zabbix-mysql:dbname', 'zabbix') %}
 {% set dbuser = salt['pillar.get']('zabbix-mysql:dbuser', 'zabbixuser') %}
 {% set dbpass = salt['pillar.get']('zabbix-mysql:dbpass', 'zabbixpass') %}
-
-
-include:
-  - mysql.client
 
 
 {% set files_switch = salt['pillar.get']('zabbix-mysql:files_switch', ['id']) %}

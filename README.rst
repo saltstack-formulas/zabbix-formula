@@ -110,6 +110,8 @@ self- contained Zabbix system:
         - zabbix.users
         - zabbix.agent.repo
         - zabbix.agent.conf
+        - mysql.server
+        - mysql.client
         - zabbix.mysql.conf
         - zabbix.mysql.schema
         - zabbix.server.repo
@@ -187,8 +189,7 @@ include zabbix.repo and adds arequisite for the pkg state declaration
 ``zabbix.mysql``
 ----------------
 
-Installs mysql-server (via include of mysql.server) and creates database and
-user for Zabbix.
+Creates database and mysql user for Zabbix.
 
 ``zabbix.mysql.conf``
 ---------------------
