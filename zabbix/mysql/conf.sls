@@ -15,7 +15,7 @@ zabbix_db:
     - character_set: utf8
     - collate: utf8_bin
     - require:
-      - pkg: mysql-server
+      - service: mysql-server
   mysql_grants:
     - present
     - grant: all privileges
