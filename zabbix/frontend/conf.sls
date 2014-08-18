@@ -16,3 +16,17 @@ include:
     - template: jinja
     - require:
       - pkg: zabbix-frontend-php
+
+
+{% if grains['os_family'] == 'Debian' %}
+# We don't want the package to mess with apache
+zabbix-frontend_debconf:
+  debconf:
+    - set
+    - name: {{ zabbix.frontend.pkg}}
+    - data:
+        'zabbix-frontend-php/configure-apache': {'type': 'boolean', 'value': False}
+        'zabbix-frontend-php/restart-webserver': {'type': 'boolean', 'value': False}
+    - prereq:
+      - pkg: zabbix-frontend-php
+{% endif %}
