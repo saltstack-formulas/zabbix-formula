@@ -40,6 +40,10 @@
       'pkg': 'zabbix-server-mysql',
       'service': 'zabbix-server',
       'config': '/etc/zabbix/zabbix_server.conf'
+    },
+    'frontend': {
+      'pkg': 'zabbix-web-mysql',
+      'config': '/etc/zabbix/web/zabbix.conf.php'
     }
   },
 }, merge=salt['pillar.get']('zabbix:lookup')) %}
