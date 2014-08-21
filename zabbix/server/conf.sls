@@ -6,6 +6,21 @@ include:
   - zabbix.server
 
 
+{{ zabbix.server.config }}:
+  file:
+    - managed
+    - source: {{ files_switch('zabbix',
+                              ['/etc/zabbix/zabbix_server.conf',
+                               '/etc/zabbix/zabbix_server.conf.jinja']) }}
+    - template: jinja
+    - context:
+        dbsocket: {{ zabbix.server.dbsocket }}
+    - require:
+      - pkg: zabbix-server
+    - watch_in:
+      - service: zabbix-server
+
+
 {% if grains['os_family'] == 'Debian' %}
 # We don't want to manage the db through dbconfig when we install the package
 # so we set this cmd as prereq.
@@ -21,15 +36,3 @@ zabbix-server_debconf:
       - pkg: zabbix-server
 {% endif %}
 
-
-{{ zabbix.server.config }}:
-  file:
-    - managed
-    - source: {{ files_switch('zabbix',
-                              ['/etc/zabbix/zabbix_server.conf',
-                               '/etc/zabbix/zabbix_server.conf.jinja']) }}
-    - template: jinja
-    - require:
-      - pkg: zabbix-server
-    - watch_in:
-      - service: zabbix-server
