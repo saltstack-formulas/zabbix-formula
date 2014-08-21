@@ -18,6 +18,15 @@ include:
       - pkg: zabbix-frontend-php
 
 
+# Fix permissions to allow to php-fpm include /etc/zabbix/web/*
+/etc/zabbix/web:
+  file:
+    - directory
+    - mode: 755
+    - require:
+      - pkg: zabbix-frontend-php
+
+
 {% if grains['os_family'] == 'Debian' %}
 # We don't want the package to mess with apache
 zabbix-frontend_debconf:
