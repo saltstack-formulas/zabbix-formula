@@ -1,6 +1,10 @@
 {% from "zabbix/map.jinja" import zabbix with context %}
 
 
+include:
+  - zabbix.frontend
+
+
 # We have a common template for the official Zabbix repo
 {% include "zabbix/repo.sls" %}
 
