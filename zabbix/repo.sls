@@ -18,7 +18,7 @@
 {{ id_prefix }}_repo:
   pkgrepo:
     - managed
-    - name: deb http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/ubuntu {{grains['oscodename']}} main
+    - name: deb http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/{{grains['os']|lower()}} {{grains['oscodename']}} main
     - file: /etc/apt/sources.list.d/zabbix.list
     - require:
       - cmd: {{ id_prefix }}_repo_add_gpg
