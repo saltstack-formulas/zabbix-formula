@@ -2,6 +2,10 @@
 {% from "zabbix/macros.jinja" import files_switch with context %}
 
 
+include:
+  - zabbix.mysql.conf
+
+
 {% set dbhost = salt['pillar.get']('zabbix-mysql:dbhost', 'localhost') %}
 {% set dbname = salt['pillar.get']('zabbix-mysql:dbname', 'zabbix') %}
 {% set dbuser = salt['pillar.get']('zabbix-mysql:dbuser', 'zabbixuser') %}
@@ -16,8 +20,8 @@
 {{ file }}:
   file:
     - managed
+    - makedirs: True
     - source: {{ files_switch('zabbix', [ file ]) }}
-    - makedirs: true
   cmd:
     - run
     - name: /usr/bin/mysql -h {{ dbhost }} -u {{ dbuser }} --password={{ dbpass }} {{ dbname }} < {{ file }} && touch {{ file }}.applied
