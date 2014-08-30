@@ -8,7 +8,6 @@ zabbix:
     server:
       version: 1:2.2.3-1+precise
 
-zabbix-agent:
   # The files_switch key serves as a selector for alternative directories under
   # the formula files directory. Under the files directory could exist several
   # subdirectories named on the value of certain grains. By default the selector
@@ -17,6 +16,7 @@ zabbix-agent:
     - id
     - os_family
 
+zabbix-agent:
   server: localhost
   listenport: 10050
   listenip: 0.0.0.0
@@ -30,18 +30,12 @@ zabbix-agent:
     # Here we can set extra conf lines like user parameters
 
 zabbix-server:
-  files_switch:
-    - id
-    - os_family
   dbhost: localhost
   dbname: zabbix
   dbuser: zabbixuser
   dbpass: zabbixpass
 
 zabbix-mysql:
-  files_switch:
-    - id
-    - os_family
   dbhost: localhost
   dbname: zabbix
   dbuser: zabbixuser
@@ -49,9 +43,6 @@ zabbix-mysql:
   dbuser_host: '%'
 
 zabbix-frontend:
-  files_switch:
-    - id
-    - os_family
   dbhost: localhost
   dbname: zabbix
   dbuser: zabbixuser

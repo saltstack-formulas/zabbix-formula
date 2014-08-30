@@ -1,13 +1,11 @@
 {% from "zabbix/map.jinja" import zabbix with context %}
+{% from "zabbix/macros.jinja" import files_switch with context %}
 
 
 {% set dbhost = salt['pillar.get']('zabbix-mysql:dbhost', 'localhost') %}
 {% set dbname = salt['pillar.get']('zabbix-mysql:dbname', 'zabbix') %}
 {% set dbuser = salt['pillar.get']('zabbix-mysql:dbuser', 'zabbixuser') %}
 {% set dbpass = salt['pillar.get']('zabbix-mysql:dbpass', 'zabbixpass') %}
-
-
-{% set files_switch = salt['pillar.get']('zabbix-mysql:files_switch', ['id']) %}
 
 
 {% for file in [
@@ -18,11 +16,7 @@
 {{ file }}:
   file:
     - managed
-    - source:
-      {% for grain in files_switch if salt['grains.get'](grain) is defined -%}
-      - salt://zabbix/files/{{ salt['grains.get'](grain) }}{{ file }}
-      {% endfor -%}
-      - salt://zabbix/files/default{{ file }}
+    - source: {{ files_switch('zabbix', [ file ]) }}
     - makedirs: true
   cmd:
     - run

@@ -1,11 +1,9 @@
 {% from "zabbix/map.jinja" import zabbix with context %}
+{% from "zabbix/macros.jinja" import files_switch with context %}
 
 
 include:
   - zabbix.server
-
-
-{% set files_switch = salt['pillar.get']('zabbix-server:files_switch', ['id']) %}
 
 
 {% if grains['os_family'] == 'Debian' %}
@@ -27,11 +25,9 @@ zabbix-server_debconf:
 {{ zabbix.server.config }}:
   file:
     - managed
-    - source:
-      {% for grain in files_switch if salt['grains.get'](grain) is defined -%}
-      - salt://zabbix/files/{{ salt['grains.get'](grain) }}/etc/zabbix/zabbix_server.conf.jinja
-      {% endfor -%}
-      - salt://zabbix/files/default/etc/zabbix/zabbix_server.conf.jinja
+    - source: {{ files_switch('zabbix',
+                              ['/etc/zabbix/zabbix_server.conf',
+                               '/etc/zabbix/zabbix_server.conf.jinja']) }}
     - template: jinja
     - require:
       - pkg: zabbix-server

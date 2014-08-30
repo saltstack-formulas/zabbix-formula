@@ -1,0 +1,14 @@
+{# Implementation of the file_switch mechanism to be used in module file,
+   function managed, source argument #}
+{%- macro files_switch(prefix, files) %}
+  {%- set switch = salt['pillar.get'](prefix ~ ':files_switch', ['id']) %}
+  {%- for grain in switch if salt['grains.get'](grain) is defined %}
+    {%- for file in files %}
+      - salt://{{ prefix }}/files/{{ salt['grains.get'](grain) }}{{ file }}
+    {%- endfor %}
+  {%- endfor %}
+    {%- for file in files %}
+      - salt://{{ prefix }}/files/default{{ file }}
+    {%- endfor %}
+{%- endmacro %}
+

@@ -1,4 +1,5 @@
 {% from "zabbix/map.jinja" import zabbix with context %}
+{% from "zabbix/macros.jinja" import files_switch with context %}
 
 
 include:
@@ -6,17 +7,12 @@ include:
   - zabbix.frontend.repo
 
 
-{% set files_switch = salt['pillar.get']('zabbix-frontend:files_switch', ['id']) %}
-
-
 {{ zabbix.frontend.config }}:
   file:
     - managed
-    - source:
-      {% for grain in files_switch if salt['grains.get'](grain) is defined -%}
-      - salt://zabbix/files/{{ salt['grains.get'](grain) }}/etc/zabbix/web/zabbix.conf.php.jinja
-      {% endfor -%}
-      - salt://zabbix/files/default/etc/zabbix/web/zabbix.conf.php.jinja
+    - source: {{ files_switch('zabbix',
+                              ['/etc/zabbix/web/zabbix.conf.php',
+                               '/etc/zabbix/web/zabbix.conf.php.jinja'] }}
     - template: jinja
     - require:
       - pkg: zabbix-frontend-php
