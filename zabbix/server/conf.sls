@@ -22,7 +22,7 @@ include:
       - service: zabbix-server
 
 
-{% if grains['os_family'] == 'Debian' %}
+{% if salt['grains.get']('os_family') == 'Debian' %}
 # We don't want to manage the db through dbconfig when we install the package
 # so we set this cmd as prereq.
 zabbix-server_debconf:

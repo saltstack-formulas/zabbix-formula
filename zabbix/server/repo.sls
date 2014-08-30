@@ -25,7 +25,7 @@ extend:
 # with server + db in the same host... which is not always what we want.
 # There's no way so far to tell the apt pkg state module something as the
 # "--without-recommends" flag just for a package.
-{% if grains['os_family'] == 'Debian' %}
+{% if salt['grains.get']('os_family') == 'Debian' %}
 /etc/apt/apt.conf.d/00local-disable-recommends:
   file:
     - managed

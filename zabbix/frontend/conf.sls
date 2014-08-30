@@ -27,7 +27,7 @@ include:
       - pkg: zabbix-frontend-php
 
 
-{% if grains['os_family'] == 'Debian' %}
+{% if salt['grains.get']('os_family') == 'Debian' %}
 # We don't want the package to mess with apache
 zabbix-frontend_debconf:
   debconf:

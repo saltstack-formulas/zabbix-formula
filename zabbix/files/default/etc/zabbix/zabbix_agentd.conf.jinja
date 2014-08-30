@@ -138,7 +138,7 @@ ServerActive={{ salt['pillar.get']('zabbix-agent:serveractive', '') }}
 # Default:
 # Hostname=
 
-Hostname={{ salt['pillar.get']('zabbix-agent:hostname',grains['id']) }}
+Hostname={{ salt['pillar.get']('zabbix-agent:hostname', salt['grains.get']('id')) }}
 
 ### Option: HostnameItem
 #	Item used for generating Hostname if it is undefined. Ignored if Hostname is defined.
