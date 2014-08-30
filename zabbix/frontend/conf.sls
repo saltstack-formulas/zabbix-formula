@@ -12,7 +12,7 @@ include:
     - managed
     - source: {{ files_switch('zabbix',
                               ['/etc/zabbix/web/zabbix.conf.php',
-                               '/etc/zabbix/web/zabbix.conf.php.jinja'] }}
+                               '/etc/zabbix/web/zabbix.conf.php.jinja']) }}
     - template: jinja
     - require:
       - pkg: zabbix-frontend-php
