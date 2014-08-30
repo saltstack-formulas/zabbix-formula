@@ -107,7 +107,6 @@ self- contained Zabbix system:
 
     base:
       'minion':
-        - zabbix.users
         - zabbix.agent.repo
         - zabbix.agent.conf
         - mysql.server

@@ -1,6 +1,11 @@
 zabbix formula
 ================
 
+1.1 (2014-08-30)
+
+ - General improvements: added new pillars, better support for os_family, ...
+ - Added macro.jinja with files_switch macro.
+
 1.0 (2014-06-23)
 
  - Changed structure of the map.jinja to separate between agent, server and
