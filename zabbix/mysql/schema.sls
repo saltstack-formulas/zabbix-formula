@@ -9,9 +9,9 @@
 
 
 {% for file in [
-  '/usr/share/zabbix-server-mysql/schema.sql',
-  '/usr/share/zabbix-server-mysql/images.sql',
-  '/usr/share/zabbix-server-mysql/data.sql'
+  '/usr/share/zabbix-server-mysql/salt-provided-schema.sql',
+  '/usr/share/zabbix-server-mysql/salt-provided-images.sql',
+  '/usr/share/zabbix-server-mysql/salt-provided-data.sql'
 ] %}
 {{ file }}:
   file:
