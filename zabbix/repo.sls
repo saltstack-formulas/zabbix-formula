@@ -1,20 +1,20 @@
-{% from "zabbix/map.jinja" import zabbix with context %}
+{% from "zabbix/map.jinja" import zabbix with context -%}
+{% from "lib/macros.jinja" import files_switch with context -%}
+
 
 # Zabbix official repo releases a deb package that sets a zabbix.list apt
 # sources. Here we do the same as that package does, including the PGP key for
 # the repo.
 
-{% if sls == "zabbix.agent.repo" %}
-  {% set id_prefix = "zabbix_agent" %}
-{% elif sls == "zabbix.server.repo" %}
-  {% set id_prefix = "zabbix_server" %}
-{% elif sls == "zabbix.frontend.repo" %}
-  {% set id_prefix = "zabbix_frontend" %}
-{% else %}
-  {% set id_prefix = "zabbix" %}
-{% endif %}
 
-{%- if salt['grains.get']('os_family') == 'Debian' %}
+{% if sls == "zabbix.agent.repo" %}{% set id_prefix = "zabbix_agent" -%}
+{% elif sls == "zabbix.server.repo" %}{% set id_prefix = "zabbix_server" -%}
+{% elif sls == "zabbix.frontend.repo" %}{% set id_prefix = "zabbix_frontend" -%}
+{% else %}{% set id_prefix = "zabbix" -%}
+{% endif -%}
+
+
+{% if salt['grains.get']('os_family') == 'Debian' -%}
 {{ id_prefix }}_repo:
   pkgrepo:
     - managed
@@ -32,36 +32,17 @@
       - file: {{ id_prefix }}_repo_gpg_file
 
 
+# GPG key of official Zabbix repo
 {{ id_prefix }}_repo_gpg_file:
   file:
     - managed
     - name: /var/tmp/zabbix-official-repo.gpg
-    - contents: |
-        -----BEGIN PGP PUBLIC KEY BLOCK-----
+    - source: {{ files_switch('zabbix',
+                              ['/tmp/zabbix-official-repo.gpg']) }}
 
-        mQGiBFCNJaYRBAC4nIW8o2NyOIswb82Xn3AYSMUcNZuKB2fMtpu0WxSXIRiX2BwC
-        YXx8cIEQVYtLRBL5o0JdmoNCjW6jd5fOVem3EmOcPksvzzRWonIgFHf4EI2n1KJc
-        JXX/nDC+eoh5xW35mRNFN/BEJHxxiRGGbp2MCnApwgrZLhOujaCGAwavGwCgiG4D
-        wKMZ4xX6Y2Gv3MSuzMIT0bcEAKYn3WohS+udp0yC3FHDj+oxfuHpklu1xuI3y6ha
-        402aEFahNi3wr316ukgdPAYLbpz76ivoouTJ/U2MqbNLjAspDvlnHXXyqPM5GC6K
-        jtXPqNrRMUCrwisoAhorGUg/+S5pyXwsWcJ6EKmA80pR9HO+TbsELE5bGe/oc238
-        t/2oBAC3zcQ46wPvXpMCNFb+ED71qDOlnDYaaAPbjgkvnp+WN6nZFFyevjx180Kw
-        qWOLnlNP6JOuFW27MP75MDPDpbAAOVENp6qnuW9dxXTN80YpPLKUxrQS8vWPnzkY
-        WtUfF75pEOACFVTgXIqEgW0E6oww2HJi9zF5fS8IlFHJztNYtbQgWmFiYml4IFNJ
-        QSA8cGFja2FnZXJAemFiYml4LmNvbT6IYAQTEQIAIAUCUI0lpgIbAwYLCQgHAwIE
-        FQIIAwQWAgMBAh4BAheAAAoJENE9WOR56l7UhUwAmgIGZ39U6D2w2oIWDD8m7KV3
-        oI06AJ9EnOxMMlxEjTkt9lEvGhEX1bEh7bkBDQRQjSWmEAQAqx+ecOzBbhqMq5hU
-        l39cJ6l4aocz6EZ9mSSoF/g+HFz6WYnPAfRaYyfLmZdtF5rGBDD4ysalYG5yD59R
-        Mv5tNVf/CEx+JAPMhp6JCBkGRaH+xHws4eBPGkea4rGNVP3L3rA7g+c1YXZICGRI
-        OOH7CIzIZ/w6aFGsPp7xM35ogncAAwUD/3s8Nc1OLDy81DC6rGpxfEURd5pvd/j0
-        D5Di0WSBEcHXp5nThDz6ro/Vr0/FVIBtT97tmBHX27yBS3PqxxNRIjZ0GSWQqdws
-        Q8o3YT+RHjBugXn8CzTOvIn+2QNMA8EtGIZPpCblJv8q6MFPi9m7avQxguMqufgg
-        fAk7377Rt9RqiEkEGBECAAkFAlCNJaYCGwwACgkQ0T1Y5HnqXtQx4wCfcJZINKVq
-        kQIoV3KTQAIzr6IvbZoAn12XXt4GP89xHuzPDZ86YJVAgnfK
-        =+200
-        -----END PGP PUBLIC KEY BLOCK-----
+
 {%- elif salt['grains.get']('os_family') == 'RedHat' and
-         salt['grains.get']('osmajorrelease')[0] == '6' %}
+         salt['grains.get']('osmajorrelease')[0] == '6' -%}
 {{ id_prefix }}_repo:
   pkgrepo:
     - managed
@@ -88,30 +69,8 @@
   file:
     - managed
     - name: /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
-    - contents: |
-        -----BEGIN PGP PUBLIC KEY BLOCK-----
-
-        mQGiBFCNJaYRBAC4nIW8o2NyOIswb82Xn3AYSMUcNZuKB2fMtpu0WxSXIRiX2BwC
-        YXx8cIEQVYtLRBL5o0JdmoNCjW6jd5fOVem3EmOcPksvzzRWonIgFHf4EI2n1KJc
-        JXX/nDC+eoh5xW35mRNFN/BEJHxxiRGGbp2MCnApwgrZLhOujaCGAwavGwCgiG4D
-        wKMZ4xX6Y2Gv3MSuzMIT0bcEAKYn3WohS+udp0yC3FHDj+oxfuHpklu1xuI3y6ha
-        402aEFahNi3wr316ukgdPAYLbpz76ivoouTJ/U2MqbNLjAspDvlnHXXyqPM5GC6K
-        jtXPqNrRMUCrwisoAhorGUg/+S5pyXwsWcJ6EKmA80pR9HO+TbsELE5bGe/oc238
-        t/2oBAC3zcQ46wPvXpMCNFb+ED71qDOlnDYaaAPbjgkvnp+WN6nZFFyevjx180Kw
-        qWOLnlNP6JOuFW27MP75MDPDpbAAOVENp6qnuW9dxXTN80YpPLKUxrQS8vWPnzkY
-        WtUfF75pEOACFVTgXIqEgW0E6oww2HJi9zF5fS8IlFHJztNYtbQgWmFiYml4IFNJ
-        QSA8cGFja2FnZXJAemFiYml4LmNvbT6IYAQTEQIAIAUCUI0lpgIbAwYLCQgHAwIE
-        FQIIAwQWAgMBAh4BAheAAAoJENE9WOR56l7UhUwAmgIGZ39U6D2w2oIWDD8m7KV3
-        oI06AJ9EnOxMMlxEjTkt9lEvGhEX1bEh7bkBDQRQjSWmEAQAqx+ecOzBbhqMq5hU
-        l39cJ6l4aocz6EZ9mSSoF/g+HFz6WYnPAfRaYyfLmZdtF5rGBDD4ysalYG5yD59R
-        Mv5tNVf/CEx+JAPMhp6JCBkGRaH+xHws4eBPGkea4rGNVP3L3rA7g+c1YXZICGRI
-        OOH7CIzIZ/w6aFGsPp7xM35ogncAAwUD/3s8Nc1OLDy81DC6rGpxfEURd5pvd/j0
-        D5Di0WSBEcHXp5nThDz6ro/Vr0/FVIBtT97tmBHX27yBS3PqxxNRIjZ0GSWQqdws
-        Q8o3YT+RHjBugXn8CzTOvIn+2QNMA8EtGIZPpCblJv8q6MFPi9m7avQxguMqufgg
-        fAk7377Rt9RqiEkEGBECAAkFAlCNJaYCGwwACgkQ0T1Y5HnqXtQx4wCfcJZINKVq
-        kQIoV3KTQAIzr6IvbZoAn12XXt4GP89xHuzPDZ86YJVAgnfK
-        =+200
-        -----END PGP PUBLIC KEY BLOCK-----
-{% else %}
+    - source: {{ files_switch('zabbix',
+                              ['/tmp/zabbix-official-repo.gpg']) }}
+{% else -%}
 {{ id_prefix }}_repo: {}
-{% endif %}
+{% endif -%}
