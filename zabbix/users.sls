@@ -4,10 +4,14 @@
 zabbix_user:
   user:
       - present
-      - name: {{ salt['pillar.get']('zabbix:user', 'zabbix') }}
+      - name: {{ zabbix.user }}
+      - gid_from_name: True
+      - groups: {{ salt['pillar.get']('zabbix:user_groups', []) }}
+      - require:
+        - group: zabbix_group
 
 
 zabbix_group:
     group:
       - present
-      - name: {{ salt['pillar.get']('zabbix:group', 'zabbix') }}
+      - name: {{ zabbix.group }}

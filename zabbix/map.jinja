@@ -1,6 +1,8 @@
 {% set zabbix = salt['grains.filter_by']({
   'Debian': {
     'version_repo': '2.2',
+    'user': 'zabbix',
+    'group': 'zabbix',
     'agent': {
       'pkg': 'zabbix-agent',
       'service': 'zabbix-agent',
@@ -19,6 +21,8 @@
   },
 
   'FreeBSD': {
+    'user': 'zabbix',
+    'group': 'zabbix',
     'agent': {
       'pkg': 'zabbix22-agent',
       'service': 'zabbix_agentd',
@@ -33,6 +37,8 @@
   },
 
   'default': {
+    'user': 'zabbix',
+    'group': 'zabbix',
     'agent': {
       'pkg': 'zabbix-agent',
       'service': 'zabbix-agent',

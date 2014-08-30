@@ -16,6 +16,11 @@ zabbix:
     - id
     - os_family
 
+  # Groups where the zabbix user should be included in order to be able to read
+  # some files or run some commands
+  user_groups:
+    - adm
+
 zabbix-agent:
   server: localhost
   listenport: 10050
