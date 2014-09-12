@@ -1,5 +1,5 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
-{% from "lib/macros.jinja" import files_switch with context -%}
+{% from "zabbix/macros.jinja" import files_switch with context -%}
 
 
 # Zabbix official repo releases a deb package that sets a zabbix.list apt
