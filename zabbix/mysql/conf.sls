@@ -9,23 +9,20 @@
 
 
 zabbix_db:
-  mysql_database:
-    - present
+  mysql_database.present:
     - name: {{ dbname }}
     - character_set: utf8
     - collate: utf8_bin
     - require:
       - service: mysql-server
-  mysql_grants:
-    - present
+  mysql_grants.present:
     - grant: all privileges
     - database: {{ dbname }}.*
     - user: {{ dbuser }}
     - host: '{{ dbuser_host }}'
     - require:
       - mysql_database: zabbix_db
-  mysql_user:
-    - present
+  mysql_user.present:
     - name: {{ dbuser }}
     - host: '{{ dbuser_host }}'
     - password: {{ dbpass }}

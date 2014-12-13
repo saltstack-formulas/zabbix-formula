@@ -2,14 +2,12 @@
 
 
 zabbix-agent:
-  pkg:
-    - installed
+  pkg.installed:
     - name: {{ zabbix.agent.pkg }}
     {% if zabbix.agent.version is defined %}
     - version: {{ zabbix.agent.version }}
     {% endif %}
-  service:
-    - running
+  service.running:
     - name: {{ zabbix.agent.service }}
     - enable: True
     - require:
