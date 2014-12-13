@@ -2,8 +2,7 @@
 
 
 zabbix-frontend-php:
-  pkg:
-    - installed
+  pkg.installed:
     - name: {{ zabbix.frontend.pkg }}
     {% if zabbix.frontend.version is defined %}
     - version: {{ zabbix.frontend.version }}
