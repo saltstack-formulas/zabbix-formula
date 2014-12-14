@@ -147,6 +147,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # StartPollers=5
 
+StartPollers={{ salt['pillar.get']('zabbix-server:StartPollers', '5') }}
+
 ### Option: StartIPMIPollers
 #	Number of pre-forked instances of IPMI pollers.
 #
@@ -155,6 +157,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # StartIPMIPollers=0
 
+StartIPMIPollers={{ salt['pillar.get']('zabbix-server:StartIPMIPollers', '0') }}
+
 ### Option: StartPollersUnreachable
 #	Number of pre-forked instances of pollers for unreachable hosts (including IPMI).
 #
@@ -162,6 +166,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 0-1000
 # Default:
 # StartPollersUnreachable=1
+
+StartPollersUnreachable={{ salt['pillar.get']('zabbix-server:StartPollersUnreachable', '1') }}
 
 ### Option: StartTrappers
 #	Number of pre-forked instances of trappers.
@@ -173,6 +179,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # StartTrappers=5
 
+StartTrappers={{ salt['pillar.get']('zabbix-server:StartTrappers', '5') }}
+
 ### Option: StartPingers
 #	Number of pre-forked instances of ICMP pingers.
 #
@@ -180,6 +188,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 0-1000
 # Default:
 # StartPingers=1
+
+StartPingers={{ salt['pillar.get']('zabbix-server:StartPingers', '1') }}
 
 ### Option: StartDiscoverers
 #	Number of pre-forked instances of discoverers.
@@ -189,6 +199,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # StartDiscoverers=1
 
+StartDiscoverers={{ salt['pillar.get']('zabbix-server:StartDiscoverers', '1') }}
+
 ### Option: StartHTTPPollers
 #	Number of pre-forked instances of HTTP pollers.
 #
@@ -196,6 +208,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 0-1000
 # Default:
 # StartHTTPPollers=1
+
+StartHTTPPollers={{ salt['pillar.get']('zabbix-server:StartHTTPPollers', '1') }}
 
 ### Option: StartTimers
 #	Number of pre-forked instances of timers.
@@ -207,6 +221,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # StartTimers=1
 
+StartTimers={{ salt['pillar.get']('zabbix-server:StartTimers', '1') }}
+
 ### Option: JavaGateway
 #	IP address (or hostname) of Zabbix Java gateway.
 #	Only required if Java pollers are started.
@@ -214,6 +230,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Mandatory: no
 # Default:
 # JavaGateway=
+
+JavaGateway={{ salt['pillar.get']('zabbix-server:JavaGateway', '') }}
 
 ### Option: JavaGatewayPort
 #	Port that Zabbix Java gateway listens on.
@@ -223,6 +241,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # JavaGatewayPort=10052
 
+JavaGatewayPort={{ salt['pillar.get']('zabbix-server:JavaGatewayPort', '10052') }}
+
 ### Option: StartJavaPollers
 #	Number of pre-forked instances of Java pollers.
 #
@@ -230,6 +250,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 0-1000
 # Default:
 # StartJavaPollers=0
+
+StartJavaPollers={{ salt['pillar.get']('zabbix-server:StartJavaPollers', '0') }}
 
 ### Option: StartVMwareCollectors
 #	Number of pre-forked vmware collector instances.
@@ -239,6 +261,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # StartVMwareCollectors=0
 
+StartVMwareCollectors={{ salt['pillar.get']('zabbix-server:StartVMwareCollectors', '0') }}
+
 ### Option: VMwareFrequency
 #	How often Zabbix will connect to VMware service to obtain a new data.
 #
@@ -246,6 +270,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 10-86400
 # Default:
 # VMwareFrequency=60
+
+VMwareFrequency={{ salt['pillar.get']('zabbix-server:VMwareFrequency', '60') }}
 
 ### Option: VMwareCacheSize
 #	Size of VMware cache, in bytes.
@@ -257,6 +283,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # VMwareCacheSize=8M
 
+VMwareCacheSize={{ salt['pillar.get']('zabbix-server:VMwareCacheSize', '60') }}
+
 ### Option: SNMPTrapperFile
 #	Temporary file used for passing data from SNMP trap daemon to the server.
 #	Must be the same as in zabbix_trap_receiver.pl or SNMPTT configuration file.
@@ -264,6 +292,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Mandatory: no
 # Default:
 # SNMPTrapperFile=/tmp/zabbix_traps.tmp
+
+SNMPTrapperFile={{ salt['pillar.get']('zabbix-server:SNMPTrapperFile', '/tmp/zabbix_traps.tmp') }}
 
 ### Option: StartSNMPTrapper
 #	If 1, SNMP trapper process is started.
@@ -273,6 +303,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # StartSNMPTrapper=0
 
+StartSNMPTrapper={{ salt['pillar.get']('zabbix-server:StartSNMPTrapper', '0') }}
+
 ### Option: ListenIP
 #	List of comma delimited IP addresses that the trapper should listen on.
 #	Trapper will listen on all network interfaces if this parameter is missing.
@@ -281,7 +313,7 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # ListenIP=0.0.0.0
 
-# ListenIP=127.0.0.1
+ListenIP={{ salt['pillar.get']('zabbix-server:ListenIP', '0.0.0.0') }}
 
 ### Option: HousekeepingFrequency
 #	How often Zabbix will perform housekeeping procedure (in hours).
@@ -291,6 +323,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 1-24
 # Default:
 # HousekeepingFrequency=1
+
+HousekeepingFrequency={{ salt['pillar.get']('zabbix-server:HousekeepingFrequency', '1') }}
 
 ### Option: MaxHousekeeperDelete
 #	The table "housekeeper" contains "tasks" for housekeeping procedure in the format:
@@ -305,6 +339,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # MaxHousekeeperDelete=500
 
+MaxHousekeeperDelete={{ salt['pillar.get']('zabbix-server:MaxHousekeeperDelete', '500') }}
+
 ### Option: SenderFrequency
 #	How often Zabbix will try to send unsent alerts (in seconds).
 #
@@ -312,6 +348,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 5-3600
 # Default:
 # SenderFrequency=30
+
+SenderFrequency={{ salt['pillar.get']('zabbix-server:SenderFrequency', '30') }}
 
 ### Option: CacheSize
 #	Size of configuration cache, in bytes.
@@ -322,6 +360,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # CacheSize=8M
 
+CacheSize={{ salt['pillar.get']('zabbix-server:CacheSize', '8M') }}
+
 ### Option: CacheUpdateFrequency
 #	How often Zabbix will perform update of configuration cache, in seconds.
 #
@@ -330,6 +370,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # CacheUpdateFrequency=60
 
+CacheUpdateFrequency={{ salt['pillar.get']('zabbix-server:CacheUpdateFrequency', '60') }}
+
 ### Option: StartDBSyncers
 #	Number of pre-forked instances of DB Syncers
 #
@@ -337,6 +379,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 1-100
 # Default:
 # StartDBSyncers=4
+
+StartDBSyncers={{ salt['pillar.get']('zabbix-server:StartDBSyncers', '4') }}
 
 ### Option: HistoryCacheSize
 #	Size of history cache, in bytes.
@@ -347,6 +391,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # HistoryCacheSize=8M
 
+HistoryCacheSize={{ salt['pillar.get']('zabbix-server:HistoryCacheSize', '8M') }}
+
 ### Option: TrendCacheSize
 #	Size of trend cache, in bytes.
 #	Shared memory size for storing trends data.
@@ -356,6 +402,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # TrendCacheSize=4M
 
+TrendCacheSize={{ salt['pillar.get']('zabbix-server:TrendCacheSize', '4M') }}
+
 ### Option: HistoryTextCacheSize
 #	Size of text history cache, in bytes.
 #	Shared memory size for storing character, text or log history data.
@@ -364,6 +412,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 128K-2G
 # Default:
 # HistoryTextCacheSize=16M
+
+HistoryTextCacheSize={{ salt['pillar.get']('zabbix-server:HistoryTextCacheSize', '16M') }}
 
 ### Option: ValueCacheSize
 #	Size of history value cache, in bytes.
@@ -375,6 +425,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # ValueCacheSize=8M
 
+ValueCacheSize={{ salt['pillar.get']('zabbix-server:ValueCacheSize', '8M') }}
+
 ### Option: NodeNoEvents
 #	If set to '1' local events won't be sent to master node.
 #	This won't impact ability of this node to propagate events from its child nodes.
@@ -383,6 +435,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 0-1
 # Default:
 # NodeNoEvents=0
+
+NodeNoEvents={{ salt['pillar.get']('zabbix-server:NodeNoEvents', '0') }}
 
 ### Option: NodeNoHistory
 #	If set to '1' local history won't be sent to master node.
@@ -393,6 +447,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # NodeNoHistory=0
 
+NodeNoHistory={{ salt['pillar.get']('zabbix-server:NodeNoHistory', '0') }}
+
 ### Option: Timeout
 #	Specifies how long we wait for agent, SNMP device or external check (in seconds).
 #
@@ -400,6 +456,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 1-30
 # Default:
 # Timeout=3
+
+Timeout={{ salt['pillar.get']('zabbix-server:Timeout', '3') }}
 
 ### Option: TrapperTimeout
 #	Specifies how many seconds trapper may spend processing new data.
@@ -409,6 +467,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # TrapperTimeout=300
 
+TrapperTimeout={{ salt['pillar.get']('zabbix-server:TrapperTimeout', '300') }}
+
 ### Option: UnreachablePeriod
 #	After how many seconds of unreachability treat a host as unavailable.
 #
@@ -416,6 +476,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 1-3600
 # Default:
 # UnreachablePeriod=45
+
+UnreachablePeriod={{ salt['pillar.get']('zabbix-server:UnreachablePeriod', '45') }}
 
 ### Option: UnavailableDelay
 #	How often host is checked for availability during the unavailability period, in seconds.
@@ -425,6 +487,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Default:
 # UnavailableDelay=60
 
+UnavailableDelay={{ salt['pillar.get']('zabbix-server:UnavailableDelay', '60') }}
+
 ### Option: UnreachableDelay
 #	How often host is checked for availability during the unreachability period, in seconds.
 #
@@ -432,6 +496,8 @@ DBSocket={{ salt['pillar.get']('zabbix-server:dbsocket', dbsocket) }}
 # Range: 1-3600
 # Default:
 # UnreachableDelay=15
+
+UnreachableDelay={{ salt['pillar.get']('zabbix-server:UnreachableDelay', '15') }}
 
 ### Option: AlertScriptsPath
 #	Full path to location of custom alert scripts.
@@ -506,6 +572,8 @@ Fping6Location=/usr/bin/fping6
 # Default:
 # StartProxyPollers=1
 
+StartProxyPollers={{ salt['pillar.get']('zabbix-server:StartProxyPollers', '1') }}
+
 ### Option: ProxyConfigFrequency
 #	How often Zabbix Server sends configuration data to a Zabbix Proxy in seconds.
 #	This parameter is used only for proxies in the passive mode.
@@ -515,6 +583,8 @@ Fping6Location=/usr/bin/fping6
 # Default:
 # ProxyConfigFrequency=3600
 
+ProxyConfigFrequency={{ salt['pillar.get']('zabbix-server:ProxyConfigFrequency', '1') }}
+
 ### Option: ProxyDataFrequency
 #	How often Zabbix Server requests history data from a Zabbix Proxy in seconds.
 #	This parameter is used only for proxies in the passive mode.
@@ -523,6 +593,8 @@ Fping6Location=/usr/bin/fping6
 # Range: 1-3600
 # Default:
 # ProxyDataFrequency=1
+
+ProxyDataFrequency={{ salt['pillar.get']('zabbix-server:ProxyDataFrequency', '1') }}
 
 ### Option: AllowRoot
 #	Allow the server to run as 'root'. If disabled and the server is started by 'root', the server
