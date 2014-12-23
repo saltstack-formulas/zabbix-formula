@@ -158,6 +158,7 @@ Hostname={{ salt['pillar.get']('zabbix-agent:hostname', salt['grains.get']('id')
 # Range: 0-255 characters
 # Default:
 # HostMetadata=
+HostMetaData={{ salt['pillar.get']('zabbix-agent:hostmetadata', '') }}
 
 ### Option: HostMetadataItem
 #	Optional parameter that defines an item used for getting host metadata.
