@@ -26,6 +26,7 @@ zabbix-agent:
   listenport: 10050
   listenip: 0.0.0.0
   serveractive: localhost
+  hostmetadata: c9767034-22c6-4d3d-a886-5fcaf1386b77
   logfile: /var/log/zabbix/zabbix_agentd.log
   include: /etc/zabbix/zabbix_agentd.d/
   userparameters:
