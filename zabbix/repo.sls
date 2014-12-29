@@ -7,6 +7,9 @@
 # the repo.
 
 
+# In order to share this state file among the different parts of Zabbix (agent,
+# server, frontend) we have to name the states accordingly. See
+# https://github.com/moreda/zabbix-saltstack-formula/issues/2 if you're curious
 {% if sls == "zabbix.agent.repo" %}{% set id_prefix = "zabbix_agent" -%}
 {% elif sls == "zabbix.server.repo" %}{% set id_prefix = "zabbix_server" -%}
 {% elif sls == "zabbix.frontend.repo" %}{% set id_prefix = "zabbix_frontend" -%}
@@ -16,8 +19,7 @@
 
 {% if salt['grains.get']('os_family') == 'Debian' -%}
 {{ id_prefix }}_repo:
-  pkgrepo:
-    - managed
+  pkgrepo.managed:
     - name: deb http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/{{ salt['grains.get']('os')|lower }} {{ salt['grains.get']('oscodename') }} main
     - file: /etc/apt/sources.list.d/zabbix.list
     - require:
@@ -25,8 +27,7 @@
 
 
 {{ id_prefix }}_repo_add_gpg:
-  cmd:
-    - wait
+  cmd.wait:
     - name: /usr/bin/apt-key add /var/tmp/zabbix-official-repo.gpg
     - watch:
       - file: {{ id_prefix }}_repo_gpg_file
@@ -34,8 +35,7 @@
 
 # GPG key of official Zabbix repo
 {{ id_prefix }}_repo_gpg_file:
-  file:
-    - managed
+  file.managed:
     - name: /var/tmp/zabbix-official-repo.gpg
     - source: {{ files_switch('zabbix',
                               ['/tmp/zabbix-official-repo.gpg']) }}
@@ -44,19 +44,17 @@
 {%- elif salt['grains.get']('os_family') == 'RedHat' and
          salt['grains.get']('osmajorrelease')[0] == '6' -%}
 {{ id_prefix }}_repo:
-  pkgrepo:
-    - managed
+  pkgrepo.managed:
     - name: zabbix
     - humanname: Zabbix Official Repository - $basearch
-    - baseurl: http://repo.zabbix.com/zabbix/2.2/rhel/6/$basearch/
+    - baseurl: http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/rhel/6/$basearch/
     - gpgcheck: 1
     - gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
     - require:
       - file: {{ id_prefix }}_repo_gpg_file
 
 {{ id_prefix }}_non_supported_repo:
-  pkgrepo:
-    - managed
+  pkgrepo.managed:
     - name: zabbix_non_supported
     - humanname: Zabbix Official Repository non-supported - $basearch
     - baseurl: http://repo.zabbix.com/non-supported/rhel/6/$basearch/
@@ -66,8 +64,7 @@
       - file: {{ id_prefix }}_repo_gpg_file
 
 {{ id_prefix }}_repo_gpg_file:
-  file:
-    - managed
+  file.managed:
     - name: /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
     - source: {{ files_switch('zabbix',
                               ['/tmp/zabbix-official-repo.gpg']) }}
