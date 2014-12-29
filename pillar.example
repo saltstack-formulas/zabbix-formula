@@ -1,30 +1,28 @@
 zabbix:
-  # Examples of values for map.jinja overriding
-  lookup:
-    agent:
-      version: 1:2.2.3-1+precise
-    frontend:
-      version: 1:2.2.3-1+precise
-    server:
-      version: 1:2.2.3-1+precise
+  # Overrides map.jinja
+  #lookup:
+  #  agent:
+  #    version: xxx
+  #  frontend:
+  #    version: xxx
+  #  server:
+  #    version: xxx
 
   # The files_switch key serves as a selector for alternative directories under
-  # the formula files directory. Under the files directory could exist several
-  # subdirectories named on the value of certain grains. By default the selector
-  # is the minion id, but it could be a list of them.
+  # the formula files directory. See TOFS pattern doc for more info.
   files_switch:
     - id
     - os_family
 
-  # Groups where the zabbix user should be included in order to be able to read
-  # some files or run some commands
+  # Zabbix user has to be member of some groups in order to have permissions to
+  # execute or read some things
   user_groups:
     - adm
 
 zabbix-agent:
   server: localhost
-  listenport: 10050
   listenip: 0.0.0.0
+  listenport: 10050
   serveractive: localhost
   logfile: /var/log/zabbix/zabbix_agentd.log
   include: /etc/zabbix/zabbix_agentd.d/
@@ -32,13 +30,17 @@ zabbix-agent:
     - net.ping[*],/usr/bin/fping -q -c3 $1 2>&1 | sed 's,.*/\([0-9.]*\)/.*,\1,'
     - custom.vfs.dev.discovery,/usr/local/bin/dev-discovery.sh
   extra_conf: |
-    # Here we can set extra conf lines like user parameters
+    # Here we can set extra agent configuration lines
 
 zabbix-server:
+  listenip: 0.0.0.0
+  listenport: 10051
   dbhost: localhost
   dbname: zabbix
   dbuser: zabbixuser
   dbpass: zabbixpass
+  extra_conf: |
+    # Here we can set extra server configuration lines
 
 zabbix-mysql:
   dbhost: localhost
