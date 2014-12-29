@@ -1,19 +1,20 @@
+{% set settings = salt['pillar.get']('zabbix-frontend', {}) -%}
 <?php
 // Zabbix GUI configuration file
 global $DB;
 
 $DB["TYPE"]				= 'MYSQL';
-$DB["SERVER"]			= '{{ salt['pillar.get']('zabbix-frontend:dbhost', 'localhost') }}';
+$DB["SERVER"]			= '{{ settings.get('dbhost', 'localhost') }}';
 $DB["PORT"]				= '0';
-$DB["DATABASE"]			= '{{ salt['pillar.get']('zabbix-frontend:dbname', 'zabbix') }}';
-$DB["USER"]				= '{{ salt['pillar.get']('zabbix-frontend:dbuser', 'zabbixuser') }}';
-$DB["PASSWORD"]			= '{{ salt['pillar.get']('zabbix-frontend:dbpass', 'zabbixpass') }}';
+$DB["DATABASE"]			= '{{ settings.get('dbname', 'zabbix') }}';
+$DB["USER"]				= '{{ settings.get('dbuser', 'zabbixuser') }}';
+$DB["PASSWORD"]			= '{{ settings.get('dbpass', 'zabbixpass') }}';
 // SCHEMA is relevant only for IBM_DB2 database
 $DB["SCHEMA"]			= '';
 
-$ZBX_SERVER				= '{{ salt['pillar.get']('zabbix-frontend:zbxserver', 'localhost') }}';
-$ZBX_SERVER_PORT		= '{{ salt['pillar.get']('zabbix-frontend:zbxserverport', '10051') }}';
-$ZBX_SERVER_NAME		= '{{ salt['pillar.get']('zabbix-frontend:zbxservername', 'Zabbix installed with saltstack') }}';
+$ZBX_SERVER				= '{{ settings.get('zbxserver', 'localhost') }}';
+$ZBX_SERVER_PORT		= '{{ settings.get('zbxserverport', '10051') }}';
+$ZBX_SERVER_NAME		= '{{ settings.get('zbxservername', 'Zabbix installed with saltstack') }}';
 
 $IMAGE_FORMAT_DEFAULT	= IMAGE_FORMAT_PNG;
 ?>
