@@ -12,7 +12,7 @@ ListenIP={{ settings.get('listenip', '0.0.0.0') }}
 ServerActive={{ settings.get('serveractive', '') }}
 Hostname={{ settings.get('hostname', salt['grains.get']('id')) }}
 {%- if settings.get('hostmetadata', false) %}
-HostMetaData={{ settings.get('hostmetadata') }}
+HostMetadata={{ settings.get('hostmetadata') }}
 {%- endif %}
 {%- if settings.get('include', false) %}
 Include={{ settings.get('include') }}
