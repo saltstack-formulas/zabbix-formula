@@ -1,7 +1,7 @@
 {% set settings = salt['pillar.get']('zabbix-agent', {}) -%}
 # Managed by saltstack
 PidFile={{ settings.get('pidfile', '/tmp/zabbix_agentd.pid') }}
-{%- if settings.get('logfile', '/var/log/zabbix/zabbix_agentd.log') != 
+{%- if settings.get('logfile', '/var/log/zabbix/zabbix_agentd.log') !=
        "syslog" %}
 LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_agentd.log') }}
 {%- endif %}
@@ -11,10 +11,13 @@ ListenPort={{ settings.get('listenport', '10050') }}
 ListenIP={{ settings.get('listenip', '0.0.0.0') }}
 ServerActive={{ settings.get('serveractive', '') }}
 Hostname={{ settings.get('hostname', salt['grains.get']('id')) }}
-{% if settings.get('include', false) %}
+{%- if settings.get('hostmetadata', false) %}
+HostMetaData={{ settings.get('hostmetadata') }}
+{%- endif %}
+{%- if settings.get('include', false) %}
 Include={{ settings.get('include') }}
-{% endif %}
-{% for userparameter in settings.get('userparameters', []) -%}
+{%- endif %}
+{%- for userparameter in settings.get('userparameters', []) %}
 UserParameter={{ userparameter }}
-{% endfor %}
+{%- endfor %}
 {{ settings.get('extra_conf','') }}
