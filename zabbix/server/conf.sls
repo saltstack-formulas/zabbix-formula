@@ -36,4 +36,3 @@ zabbix-server_debconf:
     - prereq:
       - pkg: zabbix-server
 {% endif %}
-

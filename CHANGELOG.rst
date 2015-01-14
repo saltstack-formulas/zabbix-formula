@@ -1,6 +1,12 @@
 zabbix formula
 ================
 
+1.2 (2014-12-29)
+
+ - More compact and simplified Zabbix configuration files
+ - Support for repo versions in RedHat
+ - Eliminated requirement of a mysql service in the minion
+
 1.1 (2014-08-30)
 
  - General improvements: added new pillars, better support for os_family, ...

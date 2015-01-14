@@ -8,20 +8,19 @@ include:
 
 
 {{ zabbix.frontend.config }}:
-  file:
-    - managed
+  file.managed:
     - source: {{ files_switch('zabbix',
                               ['/etc/zabbix/web/zabbix.conf.php',
                                '/etc/zabbix/web/zabbix.conf.php.jinja']) }}
     - template: jinja
     - require:
       - pkg: zabbix-frontend-php
+      - file: /etc/zabbix/web
 
 
 # Fix permissions to allow to php-fpm include /etc/zabbix/web/*
 /etc/zabbix/web:
-  file:
-    - directory
+  file.directory:
     - mode: 755
     - require:
       - pkg: zabbix-frontend-php
@@ -30,8 +29,7 @@ include:
 {% if salt['grains.get']('os_family') == 'Debian' %}
 # We don't want the package to mess with apache
 zabbix-frontend_debconf:
-  debconf:
-    - set
+  debconf.set:
     - name: {{ zabbix.frontend.pkg}}
     - data:
         'zabbix-frontend-php/configure-apache': {'type': 'boolean', 'value': False}

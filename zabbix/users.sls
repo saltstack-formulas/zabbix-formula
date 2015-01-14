@@ -1,11 +1,12 @@
 {% from "zabbix/map.jinja" import zabbix with context %}
+{% set settings = salt['pillar.get']('zabbix', {}) %}
 
 
 zabbix_user:
   user.present:
     - name: {{ zabbix.user }}
     - gid_from_name: True
-    - groups: {{ salt['pillar.get']('zabbix:user_groups', []) }}
+    - groups: {{ settings.get('user_groups', []) }}
     - require:
       - group: zabbix_group
 

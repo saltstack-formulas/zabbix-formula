@@ -1,15 +1,16 @@
 {% from "zabbix/map.jinja" import zabbix with context %}
 {% from "zabbix/macros.jinja" import files_switch with context %}
+{% set settings = salt['pillar.get']('zabbix-mysql', {}) %}
 
 
 include:
   - zabbix.mysql.conf
 
 
-{% set dbhost = salt['pillar.get']('zabbix-mysql:dbhost', 'localhost') %}
-{% set dbname = salt['pillar.get']('zabbix-mysql:dbname', 'zabbix') %}
-{% set dbuser = salt['pillar.get']('zabbix-mysql:dbuser', 'zabbixuser') %}
-{% set dbpass = salt['pillar.get']('zabbix-mysql:dbpass', 'zabbixpass') %}
+{% set dbhost = settings.get('dbhost', 'localhost') %}
+{% set dbname = settings.get('dbname', 'zabbix') %}
+{% set dbuser = settings.get('dbuser', 'zabbixuser') %}
+{% set dbpass = settings.get('dbpass', 'zabbixpass') %}
 
 
 {% for file in [
