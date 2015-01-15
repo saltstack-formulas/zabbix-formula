@@ -17,6 +17,12 @@
     'frontend': {
       'pkg': 'zabbix-frontend-php',
       'config': '/etc/zabbix/web/zabbix.conf.php'
+    },
+    'proxy': {
+      'pkg': 'zabbix-proxy-sqlite3',
+      'service': 'zabbix-proxy',
+      'config': '/etc/zabbix/zabbix_proxy.conf',
+      'dbname': '/var/lib/zabbix/zabbix_proxy.db'
     }
   },
 
@@ -33,6 +39,12 @@
       'service': 'zabbix',
       'config': '/usr/local/etc/zabbix22/zabbix_server.conf',
       'dbsocket': '/var/run/mysqld/mysqld.sock',
+    },
+    'proxy': {
+      'pkg': 'zabbix22-proxy',
+      'service': 'zabbix_proxy',
+      'config': '/usr/local/etc/zabbix22/zabbix_proxy.conf',
+      'dbname': '/var/lib/zabbix/zabbix_proxy.db'
     }
   },
 
@@ -53,6 +65,12 @@
     'frontend': {
       'pkg': 'zabbix-web-mysql',
       'config': '/etc/zabbix/web/zabbix.conf.php'
+    },
+    'proxy': {
+      'pkg': 'zabbix-proxy-sqlite3',
+      'service': 'zabbix-proxy',
+      'config': '/etc/zabbix/zabbix_proxy.conf',
+      'dbname': '/var/lib/zabbix/zabbix_proxy.db'
     }
   },
 }, merge=salt['pillar.get']('zabbix:lookup')) %}

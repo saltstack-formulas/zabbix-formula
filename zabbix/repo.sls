@@ -8,11 +8,12 @@
 
 
 # In order to share this state file among the different parts of Zabbix (agent,
-# server, frontend) we have to name the states accordingly. See
+# server, frontend, proxy) we have to name the states accordingly. See
 # https://github.com/moreda/zabbix-saltstack-formula/issues/2 if you're curious
 {% if sls == "zabbix.agent.repo" %}{% set id_prefix = "zabbix_agent" -%}
 {% elif sls == "zabbix.server.repo" %}{% set id_prefix = "zabbix_server" -%}
 {% elif sls == "zabbix.frontend.repo" %}{% set id_prefix = "zabbix_frontend" -%}
+{% elif sls == "zabbix.proxy.repo" %}{% set id_prefix = "zabbix_proxy" -%}
 {% else %}{% set id_prefix = "zabbix" -%}
 {% endif -%}
 
