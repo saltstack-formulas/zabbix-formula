@@ -32,6 +32,6 @@ DBName={{ settings.get('dbname', '/var/lib/zabbix/zabbix_proxy.db') }}
 DBUser={{ settings.get('dbuser', 'zabbix') }}
 
 {%- if settings.get('include', false) %}
-Include={{ settings.get('include') }}
+Include={{ settings.get('include', '/etc/zabbix/zabbix_proxy.d/') }}
 {%- endif %}
 {{ settings.get('extra_conf','') }}
