@@ -1,0 +1,37 @@
+{% set settings = salt['pillar.get']('zabbix-proxy', {}) -%}
+# Managed by saltstack
+{%- if settings.get('proxymode', false) %}
+ProxyMode={{ settings.get('proxymode', '0') }}
+{%- endif %}
+Server={{ settings.get('server', 'localhost') }}
+{%- if settings.get('serverport', false) %}
+ServerPort={{ settings.get('serverport', '10051') }}
+{%- endif %}
+Hostname={{ settings.get('hostname', salt['grains.get']('id')) }}
+{%- if settings.get('hostnameitem', false) %}
+Hostnameitem={{ settings.get('hostnameitem', 'system.hostname') }}
+{%- endif %}
+{%- if settings.get('listenport', false) %}
+ListenPort={{ settings.get('listenport', '10051') }}
+{%- endif %}
+{%- if settings.get('sourceip', false) %}
+SourceIP={{ settings.get('sourceip', '127.0.0.1') }}
+{%- endif %}
+{%- if settings.get('logfile', 'syslog') != "syslog" %}
+LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_proxy.log') }}
+{%- endif %}
+{%- if settings.get('logfilesize', false) %}
+LogFileSize={{ settings.get('logfilesize', '0') }}
+{%- endif %}
+{%- if settings.get('debugelevel', false) %}
+DebugLevel={{ settings.get('debuglevel', '3') }}
+{%- endif %}
+PidFile={{ settings.get('pidfile', '/tmp/zabbix_proxy.pid') }}
+DBHost={{ settings.get('dbhost', 'localhost') }}
+DBName={{ settings.get('dbname', '/var/lib/zabbix/zabbix_proxy.db') }}
+DBUser={{ settings.get('user', 'zabbix') }}
+
+{%- if settings.get('include', false) %}
+Include={{ settings.get('include') }}
+{%- endif %}
+{{ settings.get('extra_conf','') }}
