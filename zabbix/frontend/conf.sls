@@ -1,5 +1,5 @@
-{% from "zabbix/map.jinja" import zabbix with context %}
-{% from "zabbix/macros.jinja" import files_switch with context %}
+{% from "zabbix/map.jinja" import zabbix with context -%}
+{% from "zabbix/macros.jinja" import files_switch with context -%}
 
 
 include:
@@ -26,14 +26,16 @@ include:
       - pkg: zabbix-frontend-php
 
 
-{% if salt['grains.get']('os_family') == 'Debian' %}
+{% if salt['grains.get']('os_family') == 'Debian' -%}
 # We don't want the package to mess with apache
 zabbix-frontend_debconf:
   debconf.set:
     - name: {{ zabbix.frontend.pkg}}
     - data:
-        'zabbix-frontend-php/configure-apache': {'type': 'boolean', 'value': False}
-        'zabbix-frontend-php/restart-webserver': {'type': 'boolean', 'value': False}
+        'zabbix-frontend-php/configure-apache': {'type': 'boolean',
+                                                 'value': False}
+        'zabbix-frontend-php/restart-webserver': {'type': 'boolean',
+                                                  'value': False}
     - prereq:
       - pkg: zabbix-frontend-php
-{% endif %}
+{%- endif %}

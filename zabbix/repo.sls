@@ -9,7 +9,9 @@
 
 # In order to share this state file among the different parts of Zabbix (agent,
 # server, frontend, proxy) we have to name the states accordingly. See
-# https://github.com/moreda/zabbix-saltstack-formula/issues/2 if you're curious
+# https://github.com/moreda/zabbix-saltstack-formula/issues/2 if you're curious.
+
+
 {% if sls == "zabbix.agent.repo" %}{% set id_prefix = "zabbix_agent" -%}
 {% elif sls == "zabbix.server.repo" %}{% set id_prefix = "zabbix_server" -%}
 {% elif sls == "zabbix.frontend.repo" %}{% set id_prefix = "zabbix_frontend" -%}
@@ -43,7 +45,7 @@
 
 
 {%- elif salt['grains.get']('os_family') == 'RedHat' and
-         salt['grains.get']('osmajorrelease')[0] == '6' -%}
+         salt['grains.get']('osmajorrelease')[0] == '6' %}
 {{ id_prefix }}_repo:
   pkgrepo.managed:
     - name: zabbix
@@ -69,6 +71,6 @@
     - name: /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
     - source: {{ files_switch('zabbix',
                               ['/tmp/zabbix-official-repo.gpg']) }}
-{% else -%}
+{%- else %}
 {{ id_prefix }}_repo: {}
-{% endif -%}
+{%- endif %}

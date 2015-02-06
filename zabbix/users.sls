@@ -1,5 +1,5 @@
-{% from "zabbix/map.jinja" import zabbix with context %}
-{% set settings = salt['pillar.get']('zabbix', {}) %}
+{% from "zabbix/map.jinja" import zabbix with context -%}
+{% set settings = salt['pillar.get']('zabbix', {}) -%}
 
 
 zabbix_user:

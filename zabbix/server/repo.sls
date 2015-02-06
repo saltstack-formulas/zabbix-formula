@@ -27,8 +27,7 @@ extend:
 # "--without-recommends" flag just for a package.
 {% if salt['grains.get']('os_family') == 'Debian' %}
 /etc/apt/apt.conf.d/00local-disable-recommends:
-  file:
-    - managed
+  file.managed:
     - contents: 'APT::Install-Recommends "false";'
     - require_in:
       - pkgrepo: zabbix_server_repo

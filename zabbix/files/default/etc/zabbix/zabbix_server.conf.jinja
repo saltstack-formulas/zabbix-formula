@@ -1,8 +1,8 @@
-{% set settings = salt['pillar.get']('zabbix-server', {}) -%}
 # Managed by saltstack
+{% set settings = salt['pillar.get']('zabbix-server', {}) -%}
 ListenPort={{ settings.get('listenport', '10051') }}
-{%- if settings.get('logfile', '/var/log/zabbix/zabbix_server.log') != 
-       "syslog" %}
+{% if settings.get('logfile', '/var/log/zabbix/zabbix_server.log') !=
+       "syslog" -%}
 LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_server.log') }}
 {%- endif %}
 LogFileSize=0

@@ -1,5 +1,5 @@
-{% from "zabbix/map.jinja" import zabbix with context %}
-{% from "zabbix/macros.jinja" import files_switch with context %}
+{% from "zabbix/map.jinja" import zabbix with context -%}
+{% from "zabbix/macros.jinja" import files_switch with context -%}
 
 
 include:
@@ -8,8 +8,7 @@ include:
 
 
 {{ zabbix.proxy.config }}:
-  file:
-    - managed
+  file.managed:
     - source: {{ files_switch('zabbix',
                               ['/etc/zabbix/zabbix_proxy.conf',
                                '/etc/zabbix/zabbix_proxy.conf.jinja']) }}
