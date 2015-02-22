@@ -30,8 +30,7 @@ PidFile={{ settings.get('pidfile', '/tmp/zabbix_proxy.pid') }}
 DBHost={{ settings.get('dbhost', 'localhost') }}
 DBName={{ settings.get('dbname', '/var/lib/zabbix/zabbix_proxy.db') }}
 DBUser={{ settings.get('dbuser', 'zabbix') }}
-
 {%- if settings.get('include', false) %}
-Include={{ settings.get('include', '/etc/zabbix/zabbix_proxy.d/') }}
+Include={{ settings.get('include') }}
 {%- endif %}
 {{ settings.get('extra_conf','') }}
