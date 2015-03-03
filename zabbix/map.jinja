@@ -6,7 +6,8 @@
     'agent': {
       'pkg': 'zabbix-agent',
       'service': 'zabbix-agent',
-      'config': '/etc/zabbix/zabbix_agentd.conf'
+      'config': '/etc/zabbix/zabbix_agentd.conf',
+      'logfile': '/var/log/zabbix-agent/zabbix_agentd.log'
     },
     'server': {
       'pkg': 'zabbix-server-mysql',
@@ -55,6 +56,7 @@
       'pkg': 'zabbix-agent',
       'service': 'zabbix-agent',
       'config': '/etc/zabbix/zabbix_agentd.conf'
+      'logfile': '/var/log/zabbix/zabbix_agentd.log'
     },
     'server': {
       'pkg': 'zabbix-server-mysql',
