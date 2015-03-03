@@ -1,9 +1,10 @@
 # Managed by saltstack
+{% from "zabbix/map.jinja" import zabbix with context -%}
 {% set settings = salt['pillar.get']('zabbix-agent', {}) -%}
 PidFile={{ settings.get('pidfile', '/tmp/zabbix_agentd.pid') }}
 {% if settings.get('logfile', '/var/log/zabbix/zabbix_agentd.log') !=
        "syslog" -%}
-LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_agentd.log') }}
+LogFile={{ settings.get('logfile', zabbix.agent.logfile) }}
 {%- endif %}
 LogFileSize=0
 Server={{ settings.get('server', 'localhost') }}
