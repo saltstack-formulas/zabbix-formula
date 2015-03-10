@@ -49,6 +49,16 @@ zabbix-mysql:
   dbuser: zabbixuser
   dbpass: zabbixpass
   dbuser_host: '%'
+  connection:
+    host: 'localhost'
+    port: 3306
+    user: 'root'
+    pass: ''
+    db: 'mysql'
+    unix_socket: '/tmp/mysql.sock'
+    charset: 'utf8'
+    # system file with mysql params
+    default_file: '/etc/mysql/debian.cnf'
 
 zabbix-frontend:
   dbhost: localhost
