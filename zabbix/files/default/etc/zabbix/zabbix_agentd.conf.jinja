@@ -9,7 +9,7 @@ LogFileSize=0
 Server={{ settings.get('server', 'localhost') }}
 ListenPort={{ settings.get('listenport', '10050') }}
 {% if settings.get('listenip', false) -%}
-ListenIP={{ settings.get('listenip', '0.0.0.0') }}
+ListenIP={{ settings.get('listenip') }}
 {%- endif %}
 ServerActive={{ settings.get('serveractive', '') }}
 Hostname={{ settings.get('hostname', salt['grains.get']('id')) }}
