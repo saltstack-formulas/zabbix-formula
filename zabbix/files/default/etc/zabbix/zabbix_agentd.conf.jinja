@@ -8,7 +8,9 @@ LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_agentd.log') }}
 LogFileSize=0
 Server={{ settings.get('server', 'localhost') }}
 ListenPort={{ settings.get('listenport', '10050') }}
-ListenIP={{ settings.get('listenip', '0.0.0.0') }}
+{% if settings.get('listenip', false) -%}
+ListenIP={{ settings.get('listenip') }}
+{%- endif %}
 ServerActive={{ settings.get('serveractive', '') }}
 Hostname={{ settings.get('hostname', salt['grains.get']('id')) }}
 {% if settings.get('hostmetadata', false) -%}
