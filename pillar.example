@@ -51,6 +51,7 @@ zabbix-mysql:
   dbuser_host: '%'
 
 zabbix-frontend:
+  dbtype: MYSQL
   dbhost: localhost
   dbname: zabbix
   dbuser: zabbixuser
