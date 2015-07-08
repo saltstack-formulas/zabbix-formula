@@ -3,7 +3,7 @@
 // Zabbix GUI configuration file
 global $DB;
 
-$DB["TYPE"]				= 'MYSQL';
+$DB["TYPE"]				= '{{ settings.get('dbtype', 'MYSQL') }}';
 $DB["SERVER"]			= '{{ settings.get('dbhost', 'localhost') }}';
 $DB["PORT"]				= '0';
 $DB["DATABASE"]			= '{{ settings.get('dbname', 'zabbix') }}';
