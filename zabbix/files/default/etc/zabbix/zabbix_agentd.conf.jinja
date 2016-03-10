@@ -205,7 +205,7 @@ Hostname={{ settings.get('hostname', salt['grains.get']('id')) }}
 #	You may include individual files or all files in a directory in the configuration file.
 #	Installing Zabbix will create include directory in /usr/local/etc, unless modified during the compile time.
 #
-{% if settings.get('include_dir', false) %}Include={{ settings.get('include_dir') }}{% endif %}
+{% if settings.get('include', false) %}Include={{ settings.get('include') }}{% endif %}
 
 
 ####### USER-DEFINED MONITORED PARAMETERS #######
