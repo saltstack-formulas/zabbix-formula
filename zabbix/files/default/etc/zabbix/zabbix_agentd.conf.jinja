@@ -91,7 +91,7 @@ Server={{ settings.get('server', 'localhost') }}
 #	List of comma delimited IP addresses that the agent should listen on.
 #	First IP address is sent to Zabbix server if connecting to it to retrieve list of active checks.
 #
-{% if settings.get('listen_ip', false) %}ListenIP={{ settings.get('listen_ip') }}{% endif %}
+{% if settings.get('listenip', false) %}ListenIP={{ settings.get('listenip') }}{% endif %}
 
 ### Option: StartAgents
 #	Number of pre-forked instances of zabbix_agentd that process passive checks.
