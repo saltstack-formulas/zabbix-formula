@@ -26,6 +26,7 @@ zabbix-agent:
   serveractive: localhost
   hostmetadata: c9767034-22c6-4d3d-a886-5fcaf1386b77
   logfile: /var/log/zabbix/zabbix_agentd.log
+  logfilesize: 0
   include: /etc/zabbix/zabbix_agentd.d/
   userparameters:
     - net.ping[*],/usr/bin/fping -q -c3 $1 2>&1 | sed 's,.*/\([0-9.]*\)/.*,\1,'
