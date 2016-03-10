@@ -1,36 +1,527 @@
+{% from "zabbix/map.jinja" import zabbix with context -%}
 {% set settings = salt['pillar.get']('zabbix-proxy', {}) -%}
 # Managed by saltstack
-{%- if settings.get('proxymode', false) %}
-ProxyMode={{ settings.get('proxymode', '0') }}
-{%- endif %}
-Server={{ settings.get('server', 'localhost') }}
-{%- if settings.get('serverport', false) %}
-ServerPort={{ settings.get('serverport', '10051') }}
-{%- endif %}
-Hostname={{ settings.get('hostname', salt['grains.get']('id')) }}
-{%- if settings.get('hostnameitem', false) %}
-Hostnameitem={{ settings.get('hostnameitem', 'system.hostname') }}
-{%- endif %}
-{%- if settings.get('listenport', false) %}
-ListenPort={{ settings.get('listenport', '10051') }}
-{%- endif %}
-{%- if settings.get('sourceip', false) %}
-SourceIP={{ settings.get('sourceip', '127.0.0.1') }}
-{%- endif %}
-{%- if settings.get('logfile', 'syslog') != "syslog" %}
-LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_proxy.log') }}
-{%- endif %}
-{%- if settings.get('logfilesize', false) %}
-LogFileSize={{ settings.get('logfilesize', '0') }}
-{%- endif %}
-{%- if settings.get('debugelevel', false) %}
-DebugLevel={{ settings.get('debuglevel', '3') }}
-{%- endif %}
-PidFile={{ settings.get('pidfile', '/tmp/zabbix_proxy.pid') }}
-DBHost={{ settings.get('dbhost', 'localhost') }}
-DBName={{ settings.get('dbname', '/var/lib/zabbix/zabbix_proxy.db') }}
-DBUser={{ settings.get('dbuser', 'zabbix') }}
-{%- if settings.get('include', false) %}
-Include={{ settings.get('include') }}
-{%- endif %}
+# This is a configuration file for Zabbix Proxy process
+# To get more information about Zabbix,_# visit http://www.zabbix.com
+
+############ GENERAL PARAMETERS #################
+
+### Option: ProxyMode
+#	Proxy operating mode
+#	0 - proxy in the active mode
+#	1 - proxy in the passive mode
+#
+{% if settings.get('proxymode', false) %}ProxyMode={{ settings.get('proxymode') }}{% endif %}
+
+### Option: Server
+#	IP address (or hostname) of Zabbix server.
+#	Active proxy will get configuration data from the server.
+#	For a proxy in the passive mode this parameter will be ignored.
+#
+{% if settings.get('server', false) %}Server={{ settings.get('server') }}{% endif %}
+
+### Option: ServerPort
+#	Port of Zabbix trapper on Zabbix server.
+#	For a proxy in the passive mode this parameter will be ignored.
+#
+{% if settings.get('serverport', false) %}ServerPort={{ settings.get('serverport') }}{% endif %}
+
+### Option: Hostname
+#	Unique, case sensitive Proxy name. Make sure the Proxy name is known to the server!
+#	Value is acquired from HostnameItem if undefined.
+#
+{% if settings.get('hostname', false) %}Hostname={{ settings.get('hostname') }}{% endif %}
+
+### Option: HostnameItem
+#	Item used for generating Hostname if it is undefined.
+#	Ignored if Hostname is defined.
+#
+# Mandatory: no
+# Default:
+# HostnameItem=system.hostname
+{% if settings.get('hostnameitem', false) %}HostnameItem={{ settings.get('hostnameitem') }}{% endif %}
+
+### Option: ListenPort
+#	Listen port for trapper.
+#
+{% if settings.get('listenport', false) %}ListenPort={{ settings.get('listenport') }}{% endif %}
+
+### Option: SourceIP
+#	Source IP address for outgoing connections.
+#
+# Mandatory: no
+# Default:
+# SourceIP=
+{% if settings.get('sourceip', false) %}SourceIP={{ settings.get('sourceip') }}{% endif %}
+
+{% if zabbix.version_repo >= '3.0' -%}
+### Option: LogType
+#	Specifies where log messages are written to:
+#		system  - syslog
+#		file    - file specified with LogFile parameter
+#		console - standard output
+#
+{% if settings.get('logtype', false) %}LogType={{ settings.get('logtype') }}{% endif %}
+
+### Option: LogFile
+#	Log file name for LogType 'file' parameter.
+#
+{% if settings.get('logfile', false) %}LogFile={{ settings.get('logfile') }}{% endif %}
+
+{% else %}
+### Option: LogFile
+#	Name of log file.
+#	If not set, syslog is used.
+#
+{% if settings.get('logfile', false) %}LogFile={{ settings.get('logfile') }}{% endif %}
+{% endif %}
+
+### Option: LogFileSize
+#	Maximum size of log file in MB.
+#	0 - disable automatic log rotation.
+#
+{% if settings.get('logfilesize', false) %}LogFileSize={{ settings.get('logfilesize') }}{% endif %}
+
+### Option: DebugLevel
+#	Specifies debug level
+#	0 - basic information about starting and stopping of Zabbix processes
+#	1 - critical information
+#	2 - error information
+#	3 - warnings
+#	4 - for debugging (produces lots of information)
+{% if zabbix.version_repo >= '3.0' -%}
+#	5 - extended debugging (produces even more information)
+{% endif %}
+{% if settings.get('debuglevel', false) %}DebugLevel={{ settings.get('debuglevel') }}{% endif %}
+
+### Option: PidFile
+#	Name of PID file.
+#
+{% if settings.get('pidfile', false) %}PidFile={{ settings.get('pidfile') }}{% endif %}
+
+### Option: DBHost
+#	Database host name.
+#	If set to localhost, socket is used for MySQL.
+#	If set to empty string, socket is used for PostgreSQL.
+#
+{% if settings.get('dbhost', false) %}DBHost={{ settings.get('dbhost') }}{% endif %}
+
+### Option: DBName
+#	Database name.
+#	For SQLite3 path to database file must be provided. DBUser and DBPassword are ignored.
+#	Warning: do not attempt to use the same database Zabbix server is using.
+#
+{% if settings.get('dbname', false) %}DBName={{ settings.get('dbname') }}{% endif %}
+
+### Option: DBSchema
+#	Schema name. Used for IBM DB2 and PostgreSQL.
+#
+{% if settings.get('dbschema', false) %}DBSchema={{ settings.get('dbschema') }}{% endif %}
+
+### Option: DBUser
+#	Database user. Ignored for SQLite.
+#
+{% if settings.get('dbuser', false) %}DBUser={{ settings.get('dbuser') }}{% endif %}
+
+### Option: DBPassword
+#	Database password. Ignored for SQLite.
+#	Comment this line if no password is used.
+#
+DBPassword=<%= @database_password %>
+{% if settings.get('logfilesize', false) %}LogFileSize={{ settings.get('logfilesize') }}{% endif %}
+
+### Option: DBSocket
+#	Path to MySQL socket.
+#
+{% if settings.get('dbsocket', false) %}DBSocket={{ settings.get('dbsocket') }}{% endif %}
+
+# Option: DBPort
+#	Database port when not using local socket. Ignored for SQLite.
+#
+{% if settings.get('dbport', false) %}DBPort={{ settings.get('dbport') }}{% endif %}
+
+######### PROXY SPECIFIC PARAMETERS #############
+
+### Option: ProxyLocalBuffer
+#	Proxy will keep data locally for N hours, even if the data have already been synced with the server.
+#	This parameter may be used if local data will be used by third party applications.
+#
+{% if settings.get('proxylocalbuffer', false) %}ProxyLocalBuffer={{ settings.get('proxylocalbuffer') }}{% endif %}
+
+### Option: ProxyOfflineBuffer
+#	Proxy will keep data for N hours in case if no connectivity with Zabbix Server.
+#	Older data will be lost.
+#
+{% if settings.get('proxyofflinebuffer', false) %}ProxyOfflineBuffer={{ settings.get('proxyofflinebuffer') }}{% endif %}
+
+### Option: HeartbeatFrequency
+#	Frequency of heartbeat messages in seconds.
+#	Used for monitoring availability of Proxy on server side.
+#	0 - heartbeat messages disabled.
+#	For a proxy in the passive mode this parameter will be ignored.
+#
+{% if settings.get('heartbeatfrequency', false) %}HeartbeatFrequency={{ settings.get('heartbeatfrequency') }}{% endif %}
+
+### Option: ConfigFrequency
+#	How often proxy retrieves configuration data from Zabbix Server in seconds.
+#	For a proxy in the passive mode this parameter will be ignored.
+#
+{% if settings.get('configfrequency', false) %}ConfigFrequency={{ settings.get('configfrequency') }}{% endif %}
+
+### Option: DataSenderFrequency
+#	Proxy will send collected data to the Server every N seconds.
+#	For a proxy in the passive mode this parameter will be ignored.
+#
+{% if settings.get('datasenderfrequency', false) %}DataSenderFrequency={{ settings.get('datasenderfrequency') }}{% endif %}
+
+############ ADVANCED PARAMETERS ################
+
+### Option: StartPollers
+#	Number of pre-forked instances of pollers.
+#
+{% if settings.get('startpollers', false) %}StartPollers={{ settings.get('startpollers') }}{% endif %}
+
+### Option: StartIPMIPollers
+#	Number of pre-forked instances of IPMI pollers.
+#
+{% if settings.get('startipmipollers', false) %}StartIPMIPollers={{ settings.get('startipmipollers') }}{% endif %}
+
+### Option: StartPollersUnreachable
+#	Number of pre-forked instances of pollers for unreachable hosts (including IPMI and Java).
+#	At least one poller for unreachable hosts must be running if regular, IPMI or Java pollers
+#	are started.
+#
+{% if settings.get('startpollersunreachable', false) %}StartPollersUnreachable={{ settings.get('startpollersunreachable') }}{% endif %}
+
+### Option: StartTrappers
+#	Number of pre-forked instances of trappers.
+#	Trappers accept incoming connections from Zabbix sender and active agents.
+#
+{% if settings.get('starttrappers', false) %}StartTrappers={{ settings.get('starttrappers') }}{% endif %}
+
+### Option: StartPingers
+#	Number of pre-forked instances of ICMP pingers.
+#
+{% if settings.get('startpingers', false) %}StartPingers={{ settings.get('startpingers') }}{% endif %}
+
+### Option: StartDiscoverers
+#	Number of pre-forked instances of discoverers.
+#
+{% if settings.get('startdiscoverers', false) %}StartDiscoverers={{ settings.get('startdiscoverers') }}{% endif %}
+
+### Option: StartHTTPPollers
+#	Number of pre-forked instances of HTTP pollers.
+#
+{% if settings.get('starthttppollers', false) %}StartHTTPPollers={{ settings.get('starthttppollers') }}{% endif %}
+
+### Option: JavaGateway
+#	IP address (or hostname) of Zabbix Java gateway.
+#	Only required if Java pollers are started.
+#
+{% if settings.get('starthttppollers', false) %}
+JavaGateway={{ settings.get('javagateway') }}
+
+### Option: JavaGatewayPort
+#	Port that Zabbix Java gateway listens on.
+#
+JavaGatewayPort={{ settings.get('javagatewayport') }}
+
+### Option: StartJavaPollers
+#	Number of pre-forked instances of Java pollers.
+#
+StartJavaPollers={{ settings.get('startjavapollers') }}
+{% endif %}
+
+### Option: StartVMwareCollectors
+#	Number of pre-forked vmware collector instances.
+#
+{% if settings.get('startvmwarecollectors', false) %}StartVMwareCollectors={{ settings.get('startvmwarecollectors') }}{% endif %}
+
+### Option: VMwareFrequency
+#	How often Zabbix will connect to VMware service to obtain a new data.
+#
+{% if settings.get('vmwarefrequency', false) %}VMwareFrequency={{ settings.get('vmwarefrequency') }}{% endif %}
+
+### Option: VMwarePerfFrequency
+#	How often Zabbix will connect to VMware service to obtain performance data.
+#
+{% if settings.get('vmwareperffrequency', false) %}VMwarePerfFrequency={{ settings.get('vmwareperffrequency') }}{% endif %}
+
+### Option: VMwareCacheSize
+#	Size of VMware cache, in bytes.
+#	Shared memory size for storing VMware data.
+#	Only used if VMware collectors are started.
+#
+{% if settings.get('vmwarecachesize', false) %}VMwareCacheSize={{ settings.get('vmwarecachesize') }}{% endif %}
+
+### Option: VMwareTimeout
+#	Specifies how many seconds vmware collector waits for response from VMware service.
+#
+{% if settings.get('vmwaretimeout', false) %}VMwareTimeout={{ settings.get('vmwaretimeout') }}{% endif %}
+
+{% if zabbix.version_repo < '2.4' -%}
+### Option: EnableSNMPBulkRequests
+#	Enable or disable SNMP bulk requests.
+#	0 - disable
+#	1 - enable
+#
+{% if settings.get('enablesnmpbulkrequests', false) %}EnableSNMPBulkRequests={{ settings.get('enablesnmpbulkrequests') }}{% endif %}
+
+{% endif %}
+
+### Option: SNMPTrapperFile
+#	Temporary file used for passing data from SNMP trap daemon to the proxy.
+#	Must be the same as in zabbix_trap_receiver.pl or SNMPTT configuration file.
+#
+{% if settings.get('snmptrapperfile', false) %}SNMPTrapperFile={{ settings.get('snmptrapperfile') }}{% endif %}
+
+### Option: StartSNMPTrapper
+#	If 1, SNMP trapper process is started.
+#
+{% if settings.get('startsnmptrapper', false) %}StartSNMPTrapper={{ settings.get('startsnmptrapper') }}{% endif %}
+
+### Option: ListenIP
+#	List of comma delimited IP addresses that the trapper should listen on.
+#	Trapper will listen on all network interfaces if this parameter is missing.
+#
+{% if settings.get('listenip', false) %}ListenIP={{ settings.get('listenip') }}{% endif %}
+
+### Option: HousekeepingFrequency
+#	How often Zabbix will perform housekeeping procedure (in hours).
+#	Housekeeping is removing outdated information from the database.
+#	To prevent Housekeeper from being overloaded, no more than 4 times HousekeepingFrequency
+#	hours of outdated information are deleted in one housekeeping cycle.
+#	To lower load on proxy startup housekeeping is postponed for 30 minutes after proxy start.
+{% if zabbix.version_repo >= '3.0' -%}
+#	With HousekeepingFrequency=0 the housekeeper can be only executed using the runtime control option.
+#	In this case the period of outdated information deleted in one housekeeping cycle is 4 times the
+#	period since the last housekeeping cycle, but not less than 4 hours and not greater than 4 days.
+{% endif %}
+#
+{% if settings.get('housekeepingfrequency', false) %}HousekeepingFrequency={{ settings.get('housekeepingfrequency') }}{% endif %}
+
+### Option: CacheSize
+#	Size of configuration cache, in bytes.
+#	Shared memory size, for storing hosts and items data.
+#
+{% if settings.get('cachesize', false) %}CacheSize={{ settings.get('cachesize') }}{% endif %}
+
+### Option: StartDBSyncers
+#	Number of pre-forked instances of DB Syncers
+#
+{% if settings.get('startdbsyncers', false) %}StartDBSyncers={{ settings.get('startdbsyncers') }}{% endif %}
+
+### Option: HistoryCacheSize
+#	Size of history cache, in bytes.
+#	Shared memory size for storing history data.
+#
+{% if settings.get('historycachesize', false) %}HistoryCacheSize={{ settings.get('historycachesize') }}{% endif %}
+
+{% if zabbix.version_repo <= '2.4' -%}
+### Option: HistoryTextCacheSize
+#   Size of text history cache, in bytes.
+#   Shared memory size for storing character, text or log history data.
+#
+{% if settings.get('historytextcachesize', false) %}HistoryTextCacheSize={{ settings.get('historytextcachesize') }}{% endif %}
+{% endif %}
+
+{% if zabbix.version_repo >= '3.0' -%}
+### Option: HistoryIndexCacheSize
+#   Size of history index cache, in bytes.
+#   Shared memory size for indexing history cache.
+#
+{% if settings.get('historyindexcachesize', false) %}HistoryIndexCacheSize={{ settings.get('historyindexcachesize') }}{% endif %}
+{% endif %}
+
+### Option: Timeout
+#	Specifies how long we wait for agent, SNMP device or external check (in seconds).
+#
+{% if settings.get('timeout', false) %}Timeout={{ settings.get('timeout') }}{% endif %}
+
+### Option: TrapperTimeout
+#	Specifies how many seconds trapper may spend processing new data.
+#
+{% if settings.get('trappertimeout', false) %}TrapperTimeout={{ settings.get('trappertimeout') }}{% endif %}
+
+### Option: UnreachablePeriod
+#	After how many seconds of unreachability treat a host as unavailable.
+#
+{% if settings.get('unreachableperiod', false) %}UnreachablePeriod={{ settings.get('unreachableperiod') }}{% endif %}
+
+### Option: UnavailableDelay
+#	How often host is checked for availability during the unavailability period, in seconds.
+#
+{% if settings.get('unavaliabledelay', false) %}UnavailableDelay={{ settings.get('unavaliabledelay') }}{% endif %}
+
+### Option: UnreachableDelay
+#	How often host is checked for availability during the unreachability period, in seconds.
+#
+{% if settings.get('unreachabedelay', false) %}UnreachableDelay={{ settings.get('unreachabedelay') }}{% endif %}
+
+### Option: ExternalScripts
+#	Full path to location of external scripts.
+#	Default depends on compilation options.
+#
+{% if settings.get('externalscripts', false) %}ExternalScripts={{ settings.get('externalscripts') }}{% endif %}
+
+### Option: FpingLocation
+#	Location of fping.
+#	Make sure that fping binary has root ownership and SUID flag set.
+#
+{% if settings.get('fpinglocation', false) %}FpingLocation={{ settings.get('fpinglocation') }}{% endif %}
+
+### Option: Fping6Location
+#	Location of fping6.
+#	Make sure that fping6 binary has root ownership and SUID flag set.
+#	Make empty if your fping utility is capable to process IPv6 addresses.
+#
+{% if settings.get('fping6location', false) %}Fping6Location={{ settings.get('fping6location') }}{% endif %}
+
+### Option: SSHKeyLocation
+#	Location of public and private keys for SSH checks and actions.
+#
+{% if settings.get('sshkeylocation', false) %}SSHKeyLocation={{ settings.get('sshkeylocation') }}{% endif %}
+
+### Option: LogSlowQueries
+#	How long a database query may take before being logged (in milliseconds).
+#	Only works if DebugLevel set to 3 or 4.
+#	0 - don't log slow queries.
+#
+{% if settings.get('logslowqueries', false) %}LogSlowQueries={{ settings.get('logslowqueries') }}{% endif %}
+
+### Option: TmpDir
+#	Temporary directory.
+#
+TmpDir=<%= @tmpdir %>
+{% if settings.get('tmpdir', false) %}TmpDir={{ settings.get('tmpdir') }}{% endif %}
+
+### Option: AllowRoot
+#	Allow the proxy to run as 'root'. If disabled and the proxy is started by 'root', the proxy
+#	will try to switch to the user specified by the User configuration option instead.
+#	Has no effect if started under a regular user.
+#	0 - do not allow
+#	1 - allow
+#
+AllowRoot=<%= @allowroot %>
+{% if settings.get('allowroot', false) %}AllowRoot={{ settings.get('allowroot') }}{% endif %}
+
+{% if zabbix.version_repo >= '2.4' -%}
+### Option: User
+#	Drop privileges to a specific, existing user on the system.
+#	Only has effect if run as 'root' and AllowRoot is disabled.
+#
+{% if settings.get('user', false) %}User={{ settings.get('user') }}{% endif %}
+{% endif %}
+
+### Option: Include
+#	You may include individual files or all files in a directory in the configuration file.
+#	Installing Zabbix will create include directory in /usr/local/etc, unless modified during the compile time.
+#
+{% if settings.get('include', false) %}Include={{ settings.get('include') }}{% endif %}
+
+{% if zabbix.version_repo >= '2.4' -%}
+### Option: SSLCertLocation
+#	Location of SSL client certificates.
+#	This parameter is used only in web monitoring.
+#
+{% if settings.get('sslcertlocation', false) %}SSLCertLocation={{ settings.get('sslcertlocation') }}{% endif %}
+
+### Option: SSLKeyLocation
+#	Location of private keys for SSL client certificates.
+#	This parameter is used only in web monitoring.
+#
+{% if settings.get('sslkeylocation', false) %}SSLKeyLocation={{ settings.get('sslkeylocation') }}{% endif %}
+
+### Option: SSLCALocation
+#	Location of certificate authority (CA) files for SSL server certificate verification.
+#	If not set, system-wide directory will be used.
+#	This parameter is used only in web monitoring.
+#
+{% if settings.get('sslcalocation', false) %}SSLCALocation={{ settings.get('sslcalocation') }}{% endif %}
+{% endif %}
+
+####### LOADABLE MODULES #######
+
+### Option: LoadModulePath
+#	Full path to location of proxy modules.
+#	Default depends on compilation options.
+#
+{% if settings.get('loadmodulepath', false) %}LoadModulePath={{ settings.get('loadmodulepath') }}{% endif %}
+
+### Option: LoadModule
+#	Module to load at proxy startup. Modules are used to extend functionality of the proxy.
+#	Format: LoadModule=<module.so>
+#	The modules must be located in directory specified by LoadModulePath.
+#	It is allowed to include multiple LoadModule parameters.
+#
+{% if settings.get('loadmodule', false) %}LoadModule={{ settings.get('loadmodule') }}{% endif %}
+
+{% if zabbix.version_repo >= '3.0' -%}
+####### TLS-RELATED PARAMETERS #######
+
+### Option: TLSConnect
+#	How the proxy should connect to Zabbix server. Used for an active proxy, ignored on a passive proxy.
+#	Only one value can be specified:
+#		unencrypted - connect without encryption
+#		psk         - connect using TLS and a pre-shared key
+#		cert        - connect using TLS and a certificate
+#
+# Mandatory: yes, if TLS certificate or PSK parameters are defined (even for 'unencrypted' connection)
+# Default:
+# TLSConnect=unencrypted
+{% if settings.get('tlsconnect', false) %}TLSConnect={{ settings.get('tlsconnect') }}{% endif %}
+
+### Option: TLSAccept
+#	What incoming connections to accept from Zabbix server. Used for a passive proxy, ignored on an active proxy.
+#	Multiple values can be specified, separated by comma:
+#		unencrypted - accept connections without encryption
+#		psk         - accept connections secured with TLS and a pre-shared key
+#		cert        - accept connections secured with TLS and a certificate
+#
+# Mandatory: yes, if TLS certificate or PSK parameters are defined (even for 'unencrypted' connection)
+# Default:
+# TLSAccept=unencrypted
+{% if settings.get('tlsaccept', false) %}TLSAccept={{ settings.get('tlsaccept') }}{% endif %}
+
+### Option: TLSCAFile
+#	Full pathname of a file containing the top-level CA(s) certificates for
+#	peer certificate verification.
+#
+{% if settings.get('tlscafile', false) %}TLSCAFile={{ settings.get('tlscafile') }}{% endif %}
+
+### Option: TLSCRLFile
+#	Full pathname of a file containing revoked certificates.
+#
+{% if settings.get('tlscrlfile', false) %}TLSCRLFile={{ settings.get('tlscrlfile') }}{% endif %}
+
+### Option: TLSServerCertIssuer
+#      Allowed server certificate issuer.
+#
+{% if settings.get('tlsservercertissuer', false) %}TLSServerCertIssuer={{ settings.get('tlsservercertissuer') }}{% endif %}
+
+### Option: TLSServerCertSubject
+#      Allowed server certificate subject.
+#
+{% if settings.get('tlsservercertsubject', false) %}TLSServerCertSubject={{ settings.get('tlsservercertsubject') }}{% endif %}
+
+### Option: TLSCertFile
+#	Full pathname of a file containing the proxy certificate or certificate chain.
+#
+{% if settings.get('tlscertfile', false) %}TLSCertFile={{ settings.get('tlscertfile') }}{% endif %}
+
+### Option: TLSKeyFile
+#	Full pathname of a file containing the proxy private key.
+#
+{% if settings.get('tlskeyfile', false) %}TLSKeyFile={{ settings.get('tlskeyfile') }}{% endif %}
+
+### Option: TLSPSKIdentity
+#	Unique, case sensitive string used to identify the pre-shared key.
+#
+{% if settings.get('tlspskidentity', false) %}TLSPSKIdentity={{ settings.get('tlspskidentity') }}{% endif %}
+
+### Option: TLSPSKFile
+#	Full pathname of a file containing the pre-shared key.
+#
+{% if settings.get('tlspskfile', false) %}TLSPSKFile={{ settings.get('tlspskfile') }}{% endif %}
+{% endif %}
 {{ settings.get('extra_conf','') }}
