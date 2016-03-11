@@ -10,7 +10,7 @@
 ### Option: PidFile
 #	Name of PID file.
 #
-{% if settings.get('pidfile', false) %}PidFile={{ settings.get('pidfile') }}{% endif %}
+PidFile={{ settings.get('pidfile', '/var/run/zabbix/zabbix_agentd.pid') }}
 
 {% if zabbix.version_repo >= '3.0' -%}
 ### Option: LogType
@@ -24,21 +24,21 @@
 ### Option: LogFile
 #	Log file name for LogType 'file' parameter.
 #
-{% if settings.get('logfile', false) %}LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_agentd.log') }}{% endif %}
+{% if settings.get('logfile', 'syslog') != "syslog" %}LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_agentd.log') }}{% endif %}
 
 {% else %}
 ### Option: LogFile
 #	Name of log file.
 #	If not set, syslog is used.
 #
-{% if settings.get('logfile', false) %}LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_agentd.log') }}{% endif %}
+{% if settings.get('logfile', 'syslog') != "syslog" %}LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_agentd.log') }}{% endif %}
 {% endif -%}
 
 ### Option: LogFileSize
 #	Maximum size of log file in MB.
 #	0 - disable automatic log rotation.
 #
-{% if settings.get('logfilesize', false) %}LogFileSize={{ settings.get('logfilesize') }}{% endif %}
+LogFileSize={{ settings.get('logfilesize', '0') }}
 
 ### Option: DebugLevel
 #	Specifies debug level
@@ -50,7 +50,7 @@
 {% if zabbix.version_repo >= '3.0' -%}
 #	5 - extended debugging (produces even more information)
 {% endif %}
-{% if settings.get('debuglevel', false) %}DebugLevel={{ settings.get('debuglevel') }}{% endif %}
+DebugLevel={{ settings.get('debuglevel', '3') }}
 
 
 ### Option: SourceIP
