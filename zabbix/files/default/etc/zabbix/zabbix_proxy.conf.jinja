@@ -11,47 +11,41 @@
 #	0 - proxy in the active mode
 #	1 - proxy in the passive mode
 #
-{% if settings.get('proxymode', false) %}ProxyMode={{ settings.get('proxymode') }}{% endif %}
+ProxyMode={{ settings.get('proxymode', '0') }}
 
 ### Option: Server
 #	IP address (or hostname) of Zabbix server.
 #	Active proxy will get configuration data from the server.
 #	For a proxy in the passive mode this parameter will be ignored.
 #
-{% if settings.get('server', false) %}Server={{ settings.get('server') }}{% endif %}
+Server={{ settings.get('server', 'localhost') }}
 
 ### Option: ServerPort
 #	Port of Zabbix trapper on Zabbix server.
 #	For a proxy in the passive mode this parameter will be ignored.
 #
-{% if settings.get('serverport', false) %}ServerPort={{ settings.get('serverport') }}{% endif %}
+ServerPort={{ settings.get('serverport', '10051') }}
 
 ### Option: Hostname
 #	Unique, case sensitive Proxy name. Make sure the Proxy name is known to the server!
 #	Value is acquired from HostnameItem if undefined.
 #
-{% if settings.get('hostname', false) %}Hostname={{ settings.get('hostname') }}{% endif %}
+Hostname={{ settings.get('hostname', salt['grains.get']('id')) }}
 
 ### Option: HostnameItem
 #	Item used for generating Hostname if it is undefined.
 #	Ignored if Hostname is defined.
 #
-# Mandatory: no
-# Default:
-# HostnameItem=system.hostname
-{% if settings.get('hostnameitem', false) %}HostnameItem={{ settings.get('hostnameitem') }}{% endif %}
+HostnameItem={{ settings.get('hostnameitem', 'system.hostname') }}
 
 ### Option: ListenPort
 #	Listen port for trapper.
 #
-{% if settings.get('listenport', false) %}ListenPort={{ settings.get('listenport') }}{% endif %}
+ListenPort={{ settings.get('listenport', '10051') }}
 
 ### Option: SourceIP
 #	Source IP address for outgoing connections.
 #
-# Mandatory: no
-# Default:
-# SourceIP=
 {% if settings.get('sourceip', false) %}SourceIP={{ settings.get('sourceip') }}{% endif %}
 
 {% if zabbix.version_repo >= '3.0' -%}
@@ -66,21 +60,21 @@
 ### Option: LogFile
 #	Log file name for LogType 'file' parameter.
 #
-{% if settings.get('logfile', false) %}LogFile={{ settings.get('logfile') }}{% endif %}
+{% if settings.get('logfile', 'syslog') != "syslog" %}LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_proxy.log') }}{% endif %}
 
 {% else %}
 ### Option: LogFile
 #	Name of log file.
 #	If not set, syslog is used.
 #
-{% if settings.get('logfile', false) %}LogFile={{ settings.get('logfile') }}{% endif %}
+{% if settings.get('logfile', 'syslog') != "syslog" %}LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_proxy.log') }}{% endif %}
 {% endif %}
 
 ### Option: LogFileSize
 #	Maximum size of log file in MB.
 #	0 - disable automatic log rotation.
 #
-{% if settings.get('logfilesize', false) %}LogFileSize={{ settings.get('logfilesize') }}{% endif %}
+{% if settings.get('logfilesize', false) %}LogFileSize={{ settings.get('logfilesize', '0') }}{% endif %}
 
 ### Option: DebugLevel
 #	Specifies debug level
@@ -92,26 +86,26 @@
 {% if zabbix.version_repo >= '3.0' -%}
 #	5 - extended debugging (produces even more information)
 {% endif %}
-{% if settings.get('debuglevel', false) %}DebugLevel={{ settings.get('debuglevel') }}{% endif %}
+DebugLevel={{ settings.get('debuglevel', '3') }}
 
 ### Option: PidFile
 #	Name of PID file.
 #
-{% if settings.get('pidfile', false) %}PidFile={{ settings.get('pidfile') }}{% endif %}
+{% if settings.get('pidfile', false) %}PidFile={{ settings.get('pidfile', '/var/run/zabbix/zabbix_proxy.pid') }}{% endif %}
 
 ### Option: DBHost
 #	Database host name.
 #	If set to localhost, socket is used for MySQL.
 #	If set to empty string, socket is used for PostgreSQL.
 #
-{% if settings.get('dbhost', false) %}DBHost={{ settings.get('dbhost') }}{% endif %}
+DBHost={{ settings.get('dbhost', 'localhost') }}
 
 ### Option: DBName
 #	Database name.
 #	For SQLite3 path to database file must be provided. DBUser and DBPassword are ignored.
 #	Warning: do not attempt to use the same database Zabbix server is using.
 #
-{% if settings.get('dbname', false) %}DBName={{ settings.get('dbname') }}{% endif %}
+DBName={{ settings.get('dbname',  '/var/lib/zabbix/zabbix_proxy.db') }}
 
 ### Option: DBSchema
 #	Schema name. Used for IBM DB2 and PostgreSQL.
@@ -121,14 +115,13 @@
 ### Option: DBUser
 #	Database user. Ignored for SQLite.
 #
-{% if settings.get('dbuser', false) %}DBUser={{ settings.get('dbuser') }}{% endif %}
+DBUser={{ settings.get('dbuser', 'zabbix') }}{% endif %}
 
 ### Option: DBPassword
 #	Database password. Ignored for SQLite.
 #	Comment this line if no password is used.
 #
-DBPassword=<%= @database_password %>
-{% if settings.get('logfilesize', false) %}LogFileSize={{ settings.get('logfilesize') }}{% endif %}
+{% if settings.get('dbpass', false) %}DBPassword={{ settings.get('dbpass') }}{% endif %}
 
 ### Option: DBSocket
 #	Path to MySQL socket.
@@ -214,22 +207,22 @@ DBPassword=<%= @database_password %>
 #
 {% if settings.get('starthttppollers', false) %}StartHTTPPollers={{ settings.get('starthttppollers') }}{% endif %}
 
+{% if settings.get('javagateway', false) %}
 ### Option: JavaGateway
 #	IP address (or hostname) of Zabbix Java gateway.
 #	Only required if Java pollers are started.
 #
-{% if settings.get('starthttppollers', false) %}
-JavaGateway={{ settings.get('javagateway') }}
+{% if settings.get('javagateway', false) %}JavaGateway={{ settings.get('javagateway') }}{% endif %}
 
 ### Option: JavaGatewayPort
 #	Port that Zabbix Java gateway listens on.
 #
-JavaGatewayPort={{ settings.get('javagatewayport') }}
+{% if settings.get('javagatewayport', false) %}JavaGatewayPort={{ settings.get('javagatewayport') }}{% endif %}
 
 ### Option: StartJavaPollers
 #	Number of pre-forked instances of Java pollers.
 #
-StartJavaPollers={{ settings.get('startjavapollers') }}
+{% if settings.get('startjavapollers', false) %}StartJavaPollers={{ settings.get('startjavapollers') }}{% endif %}
 {% endif %}
 
 ### Option: StartVMwareCollectors
