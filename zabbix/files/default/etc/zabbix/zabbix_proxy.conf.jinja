@@ -91,7 +91,7 @@ DebugLevel={{ settings.get('debuglevel', '3') }}
 ### Option: PidFile
 #	Name of PID file.
 #
-{% if settings.get('pidfile', false) %}PidFile={{ settings.get('pidfile', '/var/run/zabbix/zabbix_proxy.pid') }}{% endif %}
+PidFile={{ settings.get('pidfile', '/var/run/zabbix/zabbix_proxy.pid') }}
 
 ### Option: DBHost
 #	Database host name.
