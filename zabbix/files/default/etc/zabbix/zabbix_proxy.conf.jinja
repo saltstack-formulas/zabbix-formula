@@ -74,7 +74,7 @@ ListenPort={{ settings.get('listenport', '10051') }}
 #	Maximum size of log file in MB.
 #	0 - disable automatic log rotation.
 #
-{% if settings.get('logfilesize', false) %}LogFileSize={{ settings.get('logfilesize', '0') }}{% endif %}
+LogFileSize={{ settings.get('logfilesize', '0') }}
 
 ### Option: DebugLevel
 #	Specifies debug level
