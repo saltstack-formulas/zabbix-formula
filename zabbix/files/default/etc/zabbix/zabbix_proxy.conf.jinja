@@ -454,7 +454,9 @@ AllowRoot=<%= @allowroot %>
 #	The modules must be located in directory specified by LoadModulePath.
 #	It is allowed to include multiple LoadModule parameters.
 #
-{% if settings.get('loadmodule', false) %}LoadModule={{ settings.get('loadmodule') }}{% endif %}
+{% for loadmodule in settings.get('loadmodules', []) -%}
+LoadModule={{ loadmodule }}
+{% endfor -%}
 
 {% if zabbix.version_repo >= '3.0' -%}
 ####### TLS-RELATED PARAMETERS #######
