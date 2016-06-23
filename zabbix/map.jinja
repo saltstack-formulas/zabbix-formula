@@ -4,22 +4,22 @@
     'user': 'zabbix',
     'group': 'zabbix',
     'agent': {
-      'pkg': 'zabbix-agent',
+      'pkgs': ['zabbix-agent', 'zabbix-sender'],
       'service': 'zabbix-agent',
       'config': '/etc/zabbix/zabbix_agentd.conf'
     },
     'server': {
-      'pkg': 'zabbix-server-mysql',
+      'pkgs': ['zabbix-server-mysql', 'zabbix-get'],
       'service': 'zabbix-server',
       'config': '/etc/zabbix/zabbix_server.conf',
       'dbsocket': '/var/run/mysqld/mysqld.sock',
     },
     'frontend': {
-      'pkg': 'zabbix-frontend-php',
+      'pkgs': ['zabbix-frontend-php'],
       'config': '/etc/zabbix/web/zabbix.conf.php'
     },
     'proxy': {
-      'pkg': 'zabbix-proxy-sqlite3',
+      'pkgs': ['zabbix-proxy-sqlite3', 'zabbix-get'],
       'service': 'zabbix-proxy',
       'config': '/etc/zabbix/zabbix_proxy.conf',
       'dbname': '/var/lib/zabbix/zabbix_proxy.db'
@@ -30,18 +30,18 @@
     'user': 'zabbix',
     'group': 'zabbix',
     'agent': {
-      'pkg': 'zabbix22-agent',
+      'pkgs': ['zabbix22-agent'],
       'service': 'zabbix_agentd',
       'config': '/usr/local/etc/zabbix22/zabbix_agentd.conf'
     },
     'server': {
-      'pkg': 'zabbix22-server',
+      'pkgs': ['zabbix22-server'],
       'service': 'zabbix',
       'config': '/usr/local/etc/zabbix22/zabbix_server.conf',
       'dbsocket': '/var/run/mysqld/mysqld.sock',
     },
     'proxy': {
-      'pkg': 'zabbix22-proxy',
+      'pkgs': ['zabbix22-proxy'],
       'service': 'zabbix_proxy',
       'config': '/usr/local/etc/zabbix22/zabbix_proxy.conf',
       'dbname': '/var/lib/zabbix/zabbix_proxy.db'
@@ -53,22 +53,22 @@
     'user': 'zabbix',
     'group': 'zabbix',
     'agent': {
-      'pkg': 'zabbix-agent',
+      'pkgs': ['zabbix-agent', 'zabbix-sender'],
       'service': 'zabbix-agent',
       'config': '/etc/zabbix/zabbix_agentd.conf'
     },
     'server': {
-      'pkg': 'zabbix-server-mysql',
+      'pkgs': ['zabbix-server-mysql', 'zabbix-get'],
       'service': 'zabbix-server',
       'config': '/etc/zabbix/zabbix_server.conf',
       'dbsocket': '/var/lib/mysql/mysql.sock',
     },
     'frontend': {
-      'pkg': 'zabbix-web-mysql',
+      'pkgs': ['zabbix-web-mysql'],
       'config': '/etc/zabbix/web/zabbix.conf.php'
     },
     'proxy': {
-      'pkg': 'zabbix-proxy-sqlite3',
+      'pkgs': ['zabbix-proxy-sqlite3', 'zabbix-get'],
       'service': 'zabbix-proxy',
       'config': '/etc/zabbix/zabbix_proxy.conf',
       'dbname': '/var/lib/zabbix/zabbix_proxy.db'
