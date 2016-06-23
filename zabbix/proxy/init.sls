@@ -3,10 +3,14 @@
 
 zabbix-proxy:
   pkg.installed:
-    - name: {{ zabbix.proxy.pkg }}
+    - pkgs:
+      {%- for name in zabbix.proxy.pkgs %}
+      - {{ name }}
+      {%- endfor %}
     {% if zabbix.proxy.version is defined -%}
     - version: {{ zabbix.proxy.version }}
     {%- endif %}
+  {% endfor -%}
   service.running:
     - name: {{ zabbix.proxy.service }}
     - enable: True

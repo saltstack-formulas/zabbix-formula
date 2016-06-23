@@ -3,8 +3,11 @@
 
 zabbix-agent:
   pkg.installed:
-    - name: {{ zabbix.agent.pkg }}
-    {% if zabbix.agent.version is defined -%}
+    - pkgs:
+      {%- for name in zabbix.agent.pkgs %}
+      - {{ name }}
+      {%- endfor %}
+    {%- if zabbix.agent.version is defined %}
     - version: {{ zabbix.agent.version }}
     {%- endif %}
   service.running:
