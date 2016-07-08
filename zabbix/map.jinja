@@ -75,6 +75,17 @@
     }
   },
 
+  'OpenBSD': {
+    'version_repo': '2.4',
+    'user': '_zabbix',
+    'group': '_zabbix',
+    'agent': {
+      'pkgs': ['zabbix-agent'],
+      'service': 'zabbix_agentd',
+      'config': '/etc/zabbix/zabbix_agentd.conf'
+    },
+  },
+
   'default': {
     'version_repo': '2.2',
     'user': 'zabbix',

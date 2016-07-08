@@ -7,6 +7,8 @@ zabbix_user:
     - name: {{ zabbix.user }}
     - gid_from_name: True
     - groups: {{ settings.get('user_groups', []) }}
+    # Home directory should be created by pkg scripts
+    - createhome: False
     - require:
       - group: zabbix_group
 
