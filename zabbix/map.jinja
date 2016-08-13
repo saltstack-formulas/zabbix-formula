@@ -31,22 +31,22 @@
     'user': 'zabbix',
     'group': 'zabbix',
     'agent': {
-      'pkg': 'zabbix-agent',
+      'pkgs': ['zabbix-agent'],
       'service': 'zabbix-agent',
       'config': '/etc/zabbix/zabbix_agentd.conf'
     },
     'server': {
-      'pkg': 'zabbix-server-mysql',
+      'pkgs': ['zabbix-server-mysql'],
       'service': 'zabbix-server',
       'config': '/etc/zabbix/zabbix_server.conf',
       'dbsocket': '/var/lib/mysql/mysql.sock',
     },
     'frontend': {
-      'pkg': 'zabbix-web-mysql',
+      'pkgs': ['zabbix-web-mysql'],
       'config': '/etc/zabbix/web/zabbix.conf.php'
     },
     'proxy': {
-      'pkg': 'zabbix-proxy-sqlite3',
+      'pkgs': ['zabbix-proxy-sqlite3'],
       'service': 'zabbix-proxy',
       'config': '/etc/zabbix/zabbix_proxy.conf',
       'dbname': '/var/lib/zabbix/zabbix_proxy.db'
