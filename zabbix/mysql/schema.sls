@@ -10,14 +10,8 @@
 include:
   - zabbix.mysql.conf
 
-#{% for file in [
-#  '/usr/share/zabbix-server-mysql/salt-provided-schema.sql',
-#  '/usr/share/zabbix-server-mysql/salt-provided-images.sql',
-#  '/usr/share/zabbix-server-mysql/salt-provided-data.sql'
-#] -%}
-
 {% for file in [
-  '/usr/share/zabbix-server-mysql/salt-provided-data.sql'
+  '/usr/share/zabbix-server-mysql/salt-provided-create.sql'
 ] -%}
 {{ file }}:
   file.managed:
