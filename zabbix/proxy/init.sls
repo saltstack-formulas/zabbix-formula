@@ -10,9 +10,11 @@ zabbix-proxy:
     {% if zabbix.proxy.version is defined -%}
     - version: {{ zabbix.proxy.version }}
     {%- endif %}
-  {% endfor -%}
+  
   service.running:
     - name: {{ zabbix.proxy.service }}
     - enable: True
     - require:
       - pkg: zabbix-proxy
+      - file: /var/lib/zabbix
+      

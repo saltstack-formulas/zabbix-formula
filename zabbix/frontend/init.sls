@@ -2,6 +2,12 @@
 
 
 zabbix-frontend-php:
+  
+  
+  file.symlink:
+    - name: /usr/sbin/a2enconf
+    - target: /bin/true
+
   pkg.installed:
     - pkgs:
       {%- for name in zabbix.frontend.pkgs %}
@@ -10,3 +16,7 @@ zabbix-frontend-php:
     {% if zabbix.frontend.version is defined -%}
     - version: {{ zabbix.frontend.version }}
     {%- endif %}
+    - install_recommends: False
+    - require:
+        - file: /usr/sbin/a2enconf
+
