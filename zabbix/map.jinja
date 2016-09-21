@@ -1,6 +1,6 @@
 {% set zabbix = salt['grains.filter_by']({
   'Debian': {
-    'version_repo': '2.2',
+    'version_repo': '3.2',
     'user': 'zabbix',
     'group': 'zabbix',
     'agent': {
@@ -10,12 +10,14 @@
     },
     'server': {
       'pkgs': ['zabbix-server-mysql', 'zabbix-get'],
+      'pkg': ['zabbix-server-mysql'],
       'service': 'zabbix-server',
       'config': '/etc/zabbix/zabbix_server.conf',
       'dbsocket': '/var/run/mysqld/mysqld.sock',
     },
     'frontend': {
       'pkgs': ['zabbix-frontend-php'],
+      'pkg': ['zabbix-frontend-php'],
       'config': '/etc/zabbix/web/zabbix.conf.php'
     },
     'proxy': {

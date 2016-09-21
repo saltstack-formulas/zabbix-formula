@@ -17,3 +17,10 @@ include:
       - pkg: zabbix-proxy
     - watch_in:
       - service: zabbix-proxy
+
+/var/lib/zabbix:
+  file.directory:
+    - user: {{ zabbix.user }}
+    - group: {{ zabbix.group }}
+    - dir_mode: 755
+    - file_mode: 644

@@ -10,7 +10,7 @@
 ### Option: PidFile
 #	Name of PID file.
 #
-{% if settings.get('pidfile', false) %}PidFile={{ settings.get('pidfile') }}{% endif %}
+PidFile={{ settings.get('pidfile','/var/run/zabbix/zabbix_agentd.pid') }}
 
 {% if zabbix.version_repo >= '3.0' -%}
 ### Option: LogType
