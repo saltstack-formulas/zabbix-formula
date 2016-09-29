@@ -20,10 +20,12 @@ zabbix:
     - adm
 
 zabbix-agent:
-  server: localhost
+  server:
+    - localhost
+  serveractive:
+    - localhost
   listenip: 0.0.0.0
   listenport: 10050
-  serveractive: localhost
   hostmetadata: c9767034-22c6-4d3d-a886-5fcaf1386b77
   logfile: /var/log/zabbix/zabbix_agentd.log
   logfilesize: 0
