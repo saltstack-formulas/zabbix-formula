@@ -1,14 +1,16 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
 {% set settings = salt['pillar.get']('zabbix', {}) -%}
 
-{{ salt['file.dirname'](zabbix.server.logfile) }}:
+zabbis-server-logdir:
   file.directory:
+    - name: {{ salt['file.dirname'](zabbix.server.logfile) }}
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 755
 
-{{ salt['file.dirname'](zabbix.server.pidfile) }}:
+zabbix-server-piddir:
   file.directory:
+    - name: {{ salt['file.dirname'](zabbix.server.pidfile) }}
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 755

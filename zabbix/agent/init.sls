@@ -1,13 +1,15 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
 
-{{ salt['file.dirname'](zabbix.agent.logfile) }}:
+zabbix-agent-logdir:
   file.directory:
+    - name: {{ salt['file.dirname'](zabbix.agent.logfile) }}
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 755
 
-{{ salt['file.dirname'](zabbix.agent.pidfile) }}:
+zabbix-agent-piddir:
   file.directory:
+    - name: {{ salt['file.dirname'](zabbix.agent.pidfile) }}
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 750
