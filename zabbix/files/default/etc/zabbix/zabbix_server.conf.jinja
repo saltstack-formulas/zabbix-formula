@@ -6,7 +6,7 @@ ListenPort={{ settings.get('listenport', '10051') }}
 LogFile={{ settings.get('logfile', '/var/log/zabbix/zabbix_server.log') }}
 {%- endif %}
 LogFileSize=0
-PidFile=/var/run/zabbix/zabbix_server.pid
+PidFile={{ settings.get('pidfile', '/var/run/zabbix/zabbix_server.pid') }}
 DBHost={{ settings.get('dbhost', 'localhost') }}
 DBName={{ settings.get('dbname', 'zabbix') }}
 DBUser={{ settings.get('dbuser', 'zabbixuser') }}

@@ -127,8 +127,7 @@
 #	Database password. Ignored for SQLite.
 #	Comment this line if no password is used.
 #
-DBPassword=<%= @database_password %>
-{% if settings.get('logfilesize', false) %}LogFileSize={{ settings.get('logfilesize') }}{% endif %}
+{% if settings.get('dbpass', false) %}DBPassword={{ settings.get('dbpass') }}{% endif %}
 
 ### Option: DBSocket
 #	Path to MySQL socket.
@@ -392,7 +391,6 @@ StartJavaPollers={{ settings.get('startjavapollers') }}
 ### Option: TmpDir
 #	Temporary directory.
 #
-TmpDir=<%= @tmpdir %>
 {% if settings.get('tmpdir', false) %}TmpDir={{ settings.get('tmpdir') }}{% endif %}
 
 ### Option: AllowRoot
@@ -402,7 +400,6 @@ TmpDir=<%= @tmpdir %>
 #	0 - do not allow
 #	1 - allow
 #
-AllowRoot=<%= @allowroot %>
 {% if settings.get('allowroot', false) %}AllowRoot={{ settings.get('allowroot') }}{% endif %}
 
 {% if zabbix.version_repo >= '2.4' -%}
