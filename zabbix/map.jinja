@@ -40,13 +40,17 @@
     'agent': {
       'pkgs': ['zabbix-agent'],
       'service': 'zabbix-agent',
-      'config': '/etc/zabbix/zabbix_agentd.conf'
+      'config': '/etc/zabbix/zabbix_agentd.conf',
+      'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
+      'logfile': '/var/log/zabbix/zabbix_agentd.log'
     },
     'server': {
       'pkgs': ['zabbix-server-mysql'],
       'service': 'zabbix-server',
       'config': '/etc/zabbix/zabbix_server.conf',
       'dbsocket': '/var/lib/mysql/mysql.sock',
+      'pidfile': '/var/run/zabbix/zabbix_server.pid',
+      'logfile': '/var/log/zabbix/zabbix_server.log'
     },
     'frontend': {
       'pkgs': ['zabbix-web-mysql'],
@@ -56,7 +60,9 @@
       'pkgs': ['zabbix-proxy-sqlite3'],
       'service': 'zabbix-proxy',
       'config': '/etc/zabbix/zabbix_proxy.conf',
-      'dbname': '/var/lib/zabbix/zabbix_proxy.db'
+      'dbname': '/var/lib/zabbix/zabbix_proxy.db',
+      'pidfile': '/var/run/zabbix/zabbix_proxy.pid',
+      'logfile': '/var/log/zabbix/zabbix_proxy.log'
     }
   },
 
@@ -97,7 +103,9 @@
     'agent': {
       'pkgs': ['zabbix-agent'],
       'service': 'zabbix_agentd',
-      'config': '/etc/zabbix/zabbix_agentd.conf'
+      'config': '/etc/zabbix/zabbix_agentd.conf',
+      'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
+      'logfile': '/var/log/zabbix/zabbix_agentd.log'
     },
   },
 
