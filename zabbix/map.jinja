@@ -40,7 +40,9 @@
     'agent': {
       'pkgs': ['zabbix-agent'],
       'service': 'zabbix-agent',
-      'config': '/etc/zabbix/zabbix_agentd.conf'
+      'config': '/etc/zabbix/zabbix_agentd.conf',
+      'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
+      'logfile': '/var/log/zabbix/zabbix_agentd.log'
     },
     'server': {
       'pkgs': ['zabbix-server-mysql'],
