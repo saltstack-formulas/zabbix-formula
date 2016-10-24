@@ -30,7 +30,7 @@ include:
 # We don't want the package to mess with apache
 zabbix-frontend_debconf:
   debconf.set:
-    - name: {{ zabbix.frontend.pkg}}
+    - name: zabbix-frontend-php
     - data:
         'zabbix-frontend-php/configure-apache': {'type': 'boolean',
                                                  'value': False}

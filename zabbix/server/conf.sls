@@ -25,7 +25,7 @@ include:
 # We don't want to manage the db through dbconfig
 zabbix-server_debconf:
   debconf.set:
-    - name: {{ zabbix.server.pkg}}
+    - name: zabbix-server-mysql
     - data:
         'zabbix-server-mysql/internal/skip-preseed': {'type': 'boolean', 'value': True}
         'zabbix-server-mysql/dbconfig-install': {'type': 'boolean', 'value': False}
