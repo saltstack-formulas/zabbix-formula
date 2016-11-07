@@ -4,7 +4,6 @@
 
 include:
   - zabbix.agent
-  - zabbix.users
 
 
 {{ zabbix.agent.config }}:
