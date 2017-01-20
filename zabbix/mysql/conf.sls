@@ -13,6 +13,10 @@ zabbix_db:
     - host: {{ dbhost }}
     - character_set: utf8
     - collate: utf8_bin
+  mysql_user.present:
+    - name: {{ dbuser }}
+    - host: '{{ dbuser_host }}'
+    - password: {{ dbpass }}
   mysql_grants.present:
     - grant: all privileges
     - database: {{ dbname }}.*
@@ -20,9 +24,4 @@ zabbix_db:
     - host: '{{ dbuser_host }}'
     - require:
       - mysql_database: zabbix_db
-  mysql_user.present:
-    - name: {{ dbuser }}
-    - host: '{{ dbuser_host }}'
-    - password: {{ dbpass }}
-    - require:
-      - mysql_grants: zabbix_db
+      - mysql_user: zabbix_db
