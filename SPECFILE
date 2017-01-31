@@ -43,9 +43,10 @@ components:
     sls_path: zabbix.users
 
 pillar_defaults:
+#stub of stuff coming over from their template
   zabbix:
-  agent:
+    agent:
+      server:
     server:
-  server:
-    listneip:
+      listneip:
 
