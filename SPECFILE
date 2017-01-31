@@ -1,0 +1,17 @@
+title: Zabbix
+description: Formula to install Zabbix and dependednt components
+root_path: zabbix
+components:
+  - title:
+    description:
+    sls_path:
+
+
+pillar_defaults:
+  zabbix:
+  agent:
+    server:
+  server:
+    listneip:
+:w
+
