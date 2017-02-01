@@ -1,8 +1,5 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
 
-include:
-  - zabbix.users
-
 zabbix-agent-logdir:
   file.directory:
     - name: {{ salt['file.dirname'](zabbix.agent.logfile) }}
