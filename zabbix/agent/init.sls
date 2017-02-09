@@ -6,6 +6,8 @@ zabbix-agent-logdir:
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 755
+    - require:
+      - pkg: zabbix-agent
 
 zabbix-agent-piddir:
   file.directory:
@@ -13,6 +15,8 @@ zabbix-agent-piddir:
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 750
+    - require:
+      - pkg: zabbix-agent
 
 zabbix-agent:
   pkg.installed:
