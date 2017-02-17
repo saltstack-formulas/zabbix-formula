@@ -52,6 +52,9 @@ zabbix-mysql:
   dbuser: zabbixuser
   dbpass: zabbixpass
   dbuser_host: '%'
+  # Optionally specify this for a non-local dbhost
+  #dbroot_user: 'root'
+  #dbroot_pass: 'rootpass'
 
 zabbix-frontend:
   dbtype: MYSQL
@@ -79,4 +82,3 @@ zabbix-proxy:
   dbname: /var/lib/zabbix/zabbix_proxy.db
   dbuser: zabbix
   include: /etc/zabbix/zabbix_proxy.d/
-
