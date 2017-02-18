@@ -1,29 +1,23 @@
-{% from "zabbix/map.jinja" import zabbix with context -%}
-{% from "zabbix/macros.jinja" import files_switch with context -%}
-{% set settings = salt['pillar.get']('zabbix-mysql', {}) -%}
-{% set dbhost = settings.get('dbhost', 'localhost') -%}
-{% set dbname = settings.get('dbname', 'zabbix') -%}
-{% set dbuser = settings.get('dbuser', 'zabbixuser') -%}
-{% set dbpass = settings.get('dbpass', 'zabbixpass') -%}
-
+{% set zabbix_db = salt['pillar.get']('zabbix-server:dbname', 'zabbix') -%}
 
 include:
   - zabbix.mysql.conf
 
-
-{% for file in [
-  '/usr/share/zabbix-server-mysql/salt-provided-schema.sql',
-  '/usr/share/zabbix-server-mysql/salt-provided-images.sql',
-  '/usr/share/zabbix-server-mysql/salt-provided-data.sql'
-] -%}
-{{ file }}:
-  file.managed:
-    - makedirs: True
-    - source: {{ files_switch('zabbix', [ file ]) }}
-  cmd.run:
-    - name: /usr/bin/mysql -h {{ dbhost }} -u {{ dbuser }} --password={{ dbpass }} {{ dbname }} < {{ file }} && touch {{ file }}.applied
-    - unless: test -f {{ file }}.applied
-    - require:
-      - file: {{ file }}
-      - pkg: mysql-client
-{% endfor -%}
+import_schema:
+  mysql_query.run_file:
+    - database: {{ zabbix_db }}
+    - query_file: /usr/share/zabbix-server-mysql/salt-provided-schema.sql
+    - onchanges: 
+        - mysql_database: {{ zabbix_db }}
+import_images:
+  mysql_query.run_file:
+    - database: {{ zabbix_db }}
+    - query_file: /usr/share/zabbix-server-mysql/salt-provided-images.sql
+    - onchanges: 
+        - mysql_database: {{ zabbix_db }}
+import_data:
+  mysql_query.run_file:
+    - database: {{ zabbix_db }}
+    - query_file: /usr/share/zabbix-server-mysql/salt-provided-data.sql
+    - onchanges: 
+        - mysql_database: {{ zabbix_db }}

@@ -1,16 +1,11 @@
-{% from "zabbix/map.jinja" import zabbix with context -%}
-{% set settings = salt['pillar.get']('zabbix-mysql', {}) -%}
-{% set dbhost = settings.get('dbhost', 'localhost') -%}
-{% set dbname = settings.get('dbname', 'zabbix') -%}
-{% set dbuser = settings.get('dbuser', 'zabbixuser') -%}
-{% set dbpass = settings.get('dbpass', 'zabbixpass') -%}
-{% set dbuser_host = settings.get('dbuser_host', 'localhost') -%}
-
+{% set dbname = salt['pillar.get']('zabbix-server:dbname', 'zabbix') -%}
+{% set dbuser = salt['pillar.get']('zabbix-server:dbuser', 'zabbixuser') -%}
+{% set dbpass = salt['pillar.get']('zabbix-server:dbpass', 'zabbixpass') -%}
+{% set dbuser_host = salt['pillar.get']('zabbix-server:dbuser_host', 'localhost') -%}
 
 zabbix_db:
   mysql_database.present:
     - name: {{ dbname }}
-    - host: {{ dbhost }}
     - character_set: utf8
     - collate: utf8_bin
   mysql_grants.present:
