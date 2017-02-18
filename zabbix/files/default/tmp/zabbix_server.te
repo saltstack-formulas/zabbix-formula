@@ -1,0 +1,10 @@
+
+module zabbix_server 1.0;
+
+require {
+       	type zabbix_t;
+       	class process setrlimit;
+}
+
+#============= zabbix_t ==============
+allow zabbix_t self:process setrlimit;
