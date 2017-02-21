@@ -18,3 +18,4 @@ zabbix_user:
 zabbix_group:
   group.present:
     - name: {{ zabbix.group }}
+    - system: True
