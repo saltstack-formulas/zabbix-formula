@@ -12,7 +12,7 @@
 #
 {% if settings.get('pidfile', false) %}PidFile={{ settings.get('pidfile') }}{% endif %}
 
-{% if zabbix.version_repo >= '3.0' -%}
+{% if zabbix.version_repo >= 3.0 -%}
 ### Option: LogType
 #	Specifies where log messages are written to:
 #		system  - syslog
@@ -47,7 +47,7 @@
 #	2 - error information
 #	3 - warnings
 #	4 - for debugging (produces lots of information)
-{% if zabbix.version_repo >= '3.0' -%}
+{% if zabbix.version_repo >= 3.0 -%}
 #	5 - extended debugging (produces even more information)
 {% endif %}
 {% if settings.get('debuglevel', false) %}DebugLevel={{ settings.get('debuglevel') }}{% endif %}
@@ -248,7 +248,7 @@ UserParameter={{ userparameter }}
 LoadModule={{ loadmodule }}
 {% endfor -%}
 
-{% if zabbix.version_repo >= '3.0' -%}
+{% if zabbix.version_repo >= 3.0 -%}
 ####### TLS-RELATED PARAMETERS #######
 
 ### Option: TLSConnect

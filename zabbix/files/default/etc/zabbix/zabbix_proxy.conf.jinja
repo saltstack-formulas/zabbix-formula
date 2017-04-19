@@ -54,7 +54,7 @@
 # SourceIP=
 {% if settings.get('sourceip', false) %}SourceIP={{ settings.get('sourceip') }}{% endif %}
 
-{% if zabbix.version_repo >= '3.0' -%}
+{% if zabbix.version_repo >= 3.0 -%}
 ### Option: LogType
 #	Specifies where log messages are written to:
 #		system  - syslog
@@ -89,7 +89,7 @@
 #	2 - error information
 #	3 - warnings
 #	4 - for debugging (produces lots of information)
-{% if zabbix.version_repo >= '3.0' -%}
+{% if zabbix.version_repo >= 3.0 -%}
 #	5 - extended debugging (produces even more information)
 {% endif %}
 {% if settings.get('debuglevel', false) %}DebugLevel={{ settings.get('debuglevel') }}{% endif %}
@@ -258,7 +258,7 @@ StartJavaPollers={{ settings.get('startjavapollers') }}
 #
 {% if settings.get('vmwaretimeout', false) %}VMwareTimeout={{ settings.get('vmwaretimeout') }}{% endif %}
 
-{% if zabbix.version_repo < '2.4' -%}
+{% if zabbix.version_repo < 2.4 -%}
 ### Option: EnableSNMPBulkRequests
 #	Enable or disable SNMP bulk requests.
 #	0 - disable
@@ -291,7 +291,7 @@ StartJavaPollers={{ settings.get('startjavapollers') }}
 #	To prevent Housekeeper from being overloaded, no more than 4 times HousekeepingFrequency
 #	hours of outdated information are deleted in one housekeeping cycle.
 #	To lower load on proxy startup housekeeping is postponed for 30 minutes after proxy start.
-{% if zabbix.version_repo >= '3.0' -%}
+{% if zabbix.version_repo >= 3.0 -%}
 #	With HousekeepingFrequency=0 the housekeeper can be only executed using the runtime control option.
 #	In this case the period of outdated information deleted in one housekeeping cycle is 4 times the
 #	period since the last housekeeping cycle, but not less than 4 hours and not greater than 4 days.
@@ -316,7 +316,7 @@ StartJavaPollers={{ settings.get('startjavapollers') }}
 #
 {% if settings.get('historycachesize', false) %}HistoryCacheSize={{ settings.get('historycachesize') }}{% endif %}
 
-{% if zabbix.version_repo <= '2.4' -%}
+{% if zabbix.version_repo <= 2.4 -%}
 ### Option: HistoryTextCacheSize
 #   Size of text history cache, in bytes.
 #   Shared memory size for storing character, text or log history data.
@@ -324,7 +324,7 @@ StartJavaPollers={{ settings.get('startjavapollers') }}
 {% if settings.get('historytextcachesize', false) %}HistoryTextCacheSize={{ settings.get('historytextcachesize') }}{% endif %}
 {% endif %}
 
-{% if zabbix.version_repo >= '3.0' -%}
+{% if zabbix.version_repo >= 3.0 -%}
 ### Option: HistoryIndexCacheSize
 #   Size of history index cache, in bytes.
 #   Shared memory size for indexing history cache.
@@ -402,7 +402,7 @@ StartJavaPollers={{ settings.get('startjavapollers') }}
 #
 {% if settings.get('allowroot', false) %}AllowRoot={{ settings.get('allowroot') }}{% endif %}
 
-{% if zabbix.version_repo >= '2.4' -%}
+{% if zabbix.version_repo >= 2.4 -%}
 ### Option: User
 #	Drop privileges to a specific, existing user on the system.
 #	Only has effect if run as 'root' and AllowRoot is disabled.
@@ -416,7 +416,7 @@ StartJavaPollers={{ settings.get('startjavapollers') }}
 #
 {% if settings.get('include', false) %}Include={{ settings.get('include') }}{% endif %}
 
-{% if zabbix.version_repo >= '2.4' -%}
+{% if zabbix.version_repo >= 2.4 -%}
 ### Option: SSLCertLocation
 #	Location of SSL client certificates.
 #	This parameter is used only in web monitoring.
@@ -455,7 +455,7 @@ StartJavaPollers={{ settings.get('startjavapollers') }}
 LoadModule={{ loadmodule }}
 {% endfor -%}
 
-{% if zabbix.version_repo >= '3.0' -%}
+{% if zabbix.version_repo >= 3.0 -%}
 ####### TLS-RELATED PARAMETERS #######
 
 ### Option: TLSConnect
