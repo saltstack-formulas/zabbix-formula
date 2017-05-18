@@ -1,0 +1,52 @@
+title: Zabbix
+description: Formula to install Zabbix and dependednt components
+root_path: zabbix
+components:
+  - title: Zabbix Agent
+    description: Zabbix Agent
+    sls_path: zabbix.agent
+  - title: Zabbix Agent Conf
+    description: Zabbix Agent Con
+    sls_path: zabbix.agent.conf
+  - title: Zabbix Agent Repo
+    description: Zabbix Agent Repo
+    sls_path: zabbix.agent.repo
+  - title: Zabbix Frontend
+    description: Zabbix Frontend
+    sls_path: zabbix.frontend
+  - title: Zabbix Frontend conf
+    description: Zabbix Frontend conf
+    sls_path: zabbix.frontend.conf
+  - title: Zabbix Frontend repo
+    description: Zabbix Frontend repo
+    sls_path: zabbix.frontend.repo
+  - title: Zabbix MySQL conf
+    description: Zabbix MySQL conf
+    sls_path: zabbix.mysql.conf
+  - title: Zabbix MySQL schema creat
+    description: Zabbix MySQL schema create
+    sls_path: zabbix.mysql.schema
+  - title: Zabbix Repo
+    description: Zabbix Repo
+    sls_path: zabbix.repo
+  - title: Zabbix Server
+    description: Zabbix Server
+    sls_path: zabbix.server
+  - title: Zabbix Server conf
+    description: Zabbix Server conf
+    sls_path: zabbix.server.conf
+  - title: Zabbix Server repo
+    description: Zabbix Server repo
+    sls_path: zabbix.server.repo
+  - title: Zabbix Users
+    description: Zabbix Users
+    sls_path: zabbix.users
+
+pillar_defaults:
+#stub of stuff coming over from their template
+  zabbix:
+    agent:
+      server:
+    server:
+      listneip:
+
