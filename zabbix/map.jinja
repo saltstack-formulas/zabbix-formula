@@ -1,6 +1,6 @@
 {% set zabbix = salt['grains.filter_by']({
   'Debian': {
-    'version_repo': '2.2',
+    'version_repo': '3.2',
     'user': 'zabbix',
     'group': 'zabbix',
     'home': '/var/lib/zabbix',
@@ -34,7 +34,7 @@
   },
 
   'RedHat': {
-    'version_repo': '2.2',
+    'version_repo': '3.2',
     'user': 'zabbix',
     'group': 'zabbix',
     'agent': {
@@ -67,7 +67,7 @@
   },
 
   'FreeBSD': {
-    'version_repo': '2.2',
+    'version_repo': '3.2',
     'user': 'zabbix',
     'group': 'zabbix',
     'home': '/var/lib/zabbix',
@@ -97,7 +97,7 @@
   },
 
   'OpenBSD': {
-    'version_repo': '2.4',
+    'version_repo': '3.4',
     'user': '_zabbix',
     'group': '_zabbix',
     'agent': {
@@ -110,7 +110,7 @@
   },
 
   'default': {
-    'version_repo': '2.2',
+    'version_repo': '3.2',
     'user': 'zabbix',
     'group': 'zabbix',
     'home': '/var/lib/zabbix',
