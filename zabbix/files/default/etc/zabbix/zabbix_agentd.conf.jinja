@@ -93,7 +93,7 @@
 #	Incoming connections will be accepted only from the hosts listed here.
 #	If IPv6 support is enabled then '127.0.0.1', '::127.0.0.1', '::ffff:127.0.0.1' are treated equally.
 #
-Server={{ settings.get('server', ['localhost'])|join(',') }}
+Server={{ flexjoin(settings.get('server', ['localhost']), ',') }}
 
 ### Option: ListenPort
 #	Agent will listen on this port for connections from the server.
@@ -104,7 +104,7 @@ Server={{ settings.get('server', ['localhost'])|join(',') }}
 #	List of comma delimited IP addresses that the agent should listen on.
 #	First IP address is sent to Zabbix server if connecting to it to retrieve list of active checks.
 #
-{% if settings.get('listenip', false) %}ListenIP={{ settings.get('listenip') }}{% endif %}
+{% if settings.get('listenip', false) %}ListenIP={{ flexjoin(settings.get('listenip'), ',') }}{% endif %}
 
 ### Option: StartAgents
 #	Number of pre-forked instances of zabbix_agentd that process passive checks.
@@ -122,7 +122,7 @@ Server={{ settings.get('server', ['localhost'])|join(',') }}
 #	If this parameter is not specified, active checks are disabled.
 #	Example: ServerActive=127.0.0.1:20051,zabbix.domain,[::1]:30051,::1,[12fc::1]
 #
-{% if settings.get('serveractive', false) %}ServerActive={{ settings.get('serveractive')|join(',') }}{% endif %}
+{% if settings.get('serveractive', false) %}ServerActive={{ flexjoin(settings.get('serveractive'), ',') }}{% endif %}
 
 ### Option: Hostname
 #	Unique, case sensitive hostname.
