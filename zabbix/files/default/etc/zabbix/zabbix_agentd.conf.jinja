@@ -143,7 +143,7 @@ Hostname={{ settings.get('hostname', salt['grains.get']('id')) }}
 #	An agent will issue an error and not start if the value is over limit of 255 characters.
 #	If not defined, value will be acquired from HostMetadataItem.
 #
-{% if settings.get('hostmetadata', false) %}HostMetadata={{ settings.get('hostmetadata') }}{% endif %}
+{% if settings.get('hostmetadata', false) %}HostMetadata={{ flexjoin(settings.get('hostmetadata'), ' ') }}{% endif %}
 
 ### Option: HostMetadataItem
 #	Optional parameter that defines an item used for getting host metadata.
