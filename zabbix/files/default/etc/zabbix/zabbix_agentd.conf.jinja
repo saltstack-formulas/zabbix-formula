@@ -253,9 +253,9 @@ Hostname={{ settings.get('hostname', salt['grains.get']('id')) }}
 #	Format: UserParameter=<key>,<shell command>
 #	See 'zabbix_agentd' directory for examples.
 #
-{% for userparameter in settings.get('userparameters', []) -%}
+{% call(userparameter) flexcall(settings.get('userparameters', [])) -%}
 UserParameter={{ userparameter }}
-{% endfor -%}
+{% endcall -%}
 
 ####### LOADABLE MODULES #######
 {% if zabbix.version_repo >= '2.4' -%}
