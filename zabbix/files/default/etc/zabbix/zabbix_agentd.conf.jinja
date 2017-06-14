@@ -272,9 +272,9 @@ UserParameter={{ userparameter }}
 #	The modules must be located in directory specified by LoadModulePath.
 #	It is allowed to include multiple LoadModule parameters.
 #
-{% for loadmodule in settings.get('loadmodules', []) -%}
+{% call(loadmodule) flexcall(settings.get('loadmodules', [])) -%}
 LoadModule={{ loadmodule }}
-{% endfor -%}
+{% endcall -%}
 
 {% if zabbix.version_repo >= '3.0' -%}
 ####### TLS-RELATED PARAMETERS #######
