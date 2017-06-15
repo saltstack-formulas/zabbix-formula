@@ -21,7 +21,7 @@
       {{ caller(val) -}}
     {% endfor -%}
   {# If it's just a list, call back for each item in the list. -#}
-  {% else -%}
+  {% elif srcval is iterable and srcval is not string -%}
     {% for val in srcval -%}
       {{ caller(val) -}}
     {% endfor -%}
