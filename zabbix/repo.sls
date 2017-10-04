@@ -45,6 +45,7 @@
 
 
 {%- elif salt['grains.get']('os_family') == 'RedHat' and
+         salt['grains.get']('osmajorrelease')|int >= 6 %}
 {%- if zabbix.version_repo|float > 3.0 %}
 {%-   set gpgkey = 'https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX-A14FE591' %}
 {%- else %}
@@ -55,7 +56,7 @@
   pkgrepo.managed:
     - name: zabbix
     - humanname: Zabbix Official Repository - $basearch
-    - baseurl: http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/rhel/{{ grains['osmajorrelease'] }}/$basearch/
+    - baseurl: http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/rhel/{{ grains['osmajorrelease']|int }}/$basearch/
     - gpgcheck: 1
     - gpgkey: {{ gpgkey }}
 
@@ -63,7 +64,7 @@
   pkgrepo.managed:
     - name: zabbix-non-supported
     - humanname: Zabbix Official Repository non-supported - $basearch
-    - baseurl: http://repo.zabbix.com/non-supported/rhel/{{ grains['osmajorrelease'] }}/$basearch/
+    - baseurl: http://repo.zabbix.com/non-supported/rhel/{{ grains['osmajorrelease']|int }}/$basearch/
     - gpgcheck: 1
     - gpgkey: https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX-79EA5ED4
 
