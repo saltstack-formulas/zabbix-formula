@@ -9,7 +9,10 @@
       'service': 'zabbix-agent',
       'config': '/etc/zabbix/zabbix_agentd.conf',
       'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
-      'logfile': '/var/log/zabbix/zabbix_agentd.log'
+      'logfile': '/var/log/zabbix/zabbix_agentd.log',
+      'logfilesize': '0',
+      'server': ['127.0.0.1'],
+      'serveractive': ['127.0.0.1']
     },
     'server': {
       'pkgs': ['zabbix-server-mysql', 'zabbix-get'],
@@ -119,7 +122,10 @@
       'service': 'zabbix-agent',
       'config': '/etc/zabbix/zabbix_agentd.conf',
       'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
-      'logfile': '/var/log/zabbix/zabbix_agentd.log'
+      'logfile': '/var/log/zabbix/zabbix_agentd.log',
+      'logfilesize': '0',
+      'server': ['127.0.0.1'],
+      'serveractive': ['127.0.0.1']
     },
     'server': {
       'pkgs': ['zabbix-server-mysql', 'zabbix-get'],
