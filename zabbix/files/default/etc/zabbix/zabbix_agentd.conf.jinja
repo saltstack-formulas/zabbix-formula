@@ -306,7 +306,8 @@ Hostname={{ settings.get('hostname', salt['grains.get']('id')) }}
 {% endif -%}
 {% for include in settings.get('includes', zabbix.agent.includes) %}
 Include={{ include }}
-{% endfor %}
+{%- endfor %}
+
 ####### USER-DEFINED MONITORED PARAMETERS #######
 
 ### Option: UnsafeUserParameters

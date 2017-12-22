@@ -9,7 +9,7 @@ zabbix_user:
     - groups: {{ settings.get('user_groups', []) }}
     # Home directory should be created by pkg scripts
     - createhome: False
-    - shell: /sbin/nologin
+    - shell: {{ zabbix.shell }}
     - system: True
     - require:
       - group: zabbix_group

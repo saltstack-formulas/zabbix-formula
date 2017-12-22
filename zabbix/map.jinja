@@ -4,6 +4,7 @@
     'user': 'zabbix',
     'group': 'zabbix',
     'home': '/var/lib/zabbix',
+    'shell': '/bin/false',
     'agent': {
       'pkgs': ['zabbix-agent', 'zabbix-sender'],
       'service': 'zabbix-agent',
@@ -41,6 +42,7 @@
     'version_repo': '2.2',
     'user': 'zabbix',
     'group': 'zabbix',
+    'shell': '/sbin/nologin',
     'agent': {
       'pkgs': ['zabbix-agent'],
       'service': 'zabbix-agent',
@@ -118,6 +120,7 @@
     'user': 'zabbix',
     'group': 'zabbix',
     'home': '/var/lib/zabbix',
+    'shell': '/sbin/nologin',
     'agent': {
       'pkgs': ['zabbix-agent', 'zabbix-sender'],
       'service': 'zabbix-agent',
