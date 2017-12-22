@@ -12,7 +12,8 @@
       'logfile': '/var/log/zabbix/zabbix_agentd.log',
       'logfilesize': '0',
       'server': ['127.0.0.1'],
-      'serveractive': ['127.0.0.1']
+      'serveractive': ['127.0.0.1'],
+      'includes': ['/etc/zabbix/zabbix_agentd.d/']
     },
     'server': {
       'pkgs': ['zabbix-server-mysql', 'zabbix-get'],
@@ -125,7 +126,8 @@
       'logfile': '/var/log/zabbix/zabbix_agentd.log',
       'logfilesize': '0',
       'server': ['127.0.0.1'],
-      'serveractive': ['127.0.0.1']
+      'serveractive': ['127.0.0.1'],
+      'includes': ['/etc/zabbix/zabbix_agentd.d/']
     },
     'server': {
       'pkgs': ['zabbix-server-mysql', 'zabbix-get'],
