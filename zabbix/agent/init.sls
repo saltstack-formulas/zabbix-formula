@@ -63,4 +63,6 @@ zabbix-agent:
     - enable: True
     - require:
       - pkg: zabbix-agent
+      - file: zabbix-agent-logdir
+      - file: zabbix-agent-piddir
 

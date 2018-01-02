@@ -15,5 +15,6 @@ include:
     - template: jinja
     - require:
       - pkg: zabbix-agent
+      - user: zabbix_user
     - watch_in:
       - service: zabbix-agent
