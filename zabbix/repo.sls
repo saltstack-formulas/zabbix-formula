@@ -46,7 +46,7 @@
 
 {%- elif salt['grains.get']('os_family') == 'RedHat' and
          salt['grains.get']('osmajorrelease') >= 6 %}
-{%- if zabbix.version_repo > 3.0 %}
+{%- if zabbix.version_repo|float > 3.0 %}
 {%-   set gpgkey = 'https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX-A14FE591' %}
 {%- else %}
 {%-   set gpgkey = 'https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX-79EA5ED4' %}
