@@ -59,8 +59,6 @@
     - baseurl: http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/rhel/{{ grains['osmajorrelease'] }}/$basearch/
     - gpgcheck: 1
     - gpgkey: {{ gpgkey }}
-    - require:
-      - file: {{ id_prefix }}_repo_gpg_file
 
 {{ id_prefix }}_non_supported_repo:
   pkgrepo.managed:
@@ -69,8 +67,6 @@
     - baseurl: http://repo.zabbix.com/non-supported/rhel/{{ grains['osmajorrelease'] }}/$basearch/
     - gpgcheck: 1
     - gpgkey: https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX-79EA5ED4
-    - require:
-      - file: {{ id_prefix }}_repo_gpg_file
 
 {%- else %}
 {{ id_prefix }}_repo: {}
