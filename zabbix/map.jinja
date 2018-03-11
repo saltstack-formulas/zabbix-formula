@@ -4,12 +4,17 @@
     'user': 'zabbix',
     'group': 'zabbix',
     'home': '/var/lib/zabbix',
+    'shell': '/bin/false',
     'agent': {
       'pkgs': ['zabbix-agent', 'zabbix-sender'],
       'service': 'zabbix-agent',
       'config': '/etc/zabbix/zabbix_agentd.conf',
       'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
-      'logfile': '/var/log/zabbix/zabbix_agentd.log'
+      'logfile': '/var/log/zabbix/zabbix_agentd.log',
+      'logfilesize': '0',
+      'server': ['127.0.0.1'],
+      'serveractive': ['127.0.0.1'],
+      'includes': ['/etc/zabbix/zabbix_agentd.d/']
     },
     'server': {
       'pkgs': ['zabbix-server-mysql', 'zabbix-get'],
@@ -37,6 +42,7 @@
     'version_repo': '2.2',
     'user': 'zabbix',
     'group': 'zabbix',
+    'shell': '/sbin/nologin',
     'agent': {
       'pkgs': ['zabbix-agent'],
       'service': 'zabbix-agent',
@@ -114,12 +120,17 @@
     'user': 'zabbix',
     'group': 'zabbix',
     'home': '/var/lib/zabbix',
+    'shell': '/sbin/nologin',
     'agent': {
       'pkgs': ['zabbix-agent', 'zabbix-sender'],
       'service': 'zabbix-agent',
       'config': '/etc/zabbix/zabbix_agentd.conf',
       'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
-      'logfile': '/var/log/zabbix/zabbix_agentd.log'
+      'logfile': '/var/log/zabbix/zabbix_agentd.log',
+      'logfilesize': '0',
+      'server': ['127.0.0.1'],
+      'serveractive': ['127.0.0.1'],
+      'includes': ['/etc/zabbix/zabbix_agentd.d/']
     },
     'server': {
       'pkgs': ['zabbix-server-mysql', 'zabbix-get'],
