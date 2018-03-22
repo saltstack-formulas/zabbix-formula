@@ -77,6 +77,7 @@
     'user': 'zabbix',
     'group': 'zabbix',
     'home': '/var/lib/zabbix',
+    'shell': '/sbin/nologin',
     'agent': {
       'pkgs': ['zabbix22-agent'],
       'service': 'zabbix_agentd',
@@ -106,6 +107,7 @@
     'version_repo': '2.4',
     'user': '_zabbix',
     'group': '_zabbix',
+    'shell': '/sbin/nologin',
     'agent': {
       'pkgs': ['zabbix-agent'],
       'service': 'zabbix_agentd',
