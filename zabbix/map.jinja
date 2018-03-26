@@ -153,4 +153,4 @@
       'logfile': '/var/log/zabbix/zabbix_proxy.log'
     }
   },
-}, merge=salt['pillar.get']('zabbix:lookup')) %}
+}, merge=salt['pillar.get']('zabbix:lookup'), base='default') %}
