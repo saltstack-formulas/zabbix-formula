@@ -66,3 +66,7 @@ zabbix-agent:
       - file: zabbix-agent-logdir
       - file: zabbix-agent-piddir
 
+zabbix-agent-restart:
+  module.wait:
+    - name: service.restart
+    - m_name: {{ zabbix.agent.service }}

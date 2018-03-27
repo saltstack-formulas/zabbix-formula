@@ -17,4 +17,4 @@ include:
       - pkg: zabbix-agent
       - user: zabbix_user
     - watch_in:
-      - service: zabbix-agent
+      - module: zabbix-agent-restart
