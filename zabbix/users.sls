@@ -2,7 +2,7 @@
 {% set settings = salt['pillar.get']('zabbix', {}) -%}
 
 
-zabbix_user:
+zabbix-formula_zabbix_user:
   user.present:
     - name: {{ zabbix.user }}
     - gid_from_name: True
@@ -12,10 +12,10 @@ zabbix_user:
     - shell: {{ zabbix.shell }}
     - system: True
     - require:
-      - group: zabbix_group
+      - group: zabbix-formula_zabbix_group
 
 
-zabbix_group:
+zabbix-formula_zabbix_group:
   group.present:
     - name: {{ zabbix.group }}
     - system: True
