@@ -29,6 +29,7 @@
       'dbuser': 'zabbix',
       'dbpassword': 'zabbix',
       'dbsocket': '/var/run/mysqld/mysqld.sock',
+      'snmptrapperfile': '/var/log/snmptrap/snmptrap.log',
       'timeout': '4',
       'alertscriptspath': '/usr/lib/zabbix/alertscripts',
       'externalscripts': '/usr/lib/zabbix/externalscripts',
@@ -60,7 +61,8 @@
       'service': 'zabbix-agent',
       'config': '/etc/zabbix/zabbix_agentd.conf',
       'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
-      'logfile': '/var/log/zabbix/zabbix_agentd.log'
+      'logfile': '/var/log/zabbix/zabbix_agentd.log',
+      'includes': ['/etc/zabbix/zabbix_agentd.d/*.conf']
     },
     'server': {
       'pkgs': ['zabbix-server-mysql'],
@@ -68,7 +70,10 @@
       'config': '/etc/zabbix/zabbix_server.conf',
       'dbsocket': '/var/lib/mysql/mysql.sock',
       'pidfile': '/var/run/zabbix/zabbix_server.pid',
-      'logfile': '/var/log/zabbix/zabbix_server.log'
+      'logfile': '/var/log/zabbix/zabbix_server.log',
+      'snmptrapperfile': '/var/log/snmptrap/snmptrap.log',
+      'fpinglocation': '/usr/sbin/fping',
+      'fping6location': '/usr/sbin/fping6'
     },
     'frontend': {
       'pkgs': ['zabbix-web-mysql'],
@@ -151,6 +156,7 @@
       'service': 'zabbix-server',
       'config': '/etc/zabbix/zabbix_server.conf',
       'pidfile': '/var/run/zabbix/zabbix_server.pid',
+      'socketdir': '/var/run/zabbix',
       'logfile': '/var/log/zabbix/zabbix_server.log',
       'logfilesize': '0',
       'dbhost': 'localhost',
@@ -158,10 +164,12 @@
       'dbuser': 'zabbix',
       'dbpassword': 'zabbix',
       'dbsocket': '/var/run/mysqld/mysqld.sock',
+      'timeout': '4',
       'alertscriptspath': '/usr/lib/zabbix/alertscripts',
       'externalscripts': '/usr/lib/zabbix/externalscripts',
       'fpinglocation': '/usr/bin/fping',
-      'fping6location': '/usr/bin/fping6'
+      'fping6location': '/usr/bin/fping6',
+      'logslowqueries': '3000'
     },
     'frontend': {
       'pkgs': ['zabbix-web-mysql'],
