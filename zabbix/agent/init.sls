@@ -3,12 +3,39 @@
 include:
   - zabbix.users
 
+zabbix-agent:
+  pkg.installed:
+    - pkgs:
+      {%- for name in zabbix.agent.pkgs %}
+      - {{ name }}
+      {%- endfor %}
+    {%- if zabbix.agent.version is defined %}
+    - version: {{ zabbix.agent.version }}
+    {%- endif %}
+    - require_in:
+      - user: zabbix-formula_zabbix_user
+      - group: zabbix-formula_zabbix_group
+  service.running:
+    - name: {{ zabbix.agent.service }}
+    - enable: True
+    - require:
+      - pkg: zabbix-agent
+      - file: zabbix-agent-logdir
+      - file: zabbix-agent-piddir
+
+zabbix-agent-restart:
+  module.wait:
+    - name: service.restart
+    - m_name: {{ zabbix.agent.service }}
+
 zabbix-agent-logdir:
   file.directory:
     - name: {{ salt['file.dirname'](zabbix.agent.logfile) }}
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 755
+    - require:
+      - pkg: zabbix-agent
 
 zabbix-agent-piddir:
   file.directory:
@@ -16,6 +43,8 @@ zabbix-agent-piddir:
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 750
+    - require:
+      - pkg: zabbix-agent
 
 {% if salt['grains.get']('selinux:enforced', False) == 'Enforcing' %}
 /root/zabbix_agent.te:
@@ -48,25 +77,3 @@ enable_selinux_agent:
     - name: zabbix_agent
     - module_state: enabled
 {% endif %}
-
-zabbix-agent:
-  pkg.installed:
-    - pkgs:
-      {%- for name in zabbix.agent.pkgs %}
-      - {{ name }}
-      {%- endfor %}
-    {%- if zabbix.agent.version is defined %}
-    - version: {{ zabbix.agent.version }}
-    {%- endif %}
-  service.running:
-    - name: {{ zabbix.agent.service }}
-    - enable: True
-    - require:
-      - pkg: zabbix-agent
-      - file: zabbix-agent-logdir
-      - file: zabbix-agent-piddir
-
-zabbix-agent-restart:
-  module.wait:
-    - name: service.restart
-    - m_name: {{ zabbix.agent.service }}
