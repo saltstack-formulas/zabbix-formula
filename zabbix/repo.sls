@@ -25,23 +25,7 @@
   pkgrepo.managed:
     - name: deb http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/{{ salt['grains.get']('os')|lower }} {{ salt['grains.get']('oscodename') }} main
     - file: /etc/apt/sources.list.d/zabbix.list
-    - require:
-      - cmd: {{ id_prefix }}_repo_add_gpg
-
-
-{{ id_prefix }}_repo_add_gpg:
-  cmd.wait:
-    - name: /usr/bin/apt-key add /var/tmp/zabbix-official-repo.gpg
-    - watch:
-      - file: {{ id_prefix }}_repo_gpg_file
-
-
-# GPG key of official Zabbix repo
-{{ id_prefix }}_repo_gpg_file:
-  file.managed:
-    - name: /var/tmp/zabbix-official-repo.gpg
-    - source: {{ files_switch('zabbix',
-                              ['/tmp/zabbix-official-repo.gpg']) }}
+    - key_url: https://repo.zabbix.com/zabbix-official-repo.key
 
 
 {%- elif salt['grains.get']('os_family') == 'RedHat' and
