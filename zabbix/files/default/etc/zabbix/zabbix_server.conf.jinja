@@ -141,8 +141,8 @@ DBUser={{ settings.get('dbuser', defaults.dbuser) }}
 # Mandatory: no
 # Default:
 # DBPassword=
-{% if settings.get('dbpassword', defaults.get('dbpassword', False)) -%}
-DBPassword={{ settings.get('dbpassword', defaults.dbpassword) }}
+{% if settings.get('dbpass', defaults.get('dbpass', False)) -%}
+DBPassword={{ settings.get('dbpass', defaults.dbpass) }}
 {% endif %}
 ### Option: DBSocket
 #	Path to MySQL socket.
