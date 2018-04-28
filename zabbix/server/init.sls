@@ -45,6 +45,39 @@ enable_selinux_server:
   selinux.module:
     - name: zabbix_server
     - module_state: enabled
+
+{% if zabbix.version_repo|float >= 3.4 -%}
+/root/zabbix_server_34.te:
+  file.managed:
+    - source: salt://zabbix/files/default/tmp/zabbix_server_34.te
+
+generate_server_34_mod:
+  cmd.run:
+    - name: checkmodule -M -m -o zabbix_server_34.mod zabbix_server_34.te
+    - cwd: /root
+    - onchanges:
+      - file: /root/zabbix_server_34.te
+
+generate_server_34_pp:
+  cmd.run:
+    - name: semodule_package -o zabbix_server_34.pp -m zabbix_server_34.mod
+    - cwd: /root
+    - onchanges:
+      - cmd: generate_server_mod
+
+set_server_policy_34:
+  cmd.run:
+    - name: semodule -i zabbix_server_34.pp
+    - cwd: /root
+    - onchanges:
+      - cmd: generate_server_pp
+
+enable_selinux_server_34:
+  selinux.module:
+    - name: zabbix_server_34
+    - module_state: enabled
+{% endif -%}
+
 {% endif %}
 
 zabbix-server:

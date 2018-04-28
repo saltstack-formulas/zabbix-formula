@@ -10,3 +10,15 @@ zabbix-frontend-php:
     {% if zabbix.frontend.version is defined -%}
     - version: {{ zabbix.frontend.version }}
     {%- endif %}
+
+{% if salt['grains.get']('selinux:enforced', False) == 'Enforcing' %}
+httpd_can_connect_zabbix:
+  selinux.boolean:
+    - value: True
+    - persist: True
+
+httpd_can_network_connect:
+  selinux.boolean:
+    - value: True
+    - persist: True
+{% endif %}
