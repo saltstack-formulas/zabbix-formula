@@ -24,8 +24,28 @@
 {% endif -%}
 {% set sql_file = settings.get('sql_file', '/usr/share/zabbix-server-mysql/salt-provided-create-' ~ db_version ~ '.sql') -%}
 
+# Connection args required only if dbroot_user and dbroot_pass defined.
+{% set connection_args = {} -%}
+{% if dbroot_user and dbroot_pass -%}
+{%  set connection_args = {'connection_host': dbhost, 'connection_user': dbroot_user, 'connection_pass': dbroot_pass} -%}
+{% endif -%}
+
+# Check is there any tables in database.
+# salt.mysql.db_tables(dbname) return 'False' if there is no tables or any other error i.e. failed auth.
+{% set is_db_empty = True -%}
+{% if salt.mysql.db_tables(dbname, **connection_args) -%}
+{%  set is_db_empty = False -%}
+{% endif -%}
+
 include:
   - zabbix.mysql.conf
+
+check_db:
+  test.configurable_test_state:
+    - name: Is there any tables in '{{ dbname }}' database?
+    - changes: {{ is_db_empty }}
+    - result: True
+    - comment: If changes is 'True' data import required.
 
 {{ sql_file }}:
   file.managed:
@@ -44,8 +64,5 @@ include:
       - mysql_packages
       - mysql_database: zabbix_db
       - file: {{ sql_file }}
-    - unless: test -f "{{ sql_file }}.applied"
-  cmd.run:
-    - name: touch "{{ sql_file }}.applied"
     - onchanges:
-      - mysql_query: {{ sql_file }}
+      - test: check_db
