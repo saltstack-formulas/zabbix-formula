@@ -56,7 +56,7 @@ zabbix-mysql:
   dbhost: localhost
   dbname: zabbix
   dbuser: zabbixuser
-  dbpass: zabbixpass
+  dbpassword: zabbixpass
   dbuser_host: '%'
   # Optionally specify this for a non-local dbhost
   #dbroot_user: 'root'
