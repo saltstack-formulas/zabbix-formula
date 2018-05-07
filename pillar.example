@@ -67,7 +67,7 @@ zabbix-frontend:
   dbhost: localhost
   dbname: zabbix
   dbuser: zabbixuser
-  dbpass: zabbixpass
+  dbpassword: zabbixpass
   zbxserver: localhost
   zbxserverport: 10051
   zbxservername: 'Zabbix installed with saltstack'
