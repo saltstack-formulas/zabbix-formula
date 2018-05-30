@@ -48,6 +48,9 @@
       'dbname': '/var/lib/zabbix/zabbix_proxy.db',
       'pidfile': '/var/run/zabbix/zabbix_proxy.pid',
       'logfile': '/var/log/zabbix/zabbix_proxy.log'
+    },
+    'mysql': {
+      'pkgs': ['python-mysqldb']
     }
   },
 
@@ -86,6 +89,9 @@
       'dbname': '/var/lib/zabbix/zabbix_proxy.db',
       'pidfile': '/var/run/zabbix/zabbix_proxy.pid',
       'logfile': '/var/log/zabbix/zabbix_proxy.log'
+    },
+    'mysql': {
+      'pkgs': ['MySQL-python']
     }
   },
 
@@ -182,6 +188,14 @@
       'dbname': '/var/lib/zabbix/zabbix_proxy.db',
       'pidfile': '/var/run/zabbix/zabbix_proxy.pid',
       'logfile': '/var/log/zabbix/zabbix_proxy.log'
+    },
+    'mysql': {
+      'skip_pkgs': false,
+      'dbhost': 'localhost',
+      'dbname': 'zabbix',
+      'dbuser': 'zabbix',
+      'dbpassword': 'zabbix',
+      'dbuser_host': 'localhost'
     }
   },
 }, merge=salt['pillar.get']('zabbix:lookup'), base='default') %}
