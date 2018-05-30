@@ -1,5 +1,7 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
 {% from "zabbix/macros.jinja" import files_switch with context -%}
+{% set config_file = salt.file.basename(zabbix.frontend.config) -%}
+{% set config_file_dir = salt.file.dirname(zabbix.frontend.config) -%}
 
 
 include:
@@ -10,16 +12,18 @@ include:
 {{ zabbix.frontend.config }}:
   file.managed:
     - source: {{ files_switch('zabbix',
-                              ['/etc/zabbix/web/zabbix.conf.php',
-                               '/etc/zabbix/web/zabbix.conf.php.jinja']) }}
+                              [zabbix.frontend.config,
+                               zabbix.frontend.config ~ '.jinja',
+                               '/etc/zabbix/web/' ~ config_file,
+                               '/etc/zabbix/web/' ~ config_file ~ '.jinja']) }}
     - template: jinja
     - require:
       - pkg: zabbix-frontend-php
-      - file: /etc/zabbix/web
+      - file: {{ config_file_dir }}
 
 
-# Fix permissions to allow to php-fpm include /etc/zabbix/web/*
-/etc/zabbix/web:
+# Fix permissions to allow to php-fpm include zabbix frontend config file which is usually located under /etc/zabbix
+{{ config_file_dir }}:
   file.directory:
     - mode: 755
     - require:
