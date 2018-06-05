@@ -26,7 +26,7 @@
     - name: deb http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/{{ salt['grains.get']('os')|lower }} {{ salt['grains.get']('oscodename') }} main
     - file: /etc/apt/sources.list.d/zabbix.list
     - key_url: https://repo.zabbix.com/zabbix-official-repo.key
-
+    - clean_file: True
 
 {%- elif salt['grains.get']('os_family') == 'RedHat' and
          salt['grains.get']('osmajorrelease')|int >= 6 %}
