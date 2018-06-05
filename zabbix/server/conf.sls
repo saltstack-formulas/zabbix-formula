@@ -4,7 +4,6 @@
 
 include:
   - zabbix.server
-  - zabbix.users
 
 
 {{ zabbix.server.config }}:

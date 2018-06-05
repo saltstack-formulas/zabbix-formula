@@ -4,7 +4,6 @@
 
 include:
   - zabbix.proxy
-  - zabbix.users
 
 
 {{ zabbix.proxy.config }}:

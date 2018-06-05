@@ -1,12 +1,39 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
-{% set settings = salt['pillar.get']('zabbix', {}) -%}
 
-zabbis-server-logdir:
+include:
+  - zabbix.users
+
+zabbix-server:
+  pkg.installed:
+    - pkgs:
+      {%- for name in zabbix.server.pkgs %}
+      - {{ name }}
+      {%- endfor %}
+    {%- if zabbix.server.version is defined %}
+    - version: {{ zabbix.server.version }}
+    {%- endif %}
+    {% if salt['grains.get']('os_family') == 'Debian' -%}
+    - install_recommends: False
+    {% endif %}
+    - require_in:
+      - user: zabbix-formula_zabbix_user
+      - group: zabbix-formula_zabbix_group
+  service.running:
+    - name: {{ zabbix.server.service }}
+    - enable: True
+    - require:
+      - pkg: zabbix-server
+      - file: zabbix-server-logdir
+      - file: zabbix-server-piddir
+
+zabbix-server-logdir:
   file.directory:
     - name: {{ salt['file.dirname'](zabbix.server.logfile) }}
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 755
+    - require:
+      - pkg: zabbix-server
 
 zabbix-server-piddir:
   file.directory:
@@ -14,6 +41,8 @@ zabbix-server-piddir:
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 755
+    - require:
+      - pkg: zabbix-server
 
 {% if salt['grains.get']('selinux:enforced', False) == 'Enforcing' %}
 /root/zabbix_server.te:
@@ -79,21 +108,3 @@ enable_selinux_server_34:
 {% endif -%}
 
 {% endif %}
-
-zabbix-server:
-  pkg.installed:
-    - pkgs:
-      {%- for name in zabbix.server.pkgs %}
-      - {{ name }}
-      {%- endfor %}
-    {%- if zabbix.server.version is defined %}
-    - version: {{ zabbix.server.version }}
-    {%- endif %}
-    {% if salt['grains.get']('os_family') == 'Debian' -%}
-    - install_recommends: False
-    {% endif %}
-  service.running:
-    - name: {{ zabbix.server.service }}
-    - enable: True
-    - require:
-      - pkg: zabbix-server

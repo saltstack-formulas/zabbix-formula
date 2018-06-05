@@ -6,7 +6,6 @@
 
 include:
   - zabbix.frontend
-  - zabbix.frontend.repo
 
 
 {{ zabbix.frontend.config }}:
@@ -36,10 +35,8 @@ zabbix-frontend_debconf:
   debconf.set:
     - name: zabbix-frontend-php
     - data:
-        'zabbix-frontend-php/configure-apache': {'type': 'boolean',
-                                                 'value': False}
-        'zabbix-frontend-php/restart-webserver': {'type': 'boolean',
-                                                  'value': False}
+        'zabbix-frontend-php/configure-apache': {'type': 'boolean', 'value': False}
+        'zabbix-frontend-php/restart-webserver': {'type': 'boolean', 'value': False}
     - prereq:
       - pkg: zabbix-frontend-php
 {%- endif %}
