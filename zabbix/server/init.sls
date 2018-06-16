@@ -7,11 +7,8 @@ zabbix-server:
   pkg.installed:
     - pkgs:
       {%- for name in zabbix.server.pkgs %}
-      - {{ name }}
+      - {{ name }}{% if zabbix.server.version is defined and 'zabbix' in name %}: '{{ zabbix.server.version }}'{% endif %}
       {%- endfor %}
-    {%- if zabbix.server.version is defined %}
-    - version: {{ zabbix.server.version }}
-    {%- endif %}
     {% if salt['grains.get']('os_family') == 'Debian' -%}
     - install_recommends: False
     {% endif %}
