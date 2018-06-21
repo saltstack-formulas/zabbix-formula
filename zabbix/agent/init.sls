@@ -7,11 +7,8 @@ zabbix-agent:
   pkg.installed:
     - pkgs:
       {%- for name in zabbix.agent.pkgs %}
-      - {{ name }}
+      - {{ name }}{% if zabbix.agent.version is defined and 'zabbix' in name %}: '{{ zabbix.agent.version }}'{% endif %}
       {%- endfor %}
-    {%- if zabbix.agent.version is defined %}
-    - version: {{ zabbix.agent.version }}
-    {%- endif %}
     - require_in:
       - user: zabbix-formula_zabbix_user
       - group: zabbix-formula_zabbix_group

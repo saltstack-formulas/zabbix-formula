@@ -7,11 +7,8 @@ zabbix-proxy:
   pkg.installed:
     - pkgs:
       {%- for name in zabbix.proxy.pkgs %}
-      - {{ name }}
+      - {{ name }}{% if zabbix.proxy.version is defined and 'zabbix' in name %}: '{{ zabbix.proxy.version }}'{% endif %}
       {%- endfor %}
-    {%- if zabbix.proxy.version is defined -%}
-    - version: {{ zabbix.proxy.version }}
-    {%- endif %}
     - require_in:
       - user: zabbix-formula_zabbix_user
       - group: zabbix-formula_zabbix_group
