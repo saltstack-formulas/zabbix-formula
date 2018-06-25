@@ -27,15 +27,9 @@ zabbix-agent:
   listenip: 0.0.0.0
   listenport: 10050
   hostmetadata: c9767034-22c6-4d3d-a886-5fcaf1386b77
-  # For zabbix-agent below version 3 if you want to use syslog instead of file specify
-  # logfile: syslog
   logfile: /var/log/zabbix/zabbix_agentd.log
   logfilesize: 0
   include: /etc/zabbix/zabbix_agentd.d/
-  # Or multiple "Include" options
-  includes:
-    - /etc/zabbix/zabbix_agentd.d/
-    - /some/custom/location/
   userparameters:
     - net.ping[*],/usr/bin/fping -q -c3 $1 2>&1 | sed 's,.*/\([0-9.]*\)/.*,\1,'
     - custom.vfs.dev.discovery,/usr/local/bin/dev-discovery.sh
@@ -56,7 +50,7 @@ zabbix-mysql:
   dbhost: localhost
   dbname: zabbix
   dbuser: zabbixuser
-  dbpassword: zabbixpass
+  dbpass: zabbixpass
   dbuser_host: '%'
   # Optionally specify this for a non-local dbhost
   #dbroot_user: 'root'
@@ -67,7 +61,7 @@ zabbix-frontend:
   dbhost: localhost
   dbname: zabbix
   dbuser: zabbixuser
-  dbpassword: zabbixpass
+  dbpass: zabbixpass
   zbxserver: localhost
   zbxserverport: 10051
   zbxservername: 'Zabbix installed with saltstack'

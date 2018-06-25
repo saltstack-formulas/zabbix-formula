@@ -4,6 +4,7 @@
 
 include:
   - zabbix.agent
+  - zabbix.users
 
 
 {{ zabbix.agent.config }}:
@@ -14,5 +15,6 @@ include:
     - template: jinja
     - require:
       - pkg: zabbix-agent
+      - user: zabbix_user
     - watch_in:
-      - module: zabbix-agent-restart
+      - service: zabbix-agent
