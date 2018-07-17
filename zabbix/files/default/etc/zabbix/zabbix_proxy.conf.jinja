@@ -1,5 +1,6 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
 {% set settings = salt['pillar.get']('zabbix-proxy', {}) -%}
+{% set defaults = zabbix.get('proxy', {}) -%}
 # Managed by saltstack
 # This is a configuration file for Zabbix Proxy process
 # To get more information about Zabbix,_# visit http://www.zabbix.com
