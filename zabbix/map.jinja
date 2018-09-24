@@ -51,6 +51,9 @@
     },
     'mysql': {
       'pkgs': ['python-mysqldb']
+    },
+    'pgsql': {
+      'pkgs': ['postgresql-client-common', 'postgresql-client']
     }
   },
 
@@ -204,6 +207,13 @@
       'dbuser': 'zabbix',
       'dbpassword': 'zabbix',
       'dbuser_host': 'localhost'
+    },
+    'pgsql': {
+      'skip_pkgs': false,
+      'dbhost': 'localhost',
+      'dbname': 'zabbix',
+      'dbuser': 'zabbix',
+      'dbpassword': 'zabbix'
     }
   },
 }, merge=salt['pillar.get']('zabbix:lookup'), base='default') %}

@@ -88,3 +88,28 @@ zabbix-proxy:
   dbname: /var/lib/zabbix/zabbix_proxy.db
   dbuser: zabbix
   include: /etc/zabbix/zabbix_proxy.d/
+
+# Example with PostgreSQL on Debian 9
+# Installation with PostgreSQL will likely not work with Zabbix version below 3.0
+zabbix:
+  lookup:
+    version_repo: 3.4
+    agent:
+      version: '1:3.4.*'
+    frontend:
+      version: '1:3.4.*'
+      dbtype: POSTGRESQL
+    # you need to override default package list
+    server:
+      version: '1:3.4.*'
+      pkgs:
+        - zabbix-server-pgsql
+        - zabbix-get
+      # unset dbsocket, it's not used with PostgreSQL
+      dbsocket: ""
+
+zabbix-pgsql:
+  # By default SQL dump provided by Zabbix package will be used, but you can
+  # put your own dump in corresponding directory (consult with TOFS_pattern.md)
+  # and specify path in sql_file param
+  sql_file: /usr/share/doc/zabbix-server-pgsql/custom.sql.gz

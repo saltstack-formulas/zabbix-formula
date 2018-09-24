@@ -143,6 +143,16 @@ Creates database and mysql user for Zabbix.
 
 Creates mysql schema for Zabbix.
 
+``zabbix.pgsql.conf``
+----------------
+
+Creates database and PostgreSQL user for Zabbix.
+
+``zabbix.pgsql.schema``
+---------------------
+
+Creates PostgreSQL schema for Zabbix.
+
 ``zabbix.repo``
 ----------------
 
