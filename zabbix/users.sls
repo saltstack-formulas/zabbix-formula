@@ -6,7 +6,7 @@ zabbix-formula_zabbix_user:
   user.present:
     - name: {{ zabbix.user }}
     - gid: {{ zabbix.group }}
-    - groups: {{ settings.get('user_groups', []) }}
+    - optional_groups: {{ settings.get('user_groups', []) }}
     # Home directory should be created by pkg scripts
     - createhome: False
     - shell: {{ zabbix.shell }}
