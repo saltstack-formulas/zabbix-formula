@@ -1,4 +1,6 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
+{% set settings = salt['pillar.get']('zabbix-agent', {}) -%}
+{% set defaults = zabbix.get('agent', {}) -%}
 
 include:
   - zabbix.users
@@ -42,6 +44,16 @@ zabbix-agent-piddir:
     - dirmode: 750
     - require:
       - pkg: zabbix-agent
+
+{% for include in settings.get('includes', defaults.includes) %}
+{{ include }}:
+  file.directory:
+    - user: {{ zabbix.user }}
+    - group: {{ zabbix.group }}
+    - dirmode: 750
+    - require:
+      - pkg: zabbix-agent
+{%- endfor %}
 
 {% if salt['grains.get']('selinux:enforced', False) == 'Enforcing' %}
 /root/zabbix_agent.te:
