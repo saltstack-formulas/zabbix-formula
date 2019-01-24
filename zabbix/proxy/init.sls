@@ -37,3 +37,12 @@ zabbix-proxy-piddir:
     - dirmode: 750
     - require:
       - pkg: zabbix-proxy
+
+zabbix-proxy-includesdir:
+  file.directory:
+    - name: {{ salt['file.dirname'](zabbix.proxy.includes) }}
+    - user: {{ zabbix.user }}
+    - group: {{ zabbix.group }}
+    - dirmode: 750
+    - require:
+      - pkg: zabbix-proxy
