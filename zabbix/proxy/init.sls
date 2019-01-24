@@ -40,13 +40,9 @@ zabbix-proxy-piddir:
     - require:
       - pkg: zabbix-proxy
 
-{% if 'include' in settings and settings['include'] is string -%}
-{% do settings.update({'includes': [settings['include']]}) -%}
-{% endif -%}
 {% for include in settings.get('includes', defaults.includes) %}
 {{ include }}:
   file.directory:
-    - name: {{ salt['file.dirname'](zabbix.proxy.includes) }}
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 750
