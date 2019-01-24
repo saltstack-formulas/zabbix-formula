@@ -414,7 +414,12 @@ StartJavaPollers={{ settings.get('startjavapollers') }}
 #	You may include individual files or all files in a directory in the configuration file.
 #	Installing Zabbix will create include directory in /usr/local/etc, unless modified during the compile time.
 #
-{% if settings.get('include', false) %}Include={{ settings.get('include') }}{% endif %}
+{% if 'include' in settings and settings['include'] is string -%}
+{% do settings.update({'includes': [settings['include']]}) -%}
+{% endif -%}
+{% for include in settings.get('includes', defaults.includes) %}
+Include={{ include }}
+{%- endfor %}
 
 {% if zabbix.version_repo|float >= 2.4 -%}
 ### Option: SSLCertLocation
