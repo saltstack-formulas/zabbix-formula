@@ -47,7 +47,8 @@
       'config': '/etc/zabbix/zabbix_proxy.conf',
       'dbname': '/var/lib/zabbix/zabbix_proxy.db',
       'pidfile': '/var/run/zabbix/zabbix_proxy.pid',
-      'logfile': '/var/log/zabbix/zabbix_proxy.log'
+      'logfile': '/var/log/zabbix/zabbix_proxy.log',
+      'includes': ['/etc/zabbix/zabbix_proxy.d/']
     },
     'mysql': {
       'pkgs': ['python-mysqldb']
