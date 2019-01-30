@@ -1,4 +1,6 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
+{% set settings = salt['pillar.get']('zabbix-proxy', {}) -%}
+{% set defaults = zabbix.get('proxy', {}) -%}
 
 include:
   - zabbix.users
@@ -37,3 +39,13 @@ zabbix-proxy-piddir:
     - dirmode: 750
     - require:
       - pkg: zabbix-proxy
+
+{% for include in settings.get('includes', defaults.includes) %}
+{{ include }}:
+  file.directory:
+    - user: {{ zabbix.user }}
+    - group: {{ zabbix.group }}
+    - dirmode: 750
+    - require:
+      - pkg: zabbix-proxy
+{%- endfor %}

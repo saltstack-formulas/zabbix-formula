@@ -153,6 +153,22 @@ Creates database and PostgreSQL user for Zabbix.
 
 Creates PostgreSQL schema for Zabbix.
 
+``zabbix.proxy``
+----------------
+
+Installs the zabbix-proxy package and starts the associated zabbix-proxy service.
+
+``zabbix.proxy.conf``
+---------------------
+
+Configures the zabbix-proxy package.
+
+``zabbix.proxy.repo``
+---------------------
+
+Configures official Zabbix repo specifically for the proxy. Actually it just
+includes zabbix.repo and adds a requisite for the pkg state declaration
+
 ``zabbix.repo``
 ----------------
 
