@@ -48,6 +48,11 @@
       'dbname': '/var/lib/zabbix/zabbix_proxy.db',
       'pidfile': '/var/run/zabbix/zabbix_proxy.pid',
       'logfile': '/var/log/zabbix/zabbix_proxy.log',
+      'logfilesize': '0',
+      'socketdir': '/var/run/zabbix',
+      'externalscripts': '/usr/lib/zabbix/externalscripts',
+      'fpinglocation': '/usr/bin/fping',
+      'fping6location': '/usr/bin/fping6',
       'includes': ['/etc/zabbix/zabbix_proxy.d/']
     },
     'mysql': {
