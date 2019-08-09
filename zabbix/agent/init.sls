@@ -45,7 +45,7 @@ zabbix-agent-piddir:
     - require:
       - pkg: zabbix-agent
 
-{% for include in settings.get('includes', defaults.includes) %}
+{% for include in settings.get('includes', defaults.get('includes', [])) %}
 {{ include }}:
   file.directory:
     - user: {{ zabbix.user }}

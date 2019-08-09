@@ -727,7 +727,7 @@ User={{ settings.get('user', defaults.user) }}
 {%   do settings.update({'includes': [settings['include']]}) -%}
 {% endif -%}
 {% if 'includes' in settings or 'includes' in defaults -%}
-{% for include in settings.get('includes', defaults.includes) %}
+{% for include in settings.get('includes', defaults.get('includes', [])) %}
 Include={{ include }}
 {%- endfor %}
 {%- endif %}
