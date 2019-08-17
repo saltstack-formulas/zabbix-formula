@@ -21,6 +21,7 @@ zabbix-proxy:
       - pkg: zabbix-proxy
       - file: zabbix-proxy-logdir
       - file: zabbix-proxy-piddir
+      - file: zabbix-proxy-sqlitedir
       {% for include in settings.get('includes', defaults.get('includes', [])) %}
       - file: {{ include }}
       {%- endfor %}
@@ -37,6 +38,15 @@ zabbix-proxy-logdir:
 zabbix-proxy-piddir:
   file.directory:
     - name: {{ salt['file.dirname'](zabbix.proxy.pidfile) }}
+    - user: {{ zabbix.user }}
+    - group: {{ zabbix.group }}
+    - dirmode: 750
+    - require:
+      - pkg: zabbix-proxy
+      
+zabbix-proxy-sqlitedir:
+  file.directory:
+    - name: {{ salt['file.dirname'](zabbix.proxy.dbname) }}
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 750
