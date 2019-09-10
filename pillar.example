@@ -48,7 +48,7 @@ zabbix-server:
   dbhost: localhost
   dbname: zabbix
   dbuser: zabbixuser
-  dbpass: zabbixpass
+  dbpassword: zabbixpass
   extra_conf: |
     # Here we can set extra server configuration lines
 
