@@ -42,6 +42,33 @@ zabbix-agent:
   extra_conf: |
     # Here we can set extra agent configuration lines
 
+## Zabbix Agent for Windows ##
+zabbix-agent:
+  server:
+    - zabbix.example.com
+  serveractive:
+    - localhost
+  listenip: 0.0.0.0
+  listenport: 10050
+  hostmetadata: c9767034-22c6-4d3d-a886-5fcaf1386b77
+  # For zabbix-agent below version 3 if you want to use syslog instead of file specify
+  # logfile: syslog
+  logfile: 'C:\program files\zabbix agent\zabbix_agentd.log'
+  logfilesize: 0
+  include: 'C:\program files\zabbix agent\zabbix_agentd.d\'
+  # Or multiple "Include" options
+  includes:
+    - 'C:\program files\zabbix agent\zabbix_agentd.d\'
+    - 'C:\some\custom\location\'
+   # Pidfiles will break the windows agent so please don't add them.
+## lookup config for windows agent ##
+zabbix:
+  lookup:
+    agent:
+      version: '3.0.28.2400'
+      ## Because of the way winrepo-ng works you have to have the FULL agent version
+      ## Check the zabbix-agent in winrepo-ng for current versions, or create your own pkg file
+
 zabbix-server:
   listenip: 0.0.0.0
   listenport: 10051
