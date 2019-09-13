@@ -27,8 +27,6 @@ zabbix-agent:
   listenip: 0.0.0.0
   listenport: 10050
   hostmetadata: c9767034-22c6-4d3d-a886-5fcaf1386b77
-  # For zabbix-agent below version 3 if you want to use syslog instead of file specify
-  # logfile: syslog
   logfile: /var/log/zabbix/zabbix_agentd.log
   logfilesize: 0
   include: /etc/zabbix/zabbix_agentd.d/
