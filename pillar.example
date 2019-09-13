@@ -54,7 +54,7 @@ zabbix-agent:
   # For zabbix-agent below version 3 if you want to use syslog instead of file specify
   # logfile: syslog
   logfile: 'C:\program files\zabbix agent\zabbix_agentd.log'
-  logfilesize: 0
+  logfilesize: 5
   include: 'C:\program files\zabbix agent\zabbix_agentd.d\'
   # Or multiple "Include" options
   includes:
