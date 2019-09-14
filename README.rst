@@ -88,6 +88,22 @@ self-contained Zabbix system:
 You need the appropriate mysql, nginx and php formulas to complete the
 installation with this ``top.sls`` file.
 
+If you are installing the zabbix agent for windows you will want to separate the
+pillar for windows from other linux and unix agents
+This is a pillar ``top.sls`` file example to separate windows and Ubuntu Zabbix agent
+pillar files
+
+.. code:: yaml
+
+  base:
+    'os:Ubuntu':
+      - match: grain
+      - zabbix-agent-ubuntu
+      
+    'os:Windows':
+      - match: grain
+      - zabbix-agent-windows
+
 .. note::
 
     See the full `Salt Formulas
