@@ -50,9 +50,11 @@
       'logfile': '/var/log/zabbix/zabbix_proxy.log',
       'logfilesize': '0',
       'socketdir': '/var/run/zabbix',
+      'startpreprocessors': '3',
       'externalscripts': '/usr/lib/zabbix/externalscripts',
       'fpinglocation': '/usr/bin/fping',
       'fping6location': '/usr/bin/fping6',
+      'statsallowedip': '127.0.0.1',
       'includes': ['/etc/zabbix/zabbix_proxy.d/']
     },
     'mysql': {
