@@ -313,6 +313,18 @@
 # StartIPMIPollers=0
 {% if settings.get('startipmipollers', defaults.get('startipmipollers', False)) %}StartIPMIPollers={{ settings.get('startipmipollers', defaults.startipmipollers) }}{% endif %}
 
+{% if zabbix.version_repo|float >= 4.2 -%}
+### Option: StartPreprocessors
+#	Number of pre-forked instances of preprocessing workers.
+#		The preprocessing manager process is automatically started when preprocessor worker is started.
+#
+# Mandatory: no
+# Range: 1-1000
+# Default:
+# StartPreprocessors=3
+{% if settings.get('startpreprocessors', defaults.get('startpreprocessors', False)) %}StartPreprocessors={{ settings.get('startpreprocessors', defaults.startpreprocessors) }}{% endif %}
+{% endif %}
+
 ### Option: StartPollersUnreachable
 #	Number of pre-forked instances of pollers for unreachable hosts (including IPMI and Java).
 #	At least one poller for unreachable hosts must be running if regular, IPMI or Java pollers
@@ -730,8 +742,12 @@ Include={{ include }}
 
 ### Option: LoadModule
 #	Module to load at proxy startup. Modules are used to extend functionality of the proxy.
-#	Format: LoadModule=<module.so>
-#	The modules must be located in directory specified by LoadModulePath.
+#	Formats:
+#		LoadModule=<module.so>
+#		LoadModule=<path/module.so>
+#		LoadModule=</abs_path/module.so>
+#	Either the module must be located in directory specified by LoadModulePath or the path must precede the module name.
+#	If the preceding path is absolute (starts with '/') then LoadModulePath is ignored.
 #	It is allowed to include multiple LoadModule parameters.
 #
 # Mandatory: no
@@ -740,6 +756,22 @@ Include={{ include }}
 {% for loadmodule in settings.get('loadmodules', []) -%}
 LoadModule={{ loadmodule }}
 {% endfor -%}
+
+{% if zabbix.version_repo|float >= 4.2 -%}
+### Option: StatsAllowedIP
+#	List of comma delimited IP addresses, optionally in CIDR notation, or DNS names of external Zabbix instances.
+#	Stats request will be accepted only from the addresses listed here. If this parameter is not set no stats requests
+#	will be accepted.
+#	If IPv6 support is enabled then '127.0.0.1', '::127.0.0.1', '::ffff:127.0.0.1' are treated equally
+#	and '::/0' will allow any IPv4 or IPv6 address.
+#	'0.0.0.0/0' can be used to allow any IPv4 address.
+#	Example: StatsAllowedIP=127.0.0.1,192.168.1.0/24,::1,2001:db8::/32,zabbix.example.com
+#
+# Mandatory: no
+# Default:
+# StatsAllowedIP=
+{% if settings.get('statsallowedip', defaults.get('statsallowedip', False)) %}StatsAllowedIP={{ settings.get('statsallowedip', defaults.statsallowedip) }}{% endif %}
+{% endif %}
 
 {% if zabbix.version_repo|float >= 3.0 -%}
 ####### TLS-RELATED PARAMETERS #######
