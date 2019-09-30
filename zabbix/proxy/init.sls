@@ -43,6 +43,20 @@ zabbix-proxy-piddir:
     - require:
       - pkg: zabbix-proxy
 
+# basic check does 'dbname' looks like a file path
+{% if zabbix.proxy.dbname.startswith('/') -%}      
+zabbix-proxy-sqlitedir:
+  file.directory:
+    - name: {{ salt['file.dirname'](zabbix.proxy.dbname) }}
+    - user: {{ zabbix.user }}
+    - group: {{ zabbix.group }}
+    - dirmode: 750
+    - require:
+      - pkg: zabbix-proxy
+- watch_in:
+  - service: zabbix-proxy
+{%- endif %}
+
 {% for include in settings.get('includes', defaults.get('includes', [])) %}
 {{ include }}:
   file.directory:
