@@ -21,6 +21,8 @@
 
 
 {% if salt['grains.get']('os_family') == 'Debian' -%}
+apt-transport-https:
+  pkg.installed
 {{ id_prefix }}_repo:
   pkgrepo.managed:
     - name: deb http://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/{{ salt['grains.get']('os')|lower }} {{ salt['grains.get']('oscodename') }} main
