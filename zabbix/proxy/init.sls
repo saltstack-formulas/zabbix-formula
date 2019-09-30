@@ -21,7 +21,6 @@ zabbix-proxy:
       - pkg: zabbix-proxy
       - file: zabbix-proxy-logdir
       - file: zabbix-proxy-piddir
-      - file: zabbix-proxy-sqlitedir
       {% for include in settings.get('includes', defaults.get('includes', [])) %}
       - file: {{ include }}
       {%- endfor %}
@@ -43,7 +42,9 @@ zabbix-proxy-piddir:
     - dirmode: 750
     - require:
       - pkg: zabbix-proxy
-      
+
+# basic check does 'dbname' looks like a file path
+{% if zabbix.proxy.dbname.startswith('/') -%}      
 zabbix-proxy-sqlitedir:
   file.directory:
     - name: {{ salt['file.dirname'](zabbix.proxy.dbname) }}
@@ -52,6 +53,9 @@ zabbix-proxy-sqlitedir:
     - dirmode: 750
     - require:
       - pkg: zabbix-proxy
+- watch_in:
+  - service: zabbix-proxy
+{%- endif %}
 
 {% for include in settings.get('includes', defaults.get('includes', [])) %}
 {{ include }}:
