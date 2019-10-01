@@ -53,8 +53,8 @@ zabbix-proxy-sqlitedir:
     - dirmode: 750
     - require:
       - pkg: zabbix-proxy
-- watch_in:
-  - service: zabbix-proxy
+    - watch_in:
+      - service: zabbix-proxy
 {%- endif %}
 
 {% for include in settings.get('includes', defaults.get('includes', [])) %}
