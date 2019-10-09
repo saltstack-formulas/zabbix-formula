@@ -22,6 +22,8 @@ zabbix-server:
       - pkg: zabbix-server
       - file: zabbix-server-logdir
       - file: zabbix-server-piddir
+    - watch:
+      - pkg: zabbix-server
 
 zabbix-server-logdir:
   file.directory:
