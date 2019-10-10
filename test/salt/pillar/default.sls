@@ -1,0 +1,91 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+zabbix:
+  # Overrides map.jinja
+  lookup:
+    version_repo: '4.4'
+  #  agent:
+  #    version: xxx
+  #  frontend:
+  #    version: xxx
+  #  server:
+  #    version: xxx
+
+  # The files_switch key serves as a selector for alternative directories under
+  # the formula files directory. See TOFS pattern doc for more info.
+  files_switch:
+    - id
+    - os_family
+
+  # Zabbix user has to be member of some groups in order to have permissions to
+  # execute or read some things
+  user_groups:
+    - adm
+
+zabbix-agent:
+  server:
+    - localhost
+  serveractive:
+    - localhost
+  listenip: 0.0.0.0
+  listenport: 10050
+  hostmetadata: c9767034-22c6-4d3d-a886-5fcaf1386b77
+  logfile: /var/log/zabbix/zabbix_agentd.log
+  logfilesize: 0
+  # include: /etc/zabbix/zabbix_agentd.d/
+  # Or multiple "Include" options
+  includes:
+    - /etc/zabbix/zabbix_agentd.d/
+  userparameters:
+    - net.ping[*],/usr/bin/fping -q -c3 $1 2>&1 | sed 's,.*/\([0-9.]*\)/.*,\1,'
+    - custom.vfs.dev.discovery,/usr/local/bin/dev-discovery.sh
+  extra_conf: |
+    # Here we can set extra agent configuration lines
+
+zabbix-server:
+  listenip: 0.0.0.0
+  listenport: 10051
+  dbhost: localhost
+  dbname: zabbix
+  dbuser: zabbixuser
+  dbpassword: zabbixpass
+  extra_conf: |
+    # Here we can set extra server configuration lines
+
+zabbix-mysql:
+  dbhost: localhost
+  dbname: zabbix
+  dbuser: zabbixuser
+  dbpassword: zabbixpass
+  dbuser_host: '%'
+  # Optionally specify this for a non-local dbhost
+  # dbroot_user: 'root'
+  # dbroot_pass: 'rootpass'
+
+zabbix-frontend:
+  dbtype: MYSQL
+  dbhost: localhost
+  dbname: zabbix
+  dbuser: zabbixuser
+  dbpassword: zabbixpass
+  zbxserver: localhost
+  zbxserverport: 10051
+  zbxservername: 'Zabbix installed with saltstack'
+
+zabbix-proxy:
+  proxymode: 0
+  server: localhost
+  serverport: 10051
+  hostname: localhost
+  hostnameitem: system.hostname
+  listenport: 10051
+  sourceip: 127.0.0.1
+  logfile: syslog
+  logfilesize: 0
+  debugelevel: 3
+  pidfile: /tmp/zabbix_proxy.pid
+  dbhost: localhost
+  dbname: /var/lib/zabbix/zabbix_proxy.db
+  dbuser: zabbix
+  include: /etc/zabbix/zabbix_proxy.d/
