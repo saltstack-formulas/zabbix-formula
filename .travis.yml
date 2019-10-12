@@ -60,14 +60,14 @@ jobs:
     - env: INSTANCE=default-debian-9-2019-2-py3
     - env: INSTANCE=default-ubuntu-1804-2019-2-py3
     # - env: INSTANCE=default-centos-7-2019-2-py3
-    - env: INSTANCE=default-fedora-30-2019-2-py3
+    # - env: INSTANCE=default-fedora-30-2019-2-py3
     # - env: INSTANCE=default-opensuse-leap-15-2019-2-py3
     # - env: INSTANCE=default-amazonlinux-2-2019-2-py2
     # - env: INSTANCE=default-arch-base-latest-2019-2-py2
     # - env: INSTANCE=default-debian-9-2018-3-py2
     - env: INSTANCE=default-ubuntu-1604-2018-3-py2
     # - env: INSTANCE=default-centos-7-2018-3-py2
-    # - env: INSTANCE=default-fedora-29-2018-3-py2
+    - env: INSTANCE=default-fedora-29-2018-3-py2
     # - env: INSTANCE=default-opensuse-leap-15-2018-3-py2
     # - env: INSTANCE=default-amazonlinux-2-2018-3-py2
     # - env: INSTANCE=default-arch-base-latest-2018-3-py2
