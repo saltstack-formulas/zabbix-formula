@@ -3,7 +3,8 @@
 ---
 zabbix:
   # Overrides map.jinja
-  # lookup:
+  lookup:
+    version_repo: '4.4'
   #  agent:
   #    version: xxx
   #  frontend:
@@ -32,45 +33,15 @@ zabbix-agent:
   hostmetadata: c9767034-22c6-4d3d-a886-5fcaf1386b77
   logfile: /var/log/zabbix/zabbix_agentd.log
   logfilesize: 0
-  include: /etc/zabbix/zabbix_agentd.d/
+  # include: /etc/zabbix/zabbix_agentd.d/
   # Or multiple "Include" options
   includes:
     - /etc/zabbix/zabbix_agentd.d/
-    - /some/custom/location/
   userparameters:
     - net.ping[*],/usr/bin/fping -q -c3 $1 2>&1 | sed 's,.*/\([0-9.]*\)/.*,\1,'
     - custom.vfs.dev.discovery,/usr/local/bin/dev-discovery.sh
   extra_conf: |
     # Here we can set extra agent configuration lines
-
-## Zabbix Agent for Windows ##
-zabbix-agent:
-  server:
-    - zabbix.example.com
-  serveractive:
-    - localhost
-  listenip: 0.0.0.0
-  listenport: 10050
-  hostmetadata: c9767034-22c6-4d3d-a886-5fcaf1386b77
-  # For zabbix-agent below version 3 if you want to use syslog instead of file specify
-  # logfile: syslog
-  logfile: 'C:\program files\zabbix agent\zabbix_agentd.log'
-  logfilesize: 5
-  include: 'C:\program files\zabbix agent\zabbix_agentd.d\'
-  # Or multiple "Include" options
-  includes:
-    - 'C:\program files\zabbix agent\zabbix_agentd.d\'
-    - 'C:\some\custom\location\'
-# Pidfiles will break the windows agent so please don't add them.
-
-## lookup config for windows agent ##
-zabbix:
-  lookup:
-    agent:
-      version: '3.0.28.2400'
-      ## Because of the way winrepo-ng works you have to have the FULL agent version
-      ## Check the zabbix-agent in winrepo-ng for current versions,
-      ## or create your own pkg file
 
 zabbix-server:
   listenip: 0.0.0.0
@@ -118,28 +89,3 @@ zabbix-proxy:
   dbname: /var/lib/zabbix/zabbix_proxy.db
   dbuser: zabbix
   include: /etc/zabbix/zabbix_proxy.d/
-
-# Example with PostgreSQL on Debian 9
-# Installation with PostgreSQL will likely not work with Zabbix version below 3.0
-zabbix:
-  lookup:
-    version_repo: 3.4
-    agent:
-      version: '1:3.4.*'
-    frontend:
-      version: '1:3.4.*'
-      dbtype: POSTGRESQL
-    # you need to override default package list
-    server:
-      version: '1:3.4.*'
-      pkgs:
-        - zabbix-server-pgsql
-        - zabbix-get
-      # unset dbsocket, it's not used with PostgreSQL
-      dbsocket: ""
-
-zabbix-pgsql:
-  # By default SQL dump provided by Zabbix package will be used, but you can
-  # put your own dump in corresponding directory (consult with TOFS_pattern.md)
-  # and specify path in sql_file param
-  sql_file: /usr/share/doc/zabbix-server-pgsql/custom.sql.gz

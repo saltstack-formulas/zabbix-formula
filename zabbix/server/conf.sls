@@ -4,6 +4,9 @@
 
 include:
   - zabbix.server
+  {%- if grains.os_family == 'Debian' %}
+  - zabbix.debconf
+  {%- endif %}
 
 
 {{ zabbix.server.config }}:
@@ -35,4 +38,6 @@ zabbix-server_debconf:
         'zabbix-server-mysql/dbconfig-upgrade': {'type': 'boolean', 'value': False}
     - prereq:
       - pkg: zabbix-server
+    - require:
+      - sls: zabbix.debconf
 {%- endif %}

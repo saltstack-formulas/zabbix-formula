@@ -6,6 +6,9 @@
 
 include:
   - zabbix.frontend
+  {%- if grains.os_family == 'Debian' %}
+  - zabbix.debconf
+  {%- endif %}
 
 
 {{ zabbix.frontend.config }}:
@@ -39,4 +42,6 @@ zabbix-frontend_debconf:
         'zabbix-frontend-php/restart-webserver': {'type': 'boolean', 'value': False}
     - prereq:
       - pkg: zabbix-frontend-php
+    - require:
+      - sls: zabbix.debconf
 {%- endif %}
