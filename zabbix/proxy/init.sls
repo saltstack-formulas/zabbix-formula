@@ -44,7 +44,7 @@ zabbix-proxy-piddir:
       - pkg: zabbix-proxy
 
 # basic check does 'dbname' looks like a file path
-{% if zabbix.proxy.dbname.startswith('/') -%}      
+{% if zabbix.proxy.dbname.startswith('/') -%}
 zabbix-proxy-sqlitedir:
   file.directory:
     - name: {{ salt['file.dirname'](zabbix.proxy.dbname) }}
