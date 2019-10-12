@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 zabbix:
   # Overrides map.jinja
-  #lookup:
+  # lookup:
   #  agent:
   #    version: xxx
   #  frontend:
@@ -58,14 +61,16 @@ zabbix-agent:
   includes:
     - 'C:\program files\zabbix agent\zabbix_agentd.d\'
     - 'C:\some\custom\location\'
-   # Pidfiles will break the windows agent so please don't add them.
+# Pidfiles will break the windows agent so please don't add them.
+
 ## lookup config for windows agent ##
 zabbix:
   lookup:
     agent:
       version: '3.0.28.2400'
       ## Because of the way winrepo-ng works you have to have the FULL agent version
-      ## Check the zabbix-agent in winrepo-ng for current versions, or create your own pkg file
+      ## Check the zabbix-agent in winrepo-ng for current versions,
+      ## or create your own pkg file
 
 zabbix-server:
   listenip: 0.0.0.0
@@ -84,8 +89,8 @@ zabbix-mysql:
   dbpassword: zabbixpass
   dbuser_host: '%'
   # Optionally specify this for a non-local dbhost
-  #dbroot_user: 'root'
-  #dbroot_pass: 'rootpass'
+  # dbroot_user: 'root'
+  # dbroot_pass: 'rootpass'
 
 zabbix-frontend:
   dbtype: MYSQL
