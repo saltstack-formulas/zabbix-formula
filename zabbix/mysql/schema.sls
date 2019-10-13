@@ -1,5 +1,5 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
-{% from "zabbix/macros.jinja" import files_switch with context -%}
+{% from "zabbix/libtofs.jinja" import files_switch with context -%}
 {% set settings = salt['pillar.get']('zabbix-mysql', {}) -%}
 {% set defaults = zabbix.get('mysql', {}) -%}
 # This required for backward compatibility
@@ -50,7 +50,10 @@ check_db:
 {{ sql_file }}:
   file.managed:
     - makedirs: True
-    - source: {{ files_switch('zabbix', [ sql_file ]) }}
+    - source: {{ files_switch([sql_file],
+                              lookup='zabbix-server-mysql'
+                 )
+              }}
   mysql_query.run_file:
     - database: {{ dbname }}
     {%- if dbroot_user and dbroot_pass %}

@@ -11,11 +11,42 @@ zabbix:
   #  server:
   #    version: xxx
 
-  # The files_switch key serves as a selector for alternative directories under
-  # the formula files directory. See TOFS pattern doc for more info.
-  files_switch:
-    - id
-    - os_family
+  tofs:
+    # The files_switch key serves as a selector for alternative
+    # directories under the formula files directory. See TOFS pattern
+    # doc for more info.
+    # Note: Any value not evaluated by `config.get` will be used literally.
+    # This can be used to set custom paths, as many levels deep as required.
+    # files_switch:
+    #   - any/path/can/be/used/here
+    #   - id
+    #   - roles
+    #   - osfinger
+    #   - os
+    #   - os_family
+    # All aspects of path/file resolution are customisable using the options below.
+    # This is unnecessary in most cases; there are sensible defaults.
+    # Default path: salt://< path_prefix >/< dirs.files >/< dirs.default >
+    #         I.e.: salt://template/files/default
+    # path_prefix: template_alt
+    # dirs:
+    #   files: files_alt
+    #   default: default_alt
+    # The entries under `source_files` are prepended to the default source files
+    # given for the state
+    source_files:
+      zabbix-agent-config:
+        - '/etc/zabbix/alt_zabbix_agentd.conf'
+      zabbix-frontend-config:
+        - '/etc/zabbix/web/alt_zabbix.conf.php'
+      zabbix-server-mysql:
+        - '/usr/share/zabbix-server-mysql/alt_salt-provided-create-34.sql'
+      zabbix-server-pgsql:
+        - '/usr/share/doc/zabbix-server-pgsql/alt_custom.sql.gz'
+      zabbix-proxy-config:
+        - '/etc/zabbix/alt_zabbix_proxy.conf'
+      zabbix-server-config:
+        - '/etc/zabbix/alt_zabbix_server.conf'
 
   # Zabbix user has to be member of some groups in order to have permissions to
   # execute or read some things
