@@ -1,5 +1,5 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
-{% from "zabbix/macros.jinja" import files_switch with context -%}
+{% from "zabbix/libtofs.jinja" import files_switch with context -%}
 
 
 include:
@@ -12,13 +12,17 @@ include:
 {{ zabbix.server.config }}:
   file.managed:
     {% if zabbix.version_repo|float < 3 -%}
-    - source: {{ files_switch('zabbix',
-                              ['/etc/zabbix/zabbix_server_22.conf',
-                               '/etc/zabbix/zabbix_server_22.conf.jinja']) }}
+    - source: {{ files_switch(['/etc/zabbix/zabbix_server_22.conf',
+                               '/etc/zabbix/zabbix_server_22.conf.jinja'],
+                              lookup='zabbix-server-config'
+                 )
+              }}
     {% else %}
-    - source: {{ files_switch('zabbix',
-                              ['/etc/zabbix/zabbix_server.conf',
-                               '/etc/zabbix/zabbix_server.conf.jinja']) }}
+    - source: {{ files_switch(['/etc/zabbix/zabbix_server.conf',
+                               '/etc/zabbix/zabbix_server.conf.jinja'],
+                              lookup='zabbix-server-config'
+                 )
+              }}
     {% endif %}
     - template: jinja
     - require:
