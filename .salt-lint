@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-exclude_paths:
+exclude_paths: []
+rules:
   # https://github.com/saltstack-formulas/zabbix-formula/issues/129
-  # Violation: [203] Most files should not contain tabs
-  - zabbix/files/default/etc/zabbix/web/zabbix.conf.php.jinja
-  # Violation: [204] Lines should be no longer that 160 chars
-  - zabbix/files/default/etc/zabbix/zabbix_proxy.conf.jinja
+  203:  # Most files should not contain tabs
+    ignore: |
+      zabbix/files/default/etc/zabbix/web/zabbix.conf.php.jinja
+  204:  # Lines should be no longer that 160 chars
+    ignore: |
+      zabbix/files/default/etc/zabbix/zabbix_proxy.conf.jinja
 skip_list:
   # Using `salt-lint` for linting other files as well, such as Jinja macros/templates
   - 205  # Use ".sls" as a Salt State file extension
