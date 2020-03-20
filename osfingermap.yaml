@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['osfinger'] based logic.
+# You just need to add the key:values for an `osfinger` that differ
+# from `defaults.yaml` + `osarch.yaml` + `os_family.yaml` + `osmap.yaml`.
+# Only add an `osfinger` which is/will be supported by the formula.
+#
+# If you do not need to provide defaults via the `os_finger` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# osfingermap: {}
+---
+# os: Debian
+# os: Ubuntu
+Ubuntu-18.04:
+  version_repo: 3.0
+  pgsql:
+    pkgs:
+      - postgresql-client-common
+      - postgresql-client-10
+Ubuntu-16.04:
+  version_repo: 3.0
+  pgsql:
+    pkgs:
+      - postgresql-client-common
+      - postgresql-client-9.5
+
+# os: Fedora
+
+# os: CentOS
+
+# os: Amazon
+
+# os: SUSE
+
+# os: FreeBSD
+
+# os: Windows
+
+# os: Gentoo
+
+
+default: {}
