@@ -159,17 +159,17 @@ FreeBSD:
 
 
 OpenBSD:
-    version_repo: 2.4
-    user: _zabbix
-    group: _zabbix
-    shell: /sbin/nologin
-    agent:
-      pkgs:
-        - zabbix-agent
-      service: zabbix_agentd
-      config: /etc/zabbix/zabbix_agentd.conf
-      pidfile: /var/run/zabbix/zabbix_agentd.pid
-      logfile: /var/log/zabbix/zabbix_agentd.log
+  version_repo: 2.4
+  user: _zabbix
+  group: _zabbix
+  shell: /sbin/nologin
+  agent:
+    pkgs:
+      - zabbix-agent
+    service: zabbix_agentd
+    config: /etc/zabbix/zabbix_agentd.conf
+    pidfile: /var/run/zabbix/zabbix_agentd.pid
+    logfile: /var/log/zabbix/zabbix_agentd.log
 
 
 Windows:
@@ -183,8 +183,8 @@ Windows:
     config: C:\\Program Files\\Zabbix Agent\\zabbix_agentd.conf
     logfile: C:\\Program Files\\Zabbix Agent\\zabbix_agentd.log
     logfilesize: 5
-    pidfile:
-    includes:
+    pidfile:''
+    includes:[]
 
 
 default: {}
