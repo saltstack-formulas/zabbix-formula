@@ -15,7 +15,7 @@ zabbix:
     config: /etc/zabbix/zabbix_agentd.conf
     pidfile: /var/run/zabbix/zabbix_agentd.pid
     logfile: /var/log/zabbix/zabbix_agentd.log
-    logfilesize: 0
+    logfilesize: '0'
     server:
       - 127.0.0.1
     serveractive:
@@ -31,18 +31,18 @@ zabbix:
     pidfile: /var/run/zabbix/zabbix_server.pid
     socketdir: /var/run/zabbix
     logfile: /var/log/zabbix/zabbix_server.log
-    logfilesize: 0
+    logfilesize: '0'
     dbhost: localhost
     dbname: zabbix
     dbuser: zabbix
     dbpassword: zabbix
     dbsocket: /var/run/mysqld/mysqld.sock
-    timeout: 4
+    timeout: '4'
     alertscriptspath: /usr/lib/zabbix/alertscripts
     externalscripts: /usr/lib/zabbix/externalscripts
     fpinglocation: /usr/bin/fping
     fping6location: /usr/bin/fping6
-    logslowqueries: 3000
+    logslowqueries: '3000'
   frontend:
     pkgs:
       - zabbix-web-mysql
@@ -53,7 +53,7 @@ zabbix:
     dbuser: zabbix
     dbpassword: zabbix
     zbxserver: localhost
-    zbxserverport: 10051
+    zbxserverport: '10051'
     zbxservername: Zabbix installed with SaltStack
   proxy:
     pkgs:

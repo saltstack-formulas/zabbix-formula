@@ -6,9 +6,8 @@
 # from `defaults.yaml` + `osarch.yaml`.
 # Only add an `os_family` which is/will be supported by the formula.
 #
-# If you do not need to provide defaults via the `os_family` grain
-# you will need to provide at least an empty dict in this file
-# -e.g.
+# If you do not need to provide defaults via the `os_family` grain,
+# you will need to provide at least an empty dict in this file, e.g.
 # osfamilymap: {}
 ---
 Debian:
@@ -25,7 +24,7 @@ Debian:
     config: /etc/zabbix/zabbix_agentd.conf
     pidfile: /var/run/zabbix/zabbix_agentd.pid
     logfile: /var/log/zabbix/zabbix_agentd.log
-    logfilesize: 0
+    logfilesize: '0'
     server:
       - 127.0.0.1
     serveractive:
@@ -41,19 +40,19 @@ Debian:
     pidfile: /var/run/zabbix/zabbix_server.pid
     socketdir: /var/run/zabbix
     logfile: /var/log/zabbix/zabbix_server.log
-    logfilesize: 0
+    logfilesize: '0'
     dbhost: localhost
     dbname: zabbix
     dbuser: zabbix
     dbpassword: zabbix
     dbsocket: /var/run/mysqld/mysqld.sock
     snmptrapperfile: /var/log/snmptrap/snmptrap.log
-    timeout: 4
+    timeout: '4'
     alertscriptspath: /usr/lib/zabbix/alertscripts
     externalscripts: /usr/lib/zabbix/externalscripts
     fpinglocation: /usr/bin/fping
     fping6location: /usr/bin/fping6
-    logslowqueries: 3000
+    logslowqueries: '3000'
   frontend:
     pkgs:
       - zabbix-frontend-php
@@ -67,9 +66,9 @@ Debian:
     dbname: /var/lib/zabbix/zabbix_proxy.db
     pidfile: /var/run/zabbix/zabbix_proxy.pid
     logfile: /var/log/zabbix/zabbix_proxy.log
-    logfilesize: 0
+    logfilesize: '0'
     socketdir: /var/run/zabbix
-    startpreprocessors: 3
+    startpreprocessors: '3'
     externalscripts: /usr/lib/zabbix/externalscripts
     fpinglocation: /usr/bin/fping
     fping6location: /usr/bin/fping6
@@ -84,7 +83,6 @@ Debian:
       - postgresql-client-common
       - postgresql-client
 
-
 RedHat:
   version_repo: 2.2
   user: zabbix
@@ -92,16 +90,16 @@ RedHat:
   shell: /sbin/nologin
   agent:
     pkgs:
-      -zabbix-agent
+      - zabbix-agent
     service: zabbix-agent
     config: /etc/zabbix/zabbix_agentd.conf
     pidfile: /var/run/zabbix/zabbix_agentd.pid
     logfile: /var/log/zabbix/zabbix_agentd.log
     includes:
-      -/etc/zabbix/zabbix_agentd.d/*.conf
+      - /etc/zabbix/zabbix_agentd.d/*.conf
   server:
     pkgs:
-      -zabbix-server-mysql
+      - zabbix-server-mysql
     service: zabbix-server
     config: /etc/zabbix/zabbix_server.conf
     dbsocket: /var/lib/mysql/mysql.sock
@@ -112,11 +110,11 @@ RedHat:
     fping6location: /usr/sbin/fping6
   frontend:
     pkgs:
-      -zabbix-web-mysql
+      - zabbix-web-mysql
     config: /etc/zabbix/web/zabbix.conf.php
   proxy:
     pkgs:
-      -zabbix-proxy-sqlite3
+      - zabbix-proxy-sqlite3
     service: zabbix-proxy
     config: /etc/zabbix/zabbix_proxy.conf
     dbname: /var/lib/zabbix/zabbix_proxy.db
@@ -124,8 +122,7 @@ RedHat:
     logfile: /var/log/zabbix/zabbix_proxy.log
   mysql:
     pkgs:
-      -MySQL-python
-
+      - MySQL-python
 
 FreeBSD:
   version_repo: 2.2
@@ -157,7 +154,6 @@ FreeBSD:
     pidfile: /var/run/zabbix/zabbix_proxy.pid
     logfile: /var/log/zabbix/zabbix_proxy.log
 
-
 OpenBSD:
   version_repo: 2.4
   user: _zabbix
@@ -171,7 +167,6 @@ OpenBSD:
     pidfile: /var/run/zabbix/zabbix_agentd.pid
     logfile: /var/log/zabbix/zabbix_agentd.log
 
-
 Windows:
   user: Administrator
   group: Administrators
@@ -182,9 +177,6 @@ Windows:
     service: Zabbix Agent
     config: C:\\Program Files\\Zabbix Agent\\zabbix_agentd.conf
     logfile: C:\\Program Files\\Zabbix Agent\\zabbix_agentd.log
-    logfilesize: 5
+    logfilesize: '5'
     pidfile: ''
     includes: []
-
-
-default: {}

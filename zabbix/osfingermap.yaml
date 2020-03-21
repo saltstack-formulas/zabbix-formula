@@ -11,33 +11,35 @@
 # osfingermap: {}
 ---
 # os: Debian
+Debian-10: {}
+Debian-9: {}
+Debian-8: {}
+
 # os: Ubuntu
-Ubuntu-18.04:
-  version_repo: 3.0
-  pgsql:
-    pkgs:
-      - postgresql-client-common
-      - postgresql-client-10
-Ubuntu-16.04:
-  version_repo: 3.0
-  pgsql:
-    pkgs:
-      - postgresql-client-common
-      - postgresql-client-9.5
+Ubuntu-18.04: {}
+Ubuntu-16.04: {}
 
 # os: Fedora
+Fedora-31: {}
+Fedora-30: {}
 
 # os: CentOS
+CentOS Linux-8: {}
+CentOS Linux-7: {}
+CentOS-6: {}
 
 # os: Amazon
+Amazon Linux-2: {}
+Amazon Linux AMI-2018: {}
 
 # os: SUSE
+Leap-15: {}
 
 # os: FreeBSD
+FreeBSD-12: {}
 
 # os: Windows
+Windows-8.1: {}
 
 # os: Gentoo
-
-
-default: {}
+Gentoo-2: {}

@@ -1,11 +1,20 @@
-{%- import_yaml "zabbix/defaults.yaml" as default_settings %}
-{%- import_yaml "zabbix/osfamilymap.yaml" as osfamilymap %}
-{%- import_yaml "zabbix/osmap.yaml" as osmap %}
-{%- import_yaml "zabbix/osfingermap.yaml" as osfingermap %}
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
 
-{%- set defaults = salt['grains.filter_by'](
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{#- Start imports as #}
+{%- import_yaml tplroot ~ "/defaults.yaml" as default_settings %}
+{%- import_yaml tplroot ~ "/osfamilymap.yaml" as osfamilymap %}
+{%- import_yaml tplroot ~ "/osmap.yaml" as osmap %}
+{%- import_yaml tplroot ~ "/osfingermap.yaml" as osfingermap %}
+
+{#- Retrieve the config dict only once #}
+{%- set _config = salt['config.get'](tplroot, default={}) %}
+
+{%- set config = salt['grains.filter_by'](
       default_settings,
-      default='zabbix',
+      default=tplroot,
       merge=salt['grains.filter_by'](
         osfamilymap,
         grain='os_family',
@@ -15,16 +24,13 @@
           merge=salt['grains.filter_by'](
             osfingermap,
             grain='osfinger',
-            merge=salt['pillar.get']('zabbix',default={})
+            merge=salt['grains.filter_by'](
+              _config,
+              default='lookup'
+            )
+          )
         )
       )
-    )
-  )
-%}
-
-{%- set config = salt['grains.filter_by'](
-      {'defaults': defaults},
-      default='defaults'
     )
 %}
 
