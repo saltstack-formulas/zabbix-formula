@@ -1,242 +1,35 @@
-{% set zabbix = salt['grains.filter_by']({
-  'Debian': {
-    'version_repo': '2.2',
-    'user': 'zabbix',
-    'group': 'zabbix',
-    'home': '/var/lib/zabbix',
-    'shell': '/bin/false',
-    'agent': {
-      'pkgs': ['zabbix-agent', 'zabbix-sender'],
-      'service': 'zabbix-agent',
-      'config': '/etc/zabbix/zabbix_agentd.conf',
-      'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
-      'logfile': '/var/log/zabbix/zabbix_agentd.log',
-      'logfilesize': '0',
-      'server': ['127.0.0.1'],
-      'serveractive': ['127.0.0.1'],
-      'includes': ['/etc/zabbix/zabbix_agentd.d/']
-    },
-    'server': {
-      'pkgs': ['zabbix-server-mysql', 'zabbix-get'],
-      'service': 'zabbix-server',
-      'config': '/etc/zabbix/zabbix_server.conf',
-      'pidfile': '/var/run/zabbix/zabbix_server.pid',
-      'socketdir': '/var/run/zabbix',
-      'logfile': '/var/log/zabbix/zabbix_server.log',
-      'logfilesize': '0',
-      'dbhost': 'localhost',
-      'dbname': 'zabbix',
-      'dbuser': 'zabbix',
-      'dbpassword': 'zabbix',
-      'dbsocket': '/var/run/mysqld/mysqld.sock',
-      'snmptrapperfile': '/var/log/snmptrap/snmptrap.log',
-      'timeout': '4',
-      'alertscriptspath': '/usr/lib/zabbix/alertscripts',
-      'externalscripts': '/usr/lib/zabbix/externalscripts',
-      'fpinglocation': '/usr/bin/fping',
-      'fping6location': '/usr/bin/fping6',
-      'logslowqueries': '3000'
-    },
-    'frontend': {
-      'pkgs': ['zabbix-frontend-php'],
-      'config': '/etc/zabbix/web/zabbix.conf.php'
-    },
-    'proxy': {
-      'pkgs': ['zabbix-proxy-sqlite3', 'zabbix-get'],
-      'service': 'zabbix-proxy',
-      'config': '/etc/zabbix/zabbix_proxy.conf',
-      'dbname': '/var/lib/zabbix/zabbix_proxy.db',
-      'pidfile': '/var/run/zabbix/zabbix_proxy.pid',
-      'logfile': '/var/log/zabbix/zabbix_proxy.log',
-      'logfilesize': '0',
-      'socketdir': '/var/run/zabbix',
-      'startpreprocessors': '3',
-      'externalscripts': '/usr/lib/zabbix/externalscripts',
-      'fpinglocation': '/usr/bin/fping',
-      'fping6location': '/usr/bin/fping6',
-      'statsallowedip': '127.0.0.1',
-      'includes': ['/etc/zabbix/zabbix_proxy.d/']
-    },
-    'mysql': {
-      'pkgs': ['python-mysqldb']
-    },
-    'pgsql': {
-      'pkgs': ['postgresql-client-common', 'postgresql-client']
-    }
-  },
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
 
-  'RedHat': {
-    'version_repo': '2.2',
-    'user': 'zabbix',
-    'group': 'zabbix',
-    'shell': '/sbin/nologin',
-    'agent': {
-      'pkgs': ['zabbix-agent'],
-      'service': 'zabbix-agent',
-      'config': '/etc/zabbix/zabbix_agentd.conf',
-      'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
-      'logfile': '/var/log/zabbix/zabbix_agentd.log',
-      'includes': ['/etc/zabbix/zabbix_agentd.d/*.conf']
-    },
-    'server': {
-      'pkgs': ['zabbix-server-mysql'],
-      'service': 'zabbix-server',
-      'config': '/etc/zabbix/zabbix_server.conf',
-      'dbsocket': '/var/lib/mysql/mysql.sock',
-      'pidfile': '/var/run/zabbix/zabbix_server.pid',
-      'logfile': '/var/log/zabbix/zabbix_server.log',
-      'snmptrapperfile': '/var/log/snmptrap/snmptrap.log',
-      'fpinglocation': '/usr/sbin/fping',
-      'fping6location': '/usr/sbin/fping6'
-    },
-    'frontend': {
-      'pkgs': ['zabbix-web-mysql'],
-      'config': '/etc/zabbix/web/zabbix.conf.php'
-    },
-    'proxy': {
-      'pkgs': ['zabbix-proxy-sqlite3'],
-      'service': 'zabbix-proxy',
-      'config': '/etc/zabbix/zabbix_proxy.conf',
-      'dbname': '/var/lib/zabbix/zabbix_proxy.db',
-      'pidfile': '/var/run/zabbix/zabbix_proxy.pid',
-      'logfile': '/var/log/zabbix/zabbix_proxy.log'
-    },
-    'mysql': {
-      'pkgs': ['MySQL-python']
-    }
-  },
+{#- Start imports as #}
+{%- import_yaml "zabbix/defaults.yaml" as default_settings %}
+{%- import_yaml "zabbix/osfamilymap.yaml" as osfamilymap %}
+{%- import_yaml "zabbix/osmap.yaml" as osmap %}
+{%- import_yaml "zabbix/osfingermap.yaml" as osfingermap %}
 
-  'FreeBSD': {
-    'version_repo': '2.2',
-    'user': 'zabbix',
-    'group': 'zabbix',
-    'home': '/var/lib/zabbix',
-    'shell': '/sbin/nologin',
-    'agent': {
-      'pkgs': ['zabbix22-agent'],
-      'service': 'zabbix_agentd',
-      'config': '/usr/local/etc/zabbix22/zabbix_agentd.conf',
-      'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
-      'logfile': '/var/log/zabbix/zabbix_agentd.log'
-    },
-    'server': {
-      'pkgs': ['zabbix22-server'],
-      'service': 'zabbix',
-      'config': '/usr/local/etc/zabbix22/zabbix_server.conf',
-      'dbsocket': '/var/run/mysqld/mysqld.sock',
-      'pidfile': '/var/run/zabbix/zabbix_server.pid',
-      'logfile': '/var/log/zabbix/zabbix_server.log'
-    },
-    'proxy': {
-      'pkgs': ['zabbix22-proxy'],
-      'service': 'zabbix_proxy',
-      'config': '/usr/local/etc/zabbix22/zabbix_proxy.conf',
-      'dbname': '/var/lib/zabbix/zabbix_proxy.db',
-      'pidfile': '/var/run/zabbix/zabbix_proxy.pid',
-      'logfile': '/var/log/zabbix/zabbix_proxy.log'
-    }
-  },
+{#- Retrieve the config dict only once #}
+{%- set _config = salt['config.get']('zabbix', default={}) %}
 
-  'OpenBSD': {
-    'version_repo': '2.4',
-    'user': '_zabbix',
-    'group': '_zabbix',
-    'shell': '/sbin/nologin',
-    'agent': {
-      'pkgs': ['zabbix-agent'],
-      'service': 'zabbix_agentd',
-      'config': '/etc/zabbix/zabbix_agentd.conf',
-      'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
-      'logfile': '/var/log/zabbix/zabbix_agentd.log'
-    },
-  },
+{%- set config = salt['grains.filter_by'](
+      default_settings,
+      default='zabbix',
+      merge=salt['grains.filter_by'](
+        osfamilymap,
+        grain='os_family',
+        merge=salt['grains.filter_by'](
+          osmap,
+          grain='os',
+          merge=salt['grains.filter_by'](
+            osfingermap,
+            grain='osfinger',
+            merge=salt['grains.filter_by'](
+              _config,
+              default='lookup'
+            )
+          )
+        )
+      )
+    )
+%}
 
-  'Windows':{
-    'user': 'Administrator',
-    'group': 'Administrators',
-    'agent': {
-      'version': '3.0.28.2400',
-      'pkgs': ['zabbix-agent'],
-      'service': 'Zabbix Agent',
-      'config': 'C:\\Program Files\\Zabbix Agent\\zabbix_agentd.conf',
-      'logfile': 'C:\\Program Files\\Zabbix Agent\\zabbix_agentd.log',
-      'logfilesize': '5',
-      'pidfile': '',
-      'includes': [],
-    },
-  },
-
-  'default': {
-    'version_repo': '2.2',
-    'user': 'zabbix',
-    'group': 'zabbix',
-    'home': '/var/lib/zabbix',
-    'shell': '/sbin/nologin',
-    'agent': {
-      'pkgs': ['zabbix-agent', 'zabbix-sender'],
-      'service': 'zabbix-agent',
-      'config': '/etc/zabbix/zabbix_agentd.conf',
-      'pidfile': '/var/run/zabbix/zabbix_agentd.pid',
-      'logfile': '/var/log/zabbix/zabbix_agentd.log',
-      'logfilesize': '0',
-      'server': ['127.0.0.1'],
-      'serveractive': ['127.0.0.1'],
-      'includes': ['/etc/zabbix/zabbix_agentd.d/']
-    },
-    'server': {
-      'pkgs': ['zabbix-server-mysql', 'zabbix-get'],
-      'service': 'zabbix-server',
-      'config': '/etc/zabbix/zabbix_server.conf',
-      'pidfile': '/var/run/zabbix/zabbix_server.pid',
-      'socketdir': '/var/run/zabbix',
-      'logfile': '/var/log/zabbix/zabbix_server.log',
-      'logfilesize': '0',
-      'dbhost': 'localhost',
-      'dbname': 'zabbix',
-      'dbuser': 'zabbix',
-      'dbpassword': 'zabbix',
-      'dbsocket': '/var/run/mysqld/mysqld.sock',
-      'timeout': '4',
-      'alertscriptspath': '/usr/lib/zabbix/alertscripts',
-      'externalscripts': '/usr/lib/zabbix/externalscripts',
-      'fpinglocation': '/usr/bin/fping',
-      'fping6location': '/usr/bin/fping6',
-      'logslowqueries': '3000'
-    },
-    'frontend': {
-      'pkgs': ['zabbix-web-mysql'],
-      'config': '/etc/zabbix/web/zabbix.conf.php',
-      'dbtype': 'MYSQL',
-      'dbhost': 'localhost',
-      'dbname': 'zabbix',
-      'dbuser': 'zabbix',
-      'dbpassword': 'zabbix',
-      'zbxserver': 'localhost',
-      'zbxserverport': '10051',
-      'zbxservername': 'Zabbix installed with SaltStack'
-    },
-    'proxy': {
-      'pkgs': ['zabbix-proxy-sqlite3', 'zabbix-get'],
-      'service': 'zabbix-proxy',
-      'config': '/etc/zabbix/zabbix_proxy.conf',
-      'dbname': '/var/lib/zabbix/zabbix_proxy.db',
-      'pidfile': '/var/run/zabbix/zabbix_proxy.pid',
-      'logfile': '/var/log/zabbix/zabbix_proxy.log'
-    },
-    'mysql': {
-      'skip_pkgs': false,
-      'dbhost': 'localhost',
-      'dbname': 'zabbix',
-      'dbuser': 'zabbix',
-      'dbpassword': 'zabbix',
-      'dbuser_host': 'localhost'
-    },
-    'pgsql': {
-      'skip_pkgs': false,
-      'dbhost': 'localhost',
-      'dbname': 'zabbix',
-      'dbuser': 'zabbix',
-      'dbpassword': 'zabbix'
-    }
-  },
-}, merge=salt['pillar.get']('zabbix:lookup'), base='default') %}
+{%- set zabbix = config %}

@@ -1,0 +1,79 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+zabbix:
+  version_repo: 2.2
+  user: zabbix
+  group: zabbix
+  home: /var/lib/zabbix
+  shell: /sbin/nologin
+  agent:
+    pkgs:
+      - zabbix-agent
+      - zabbix-sender
+    service: zabbix-agent
+    config: /etc/zabbix/zabbix_agentd.conf
+    pidfile: /var/run/zabbix/zabbix_agentd.pid
+    logfile: /var/log/zabbix/zabbix_agentd.log
+    logfilesize: '0'
+    server:
+      - 127.0.0.1
+    serveractive:
+      - 127.0.0.1
+    includes:
+      - /etc/zabbix/zabbix_agentd.d/
+  server:
+    pkgs:
+      - zabbix-server-mysql
+      - zabbix-get
+    service: zabbix-server
+    config: /etc/zabbix/zabbix_server.conf
+    pidfile: /var/run/zabbix/zabbix_server.pid
+    socketdir: /var/run/zabbix
+    logfile: /var/log/zabbix/zabbix_server.log
+    logfilesize: '0'
+    dbhost: localhost
+    dbname: zabbix
+    dbuser: zabbix
+    dbpassword: zabbix
+    dbsocket: /var/run/mysqld/mysqld.sock
+    timeout: '4'
+    alertscriptspath: /usr/lib/zabbix/alertscripts
+    externalscripts: /usr/lib/zabbix/externalscripts
+    fpinglocation: /usr/bin/fping
+    fping6location: /usr/bin/fping6
+    logslowqueries: '3000'
+  frontend:
+    pkgs:
+      - zabbix-web-mysql
+    config: /etc/zabbix/web/zabbix.conf.php
+    dbtype: MYSQL
+    dbhost: localhost
+    dbname: zabbix
+    dbuser: zabbix
+    dbpassword: zabbix
+    zbxserver: localhost
+    zbxserverport: '10051'
+    zbxservername: Zabbix installed with SaltStack
+  proxy:
+    pkgs:
+      - zabbix-proxy-sqlite3
+      - zabbix-get
+    service: zabbix-proxy
+    config: /etc/zabbix/zabbix_proxy.conf
+    dbname: /var/lib/zabbix/zabbix_proxy.db
+    pidfile: /var/run/zabbix/zabbix_proxy.pid
+    logfile: /var/log/zabbix/zabbix_proxy.log
+  mysql:
+    skip_pkgs: false
+    dbhost: localhost
+    dbname: zabbix
+    dbuser: zabbix
+    dbpassword: zabbix
+    dbuser_host: localhost
+  pgsql:
+    skip_pkgs: false
+    dbhost: localhost
+    dbname: zabbix
+    dbuser: zabbix
+    dbpassword: zabbix
