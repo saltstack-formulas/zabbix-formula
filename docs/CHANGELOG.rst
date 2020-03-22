@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`0.21.3 <https://github.com/saltstack-formulas/zabbix-formula/compare/v0.21.2...v0.21.3>`_ (2020-03-22)
+-----------------------------------------------------------------------------------------------------------
+
+Code Refactoring
+^^^^^^^^^^^^^^^^
+
+
+* **map and defaults:** update the map.jinja file and add yaml maps (\ `badd17e <https://github.com/saltstack-formulas/zabbix-formula/commit/badd17edecff8119fe25d73329c0445a3ac58769>`_\ )
+
 `0.21.2 <https://github.com/saltstack-formulas/zabbix-formula/compare/v0.21.1...v0.21.2>`_ (2020-03-12)
 -----------------------------------------------------------------------------------------------------------
 
