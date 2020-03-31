@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`0.21.4 <https://github.com/saltstack-formulas/zabbix-formula/compare/v0.21.3...v0.21.4>`_ (2020-03-31)
+-----------------------------------------------------------------------------------------------------------
+
+Tests
+^^^^^
+
+
+* **packages_spec:** update version numbers (\ `3242c14 <https://github.com/saltstack-formulas/zabbix-formula/commit/3242c1469662ffc14368446df5eb11a140ebd2ea>`_\ )
+
 `0.21.3 <https://github.com/saltstack-formulas/zabbix-formula/compare/v0.21.2...v0.21.3>`_ (2020-03-22)
 -----------------------------------------------------------------------------------------------------------
 
