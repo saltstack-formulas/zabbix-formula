@@ -3,6 +3,9 @@
 include:
   - zabbix.users
 
+{%- set srv_user = zabbix | traverse('server:srv_user', zabbix.user) %}
+{%- set srv_group = zabbix | traverse('server:srv_group', zabbix.group) %}
+
 zabbix-server:
   pkg.installed:
     - pkgs:
@@ -26,8 +29,8 @@ zabbix-server:
 zabbix-server-logdir:
   file.directory:
     - name: {{ salt['file.dirname'](zabbix.server.logfile) }}
-    - user: {{ zabbix.user }}
-    - group: {{ zabbix.group }}
+    - user: {{ srv_user }}
+    - group: {{ srv_group }}
     - dirmode: 755
     - require:
       - pkg: zabbix-server
@@ -35,8 +38,8 @@ zabbix-server-logdir:
 zabbix-server-piddir:
   file.directory:
     - name: {{ salt['file.dirname'](zabbix.server.pidfile) }}
-    - user: {{ zabbix.user }}
-    - group: {{ zabbix.group }}
+    - user: {{ srv_user }}
+    - group: {{ srv_group }}
     - dirmode: 755
     - require:
       - pkg: zabbix-server

@@ -15,7 +15,16 @@ Ubuntu: {}
 Raspbian: {}
 
 # os_family: RedHat
-Fedora: {}
+Fedora:
+  server:
+    service: zabbix-server-mysql
+    srv_user: 'zabbixsrv'
+    srv_group: 'zabbixsrv'
+    pidfile: /var/run/zabbixsrv/zabbix_server.pid
+    socketdir: /var/run/zabbixsrv
+    logfile: /var/log/zabbixsrv/zabbix_server.log
+    alertscriptspath: /usr/share/zabbix/alertscripts
+    externalscripts: /usr/share/zabbix/externalscripts
 CentOS: {}
 Amazon: {}
 
