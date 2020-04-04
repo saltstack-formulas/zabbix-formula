@@ -2,6 +2,29 @@
 Changelog
 =========
 
+`1.0.0 <https://github.com/saltstack-formulas/zabbix-formula/compare/v0.21.4...v1.0.0>`_ (2020-04-04)
+---------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **fedora:** get all ``fedora`` instances working (\ ``2018.3``\ +) (\ `32ef0e6 <https://github.com/saltstack-formulas/zabbix-formula/commit/32ef0e61fa25d45dbd9ad3f62eaf5166b96d1298>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **kitchen+travis:** adjust matrix to add ``3000`` & remove ``2017.7`` [skip ci] (\ `74bb032 <https://github.com/saltstack-formulas/zabbix-formula/commit/74bb0322724aa5adb728f194372ff10464d433bd>`_\ )
+* **kitchen+travis:** adjust matrix to update ``3000`` to ``3000.1`` [skip ci] (\ `e74bfed <https://github.com/saltstack-formulas/zabbix-formula/commit/e74bfed5e97ec03037b9dc560a113597f2a295d2>`_\ )
+
+BREAKING CHANGES
+^^^^^^^^^^^^^^^^
+
+
+* **fedora:** Minimum Salt version support is now ``2018.3`` in line
+  with official upstream support; also use of the ``traverse`` Jinja filter.
+
 `0.21.4 <https://github.com/saltstack-formulas/zabbix-formula/compare/v0.21.3...v0.21.4>`_ (2020-03-31)
 -----------------------------------------------------------------------------------------------------------
 
