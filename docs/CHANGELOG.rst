@@ -2,6 +2,23 @@
 Changelog
 =========
 
+`1.0.1 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.0...v1.0.1>`_ (2020-05-02)
+--------------------------------------------------------------------------------------------------------
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **gemfile.lock:** add to repo with updated ``Gemfile`` [skip ci] (\ `6f153fa <https://github.com/saltstack-formulas/zabbix-formula/commit/6f153fa8c3609470cbaa93a38f886c089866a74d>`_\ )
+* **kitchen+travis:** adjust matrix to add ``3000.2`` & remove ``2018.3`` (\ `fc6c741 <https://github.com/saltstack-formulas/zabbix-formula/commit/fc6c741fbbc50f4569e2218ef62b2a79e710c5c2>`_\ )
+* **kitchen+travis:** remove ``master-py2-arch-base-latest`` [skip ci] (\ `92ac6c7 <https://github.com/saltstack-formulas/zabbix-formula/commit/92ac6c762061bb45e1f02bc6b40a5887355f3462>`_\ )
+
+Tests
+^^^^^
+
+
+* **packages_spec:** update for ``4.4.8`` (\ `773e522 <https://github.com/saltstack-formulas/zabbix-formula/commit/773e522a26dbf391c844182c26a1bef058b9e4b9>`_\ )
+
 `1.0.0 <https://github.com/saltstack-formulas/zabbix-formula/compare/v0.21.4...v1.0.0>`_ (2020-04-04)
 ---------------------------------------------------------------------------------------------------------
 
