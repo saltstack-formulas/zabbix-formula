@@ -151,7 +151,7 @@ Suse:
     fping6location: /usr/sbin/fping6
   frontend:
     pkgs:
-      - zabbix-web-mysql
+      - zabbix-web-pgsql
     config: /etc/zabbix/web/zabbix.conf.php
   proxy:
     pkgs:
