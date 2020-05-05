@@ -2,7 +2,7 @@
 # vim: ft=yaml
 ---
 zabbix:
-  version_repo: 2.2
+  version_repo: 4.4
   user: zabbix
   group: zabbix
   home: /var/lib/zabbix
@@ -24,7 +24,7 @@ zabbix:
       - /etc/zabbix/zabbix_agentd.d/
   server:
     pkgs:
-      - zabbix-server-mysql
+      - zabbix-server-pgsql
       - zabbix-get
     service: zabbix-server
     config: /etc/zabbix/zabbix_server.conf
@@ -36,18 +36,17 @@ zabbix:
     dbname: zabbix
     dbuser: zabbix
     dbpassword: zabbix
-    dbsocket: /var/run/mysqld/mysqld.sock
+    dbsocket: ""
     timeout: '4'
     alertscriptspath: /usr/lib/zabbix/alertscripts
     externalscripts: /usr/lib/zabbix/externalscripts
     fpinglocation: /usr/bin/fping
     fping6location: /usr/bin/fping6
-    logslowqueries: '3000'
   frontend:
     pkgs:
       - zabbix-web-mysql
     config: /etc/zabbix/web/zabbix.conf.php
-    dbtype: MYSQL
+    dbtype: POSTGRESQL
     dbhost: localhost
     dbname: zabbix
     dbuser: zabbix

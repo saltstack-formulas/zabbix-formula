@@ -53,6 +53,16 @@
     - gpgcheck: 1
     - gpgkey: https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX-79EA5ED4
 
+{%- elif salt['grains.get']('os_family') == 'Suse' %}
+zabbix_repo:
+  pkgrepo.managed:
+    - name: zabbix
+    - humanname: "Zabbix Official Repository"
+    - baseurl: https://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/sles/{{ grains['osmajorrelease'] }}/x86_64/
+    - gpgcheck: 1
+    - gpgkey: https://repo.zabbix.com/zabbix/{{ zabbix.version_repo }}/sles/{{ grains['osmajorrelease'] }}/x86_64/repodata/repomd.xml.key
+    - gpgautoimport: True
+
 {%- else %}
 {{ id_prefix }}_repo: {}
 {%- endif %}

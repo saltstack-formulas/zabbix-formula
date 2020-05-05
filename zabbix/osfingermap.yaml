@@ -34,6 +34,8 @@ Amazon Linux AMI-2018: {}
 
 # os: SUSE
 Leap-15: {}
+SLES-15: {}
+SLES-12: {}
 
 # os: FreeBSD
 FreeBSD-12: {}
