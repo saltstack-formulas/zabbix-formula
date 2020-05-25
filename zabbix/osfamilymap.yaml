@@ -125,7 +125,7 @@ RedHat:
       - MySQL-python
 
 Suse:
-  version_repo: 4.4
+  version_repo: 5.0
   user: zabbix
   group: zabbix
   shell: /sbin/nologin
@@ -148,7 +148,7 @@ Suse:
     logfile: /var/log/zabbix/zabbix_server.log
     snmptrapperfile: /var/log/snmptrap/snmptrap.log
     fpinglocation: /usr/sbin/fping
-    fping6location: /usr/sbin/fping6
+    fping6location: /usr/sbin/fping
   frontend:
     pkgs:
       - zabbix-web-pgsql

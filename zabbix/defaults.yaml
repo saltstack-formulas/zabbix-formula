@@ -2,7 +2,7 @@
 # vim: ft=yaml
 ---
 zabbix:
-  version_repo: 4.4
+  version_repo: 5.0
   user: zabbix
   group: zabbix
   home: /var/lib/zabbix
