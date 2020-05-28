@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.2](https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.1...v1.0.2) (2020-05-28)
+
+
+### Continuous Integration
+
+* **kitchen+travis:** add new platforms [skip ci] ([e7ff4ee](https://github.com/saltstack-formulas/zabbix-formula/commit/e7ff4eeb77198628d75cd3f2b01b6f8f6ce55438))
+* **kitchen+travis:** adjust matrix to add `3000.3` [skip ci] ([02926f0](https://github.com/saltstack-formulas/zabbix-formula/commit/02926f08e1220baa5c92c0b5f1ef130195b3b50e))
+* **travis:** add notifications => zulip [skip ci] ([473db1c](https://github.com/saltstack-formulas/zabbix-formula/commit/473db1cc7689d3f1ed42d02873f4208f5cf4fea9))
+* **travis:** use new platforms (`ubuntu-20.04` & `fedora-32`) ([938aac4](https://github.com/saltstack-formulas/zabbix-formula/commit/938aac4f93472350bcd0fdfc387938494e898541))
+* **workflows/commitlint:** add to repo [skip ci] ([ac271fe](https://github.com/saltstack-formulas/zabbix-formula/commit/ac271fe041199e71c0186fc83916c325ad22c91b))
+
+
+### Tests
+
+* **packages_spec:** add versions for new platforms ([5eb7bd8](https://github.com/saltstack-formulas/zabbix-formula/commit/5eb7bd8d6a74bc0f49ab7703f205ac59ccf49bf8))
+* **packages_spec:** update for `4.4.9` ([d30ae38](https://github.com/saltstack-formulas/zabbix-formula/commit/d30ae38e1ec551be3bd456f64091e95692cf30ac))
+
 ## [1.0.1](https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.0...v1.0.1) (2020-05-02)
 
 
