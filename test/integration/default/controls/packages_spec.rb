@@ -20,7 +20,9 @@ version =
       '1:4.4.9-1+jessie'
     end
   when 'ubuntu'
-    if os[:release].start_with?('18')
+    if os[:release].start_with?('20')
+      '1:4.4.9-1+focal'
+    elsif os[:release].start_with?('18')
       '1:4.4.9-1+bionic'
     elsif os[:release].start_with?('16')
       '1:4.4.9-1+xenial'
@@ -34,7 +36,9 @@ version =
       '4.4.9-1.el6'
     end
   when 'fedora'
-    if os[:release].start_with?('31')
+    if os[:release].start_with?('32')
+      '4.0.16-2.fc32'
+    elsif os[:release].start_with?('31')
       '4.0.15-1.fc31'
     elsif os[:release].start_with?('30')
       '4.0.15-1.fc30'
