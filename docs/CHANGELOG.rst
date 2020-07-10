@@ -2,6 +2,27 @@
 Changelog
 =========
 
+`1.0.3 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.2...v1.0.3>`_ (2020-07-10)
+--------------------------------------------------------------------------------------------------------
+
+Code Refactoring
+^^^^^^^^^^^^^^^^
+
+
+* **variable names:** use dbpassword consistently across formula (\ `5b4b787 <https://github.com/saltstack-formulas/zabbix-formula/commit/5b4b78795ef4396b4a94b68af9e04c374b631194>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **kitchen:** use ``saltimages`` Docker Hub where available [skip ci] (\ `aa92ed5 <https://github.com/saltstack-formulas/zabbix-formula/commit/aa92ed55e14526a8882a36b151216a2da408ad51>`_\ )
+
+Tests
+^^^^^
+
+
+* **packages_spec:** generalise version number verification [skip ci] (\ `e4952f0 <https://github.com/saltstack-formulas/zabbix-formula/commit/e4952f06f3e2c131a2beb2e30b56f6c3e7b4581a>`_\ )
+
 `1.0.2 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.1...v1.0.2>`_ (2020-05-28)
 --------------------------------------------------------------------------------------------------------
 
