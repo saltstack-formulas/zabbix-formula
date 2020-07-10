@@ -1,6 +1,10 @@
 {% from "zabbix/map.jinja" import zabbix with context -%}
 {% set settings = salt['pillar.get']('zabbix-proxy', {}) -%}
 {% set defaults = zabbix.get('proxy', {}) -%}
+{# This required for backward compatibility -#}
+{% if 'dbpass' in settings -%}
+{%  do settings.update({'dbpassword': settings['dbpass']}) -%}
+{% endif -%}
 # Managed by saltstack
 # This is a configuration file for Zabbix proxy daemon
 # To get more information about Zabbix, visit http://www.zabbix.com
@@ -220,7 +224,7 @@
 # Mandatory: no
 # Default:
 # DBPassword=
-{% if settings.get('dbpass', defaults.get('dbpass', False)) %}DBPassword={{ settings.get('dbpass', defaults.dbpass) }}{% endif %}
+{% if settings.get('dbpassword', defaults.get('dbpassword', False)) %}DBPassword={{ settings.get('dbpassword', defaults.dbpassword) }}{% endif %}
 
 ### Option: DBSocket
 #	Path to MySQL socket.
