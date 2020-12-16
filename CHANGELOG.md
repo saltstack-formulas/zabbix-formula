@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.0.4](https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.3...v1.0.4) (2020-12-16)
+
+
+### Continuous Integration
+
+* **gitlab-ci:** use GitLab CI as Travis CI replacement ([44ec1b3](https://github.com/saltstack-formulas/zabbix-formula/commit/44ec1b3d71de71efab27a2f2ccb58c90018cedbe))
+* **pre-commit:** add to formula [skip ci] ([c9aeb37](https://github.com/saltstack-formulas/zabbix-formula/commit/c9aeb377d070cae54aa82f15904ab799b5994980))
+* **pre-commit:** enable/disable `rstcheck` as relevant [skip ci] ([8990e81](https://github.com/saltstack-formulas/zabbix-formula/commit/8990e81dc256d53249bf2732e5b8af1346133e76))
+* **pre-commit:** finalise `rstcheck` configuration [skip ci] ([c7dff99](https://github.com/saltstack-formulas/zabbix-formula/commit/c7dff99d06e25572fc9ee74ec1655fdd8e41cd8a))
+
+
+### Styles
+
+* **libtofs.jinja:** use Black-inspired Jinja formatting [skip ci] ([497406a](https://github.com/saltstack-formulas/zabbix-formula/commit/497406a77a3431d2e708e2eeadca9221a1833ebf))
+
 ## [1.0.3](https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.2...v1.0.3) (2020-07-10)
 
 
