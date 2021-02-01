@@ -52,7 +52,7 @@ control 'zabbix server configuration' do
   # 'FpingLocation=/usr/sbin/fping' (not debian)
   # 'Fping6Location=/usr/sbin/fping6' (not debian)
 
-  # Note: The file below is a symlink to `/etc/zabbix_server.conf` on Fedora
+  # NOTE: The file below is a symlink to `/etc/zabbix_server.conf` on Fedora
   describe file('/etc/zabbix/zabbix_server.conf') do
     it { should be_file }
     it { should be_owned_by 'root' }
@@ -78,17 +78,17 @@ control 'zabbix web configuration' do
     it { should be_grouped_into 'root' }
     its('mode') { should cmp '0644' }
     its('content') { should include 'global $DB;' }
-    its('content') { should match(/\$DB\["TYPE"\].*=.*\'MYSQL\';/) }
-    its('content') { should match(/\$DB\["SERVER"\].*=.*\'localhost';/) }
-    its('content') { should match(/\$DB\["PORT"\].*=.*\'0\';/) }
-    its('content') { should match(/\$DB\["DATABASE"\].*=.*\'zabbix\';/) }
-    its('content') { should match(/\$DB\["USER"\].*=.*\'zabbixuser\';/) }
-    its('content') { should match(/\$DB\["PASSWORD"\].*=.*\'zabbixpass\';/) }
-    its('content') { should match(/\$DB\["SCHEMA"\].*=.*\'\';/) }
-    its('content') { should match(/\$ZBX_SERVER.*=.*\'localhost\';/) }
-    its('content') { should match(/\$ZBX_SERVER_PORT.*=.*\'10051\';/) }
+    its('content') { should match(/\$DB\["TYPE"\].*=.*'MYSQL';/) }
+    its('content') { should match(/\$DB\["SERVER"\].*=.*'localhost';/) }
+    its('content') { should match(/\$DB\["PORT"\].*=.*'0';/) }
+    its('content') { should match(/\$DB\["DATABASE"\].*=.*'zabbix';/) }
+    its('content') { should match(/\$DB\["USER"\].*=.*'zabbixuser';/) }
+    its('content') { should match(/\$DB\["PASSWORD"\].*=.*'zabbixpass';/) }
+    its('content') { should match(/\$DB\["SCHEMA"\].*=.*'';/) }
+    its('content') { should match(/\$ZBX_SERVER.*=.*'localhost';/) }
+    its('content') { should match(/\$ZBX_SERVER_PORT.*=.*'10051';/) }
     its('content') do
-      should match(/\$ZBX_SERVER_NAME.*=.*\'Zabbix installed with saltstack\';/)
+      should match(/\$ZBX_SERVER_NAME.*=.*'Zabbix installed with saltstack';/)
     end
     its('content') { should match(/\$IMAGE_FORMAT_DEFAULT.*=.*IMAGE_FORMAT_PNG;/) }
   end
