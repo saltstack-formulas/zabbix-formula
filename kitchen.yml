@@ -312,6 +312,7 @@ suites:
       state_top:
         base:
           '*':
+            - zabbix._mapdata
             - zabbix.agent.repo
             - zabbix.agent.conf
             - zabbix.server.repo
