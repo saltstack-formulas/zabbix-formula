@@ -12,7 +12,7 @@ include:
 # Here we just add a requisite declaration to ensure correct order
 extend:
   zabbix_proxy_repo:
-    {% if salt['grains.get']('os_family') == 'Debian' -%}
+    {% if salt['grains.get']('os_family') in ['Debian', 'Suse'] -%}
     pkgrepo:
       - require_in:
         - pkg: zabbix-proxy
