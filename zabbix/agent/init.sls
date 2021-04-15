@@ -56,6 +56,7 @@ zabbix-agent-piddir:
 {% for include in settings.get('includes', defaults.get('includes', [])) %}
 {{ include }}:
   file.directory:
+    - name: {{ salt['file.dirname'](include) }}
     - user: {{ zabbix.user }}
     - group: {{ zabbix.group }}
     - dirmode: 750
