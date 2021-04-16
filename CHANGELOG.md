@@ -1,5 +1,12 @@
 # Changelog
 
+# [1.1.0](https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.5...v1.1.0) (2021-04-16)
+
+
+### Features
+
+* add suse support (applied suggestions from hatifnatt and myii) ([a245ec4](https://github.com/saltstack-formulas/zabbix-formula/commit/a245ec44954b3e782787fb09cd84655597cfac01))
+
 ## [1.0.5](https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.4...v1.0.5) (2021-04-16)
 
 
