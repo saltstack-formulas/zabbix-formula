@@ -2,6 +2,33 @@
 Changelog
 =========
 
+`1.0.5 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.4...v1.0.5>`_ (2021-04-16)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **agent:** fix include dirname (\ `b36c1a7 <https://github.com/saltstack-formulas/zabbix-formula/commit/b36c1a7541c7cbe27fc108a3fd82d78d9cd1f758>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **commitlint:** ensure ``upstream/master`` uses main repo URL [skip ci] (\ `f562f9f <https://github.com/saltstack-formulas/zabbix-formula/commit/f562f9f3e4f757d10ac024cba7fa67649ddda799>`_\ )
+* **gemfile+lock:** use ``ssf`` customised ``kitchen-docker`` repo [skip ci] (\ `1fed266 <https://github.com/saltstack-formulas/zabbix-formula/commit/1fed2667ba186102036d0efb74394ccd54a759ec>`_\ )
+* **gitlab-ci:** add ``rubocop`` linter (with ``allow_failure``\ ) [skip ci] (\ `4799292 <https://github.com/saltstack-formulas/zabbix-formula/commit/479929200b96994c1dcd20e844c201489646ebb2>`_\ )
+* **kitchen+ci:** use latest pre-salted images (after CVE) [skip ci] (\ `aaf82de <https://github.com/saltstack-formulas/zabbix-formula/commit/aaf82ded69295e62dd871e5be600b1aa1a2d05e5>`_\ )
+* **kitchen+gitlab-ci:** use latest pre-salted images [skip ci] (\ `1701026 <https://github.com/saltstack-formulas/zabbix-formula/commit/1701026b0dd547af8a1b0c765865910d0fd2616c>`_\ )
+* **pre-commit:** update hook for ``rubocop`` [skip ci] (\ `751e966 <https://github.com/saltstack-formulas/zabbix-formula/commit/751e966a788ed7716219a20bf549d07b2bdf3ad0>`_\ )
+
+Tests
+^^^^^
+
+
+* standardise use of ``share`` suite & ``_mapdata`` state [skip ci] (\ `05eae71 <https://github.com/saltstack-formulas/zabbix-formula/commit/05eae71461c0ee2f3c99108c884de9f64d09a896>`_\ )
+* **config_spec:** fix ``rubocop`` violations [skip ci] (\ `fb270d2 <https://github.com/saltstack-formulas/zabbix-formula/commit/fb270d2ffbde0386121a87523adf3ca1bbf85cee>`_\ )
+
 `1.0.4 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.3...v1.0.4>`_ (2020-12-16)
 --------------------------------------------------------------------------------------------------------
 
