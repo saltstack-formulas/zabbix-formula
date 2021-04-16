@@ -124,6 +124,52 @@ RedHat:
     pkgs:
       - MySQL-python
 
+Suse:
+  version_repo: 5.0
+  user: zabbix
+  group: zabbix
+  shell: /sbin/nologin
+  agent:
+    pkgs:
+      - zabbix-agent
+    service: zabbix-agent
+    config: /etc/zabbix/zabbix_agentd.conf
+    pidfile: /run/zabbix/zabbix_agentd.pid
+    logfile: /var/log/zabbix/zabbix_agentd.log
+    includes:
+      - /etc/zabbix/zabbix_agentd.d/*.conf
+  server:
+    pkgs:
+      - zabbix-server-mysql
+    service: zabbix-server
+    config: /etc/zabbix/zabbix_server.conf
+    dbsocket: /run/mysql/mysql.sock
+    pidfile: /run/zabbix/zabbix_server.pid
+    logfile: /var/log/zabbix/zabbix_server.log
+    snmptrapperfile: /var/log/snmptrap/snmptrap.log
+    fpinglocation: /usr/sbin/fping
+    fping6location: /usr/sbin/fping
+  frontend:
+    pkgs:
+      - zabbix-web-mysql
+    config: /etc/zabbix/web/zabbix.conf.php
+  proxy:
+    pkgs:
+      - zabbix-proxy-sqlite3
+    service: zabbix-proxy
+    config: /etc/zabbix/zabbix_proxy.conf
+    dbname: /var/lib/zabbix/zabbix_proxy.db
+    pidfile: /run/zabbix/zabbix_proxy.pid
+    logfile: /var/log/zabbix/zabbix_proxy.log
+  mysql:
+    pkgs:
+      - MySQL-python
+  pgsql:
+    pkgs:
+      - postgresql
+    sql_file: /usr/share/doc/packages/zabbix-server-pgsql/create.sql.gz
+
+
 FreeBSD:
   version_repo: 2.2
   user: zabbix

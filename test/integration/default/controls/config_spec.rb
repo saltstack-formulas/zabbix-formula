@@ -45,6 +45,8 @@ control 'zabbix server configuration' do
     setting_dbsocket = '/var/run/mysqld/mysqld.sock'
   when 'fedora'
     server_file_group = 'zabbixsrv'
+  when 'suse'
+    setting_dbsocket = '/run/mysql/mysql.sock'
   end
 
   # TODO: Conditional content to consider for inclusion below

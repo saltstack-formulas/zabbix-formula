@@ -142,7 +142,7 @@ default-ubuntu-1604-master-py3: {extends: '.test_instance'}
 # default-centos-7-master-py3: {extends: '.test_instance'}
 # default-fedora-33-master-py3: {extends: '.test_instance'}
 default-fedora-32-master-py3: {extends: '.test_instance'}
-# default-opensuse-leap-152-master-py3: {extends: '.test_instance'}
+default-opensuse-leap-152-master-py3: {extends: '.test_instance'}
 # default-opensuse-tmbl-latest-master-py3: {extends: '.test_instance'}
 # default-amazonlinux-2-master-py3: {extends: '.test_instance'}
 # default-oraclelinux-8-master-py3: {extends: '.test_instance'}
