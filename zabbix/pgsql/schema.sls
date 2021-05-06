@@ -28,7 +28,7 @@
 {% endif -%}
 
 include:
-  - zabbix.pgsql.conf
+  - zabbix.pgsql.pkgs
 
 check_db_pgsql:
   test.configurable_test_state:
