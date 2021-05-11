@@ -74,6 +74,11 @@ zabbix-agent:
   extra_conf: |
     # Here we can set extra agent configuration lines
 
+# Alternative server and serveractive as strings (the rest is used the same as above)
+zabbix-agent:
+  server: localhost
+  serveractive: localhost
+
 ## Zabbix Agent for Windows ##
 zabbix-agent:
   server:
