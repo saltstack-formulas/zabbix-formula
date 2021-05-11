@@ -30,7 +30,7 @@ This list is sorted by the number of commits per contributor in *descending* ord
      - 22
    * - :raw-html-m2r:`<img class='float-left rounded-1' src='https://avatars.githubusercontent.com/u/807283?v=4' width='36' height='36' alt='@hatifnatt'>`
      - `@hatifnatt <https://github.com/hatifnatt>`_
-     - 20
+     - 21
    * - :raw-html-m2r:`<img class='float-left rounded-1' src='https://avatars.githubusercontent.com/u/13771180?v=4' width='36' height='36' alt='@absmith82'>`
      - `@absmith82 <https://github.com/absmith82>`_
      - 6

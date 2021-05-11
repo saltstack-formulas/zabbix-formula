@@ -2,6 +2,15 @@
 Changelog
 =========
 
+`1.2.1 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.2.0...v1.2.1>`_ (2021-05-11)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **pgsql:** do not try to create db and user with schema (\ `058a800 <https://github.com/saltstack-formulas/zabbix-formula/commit/058a800be2a9f1cc1aad58c4dae6b82474bdf188>`_\ )
+
 `1.2.0 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.1.0...v1.2.0>`_ (2021-05-11)
 --------------------------------------------------------------------------------------------------------
 

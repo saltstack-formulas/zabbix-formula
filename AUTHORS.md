@@ -9,7 +9,7 @@ Avatar|Contributor|Contributions
 <img class='float-left rounded-1' src='https://avatars.githubusercontent.com/u/12057348?v=4' width='36' height='36' alt='@xenadmin'>|[@xenadmin](https://github.com/xenadmin)|34
 <img class='float-left rounded-1' src='https://avatars.githubusercontent.com/u/904839?v=4' width='36' height='36' alt='@landergate'>|[@landergate](https://github.com/landergate)|27
 <img class='float-left rounded-1' src='https://avatars.githubusercontent.com/u/1800660?v=4' width='36' height='36' alt='@aboe76'>|[@aboe76](https://github.com/aboe76)|22
-<img class='float-left rounded-1' src='https://avatars.githubusercontent.com/u/807283?v=4' width='36' height='36' alt='@hatifnatt'>|[@hatifnatt](https://github.com/hatifnatt)|20
+<img class='float-left rounded-1' src='https://avatars.githubusercontent.com/u/807283?v=4' width='36' height='36' alt='@hatifnatt'>|[@hatifnatt](https://github.com/hatifnatt)|21
 <img class='float-left rounded-1' src='https://avatars.githubusercontent.com/u/13771180?v=4' width='36' height='36' alt='@absmith82'>|[@absmith82](https://github.com/absmith82)|6
 <img class='float-left rounded-1' src='https://avatars.githubusercontent.com/u/1566437?v=4' width='36' height='36' alt='@bkmit'>|[@bkmit](https://github.com/bkmit)|4
 <img class='float-left rounded-1' src='https://avatars.githubusercontent.com/u/571226?v=4' width='36' height='36' alt='@ninjix'>|[@ninjix](https://github.com/ninjix)|4
