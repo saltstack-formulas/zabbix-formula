@@ -197,15 +197,20 @@ Creates database and mysql user for Zabbix.
 
 Creates mysql schema for Zabbix.
 
+``zabbix.pgsql.pkgs``
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Install required psql packages.
+
 ``zabbix.pgsql.conf``
 ^^^^^^^^^^^^^^^^^^^^^
 
-Creates database and PostgreSQL user for Zabbix.
+Creates database and PostgreSQL user for Zabbix. Includes zabbix.pgsql.pkgs.
 
 ``zabbix.pgsql.schema``
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Creates PostgreSQL schema for Zabbix.
+Creates PostgreSQL schema for Zabbix. Includes zabbix.pgsql.pkgs.
 
 ``zabbix.proxy``
 ^^^^^^^^^^^^^^^^

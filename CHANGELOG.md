@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.2.1](https://github.com/saltstack-formulas/zabbix-formula/compare/v1.2.0...v1.2.1) (2021-05-11)
+
+
+### Bug Fixes
+
+* **pgsql:** do not try to create db and user with schema ([058a800](https://github.com/saltstack-formulas/zabbix-formula/commit/058a800be2a9f1cc1aad58c4dae6b82474bdf188))
+
+# [1.2.0](https://github.com/saltstack-formulas/zabbix-formula/compare/v1.1.0...v1.2.0) (2021-05-11)
+
+
+### Continuous Integration
+
+* add `arch-master` to matrix and update `.travis.yml` [skip ci] ([95523a9](https://github.com/saltstack-formulas/zabbix-formula/commit/95523a9df12d511e69f00faecdd55d478540a7cd))
+* **kitchen+gitlab:** adjust matrix to add `3003` [skip ci] ([1d237e8](https://github.com/saltstack-formulas/zabbix-formula/commit/1d237e8fcf14bd81126c5ab7cf38d0a5fd701cc9))
+* **travis:** maintain sync with GitLab CI [skip ci] ([5c81ca1](https://github.com/saltstack-formulas/zabbix-formula/commit/5c81ca16808d3541690be282a1f96e410d68d848)), closes [#146](https://github.com/saltstack-formulas/zabbix-formula/issues/146)
+
+
+### Features
+
+* **agent:** allow use of string Server and ServerActive ([59dff0a](https://github.com/saltstack-formulas/zabbix-formula/commit/59dff0ace5ff83fd6996845e554dfbce7c9d1a75))
+
 # [1.1.0](https://github.com/saltstack-formulas/zabbix-formula/compare/v1.0.5...v1.1.0) (2021-04-16)
 
 
