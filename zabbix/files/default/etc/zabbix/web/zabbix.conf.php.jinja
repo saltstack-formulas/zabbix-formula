@@ -23,4 +23,7 @@ $ZBX_SERVER_PORT		= '{{ settings.get('zbxserverport', defaults.zbxserverport) }}
 $ZBX_SERVER_NAME		= '{{ settings.get('zbxservername', defaults.zbxservername) }}';
 
 $IMAGE_FORMAT_DEFAULT	= IMAGE_FORMAT_PNG;
+{% if defaults['historyupgraded'] -%}
+$DB['DOUBLE_IEEE754'] = 'true';
+{% endif -%}
 ?>
