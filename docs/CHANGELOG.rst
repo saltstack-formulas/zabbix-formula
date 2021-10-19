@@ -2,6 +2,27 @@
 Changelog
 =========
 
+`1.3.0 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.2.1...v1.3.0>`_ (2021-10-19)
+--------------------------------------------------------------------------------------------------------
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* **3003.1:** update inc. AlmaLinux, Rocky & ``rst-lint`` [skip ci] (\ `e6eb6c8 <https://github.com/saltstack-formulas/zabbix-formula/commit/e6eb6c826ed1e954a3a91a967e8400762fb298f1>`_\ )
+* **gemfile+lock:** use ``ssf`` customised ``inspec`` repo [skip ci] (\ `d063638 <https://github.com/saltstack-formulas/zabbix-formula/commit/d06363882716b53beb472d1abe50aa543dc0ce55>`_\ )
+* **kitchen:** move ``provisioner`` block & update ``run_command`` [skip ci] (\ `11bc40c <https://github.com/saltstack-formulas/zabbix-formula/commit/11bc40c773e7f0f420715da55c49c73e0014b448>`_\ )
+* **kitchen+ci:** update with latest ``3003.2`` pre-salted images [skip ci] (\ `b50c265 <https://github.com/saltstack-formulas/zabbix-formula/commit/b50c265f1563336cb922d832d2d2b88d74ca046b>`_\ )
+* **kitchen+ci:** update with latest CVE pre-salted images [skip ci] (\ `ee1212e <https://github.com/saltstack-formulas/zabbix-formula/commit/ee1212e847de902c31f97cf94373ead804910350>`_\ )
+* add Debian 11 Bullseye & update ``yamllint`` configuration [skip ci] (\ `5ca6072 <https://github.com/saltstack-formulas/zabbix-formula/commit/5ca6072008830c263bc55c79ab7549586990b4b4>`_\ )
+* **kitchen+gitlab:** remove Ubuntu 16.04 & Fedora 32 (EOL) [skip ci] (\ `5e743a8 <https://github.com/saltstack-formulas/zabbix-formula/commit/5e743a8559cd30b61c77477f34a7071f89d172c0>`_\ )
+
+Features
+^^^^^^^^
+
+
+* **agent:** add HostInterface and HostInterfaceItem to config (\ `e7fbb96 <https://github.com/saltstack-formulas/zabbix-formula/commit/e7fbb96fe0011f604a7c5498a6ae3f5767880df8>`_\ )
+
 `1.2.1 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.2.0...v1.2.1>`_ (2021-05-11)
 --------------------------------------------------------------------------------------------------------
 
