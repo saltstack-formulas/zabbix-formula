@@ -11,7 +11,7 @@
 # osfamilymap: {}
 ---
 Debian:
-  version_repo: 2.2
+  version_repo: 5.5
   user: zabbix
   group: zabbix
   home: /var/lib/zabbix
@@ -84,7 +84,7 @@ Debian:
       - postgresql-client
 
 RedHat:
-  version_repo: 2.2
+  version_repo: 5.5
   user: zabbix
   group: zabbix
   shell: /sbin/nologin
@@ -171,7 +171,7 @@ Suse:
 
 
 FreeBSD:
-  version_repo: 2.2
+  version_repo: 5.5
   user: zabbix
   group: zabbix
   home: /var/lib/zabbix
@@ -201,7 +201,7 @@ FreeBSD:
     logfile: /var/log/zabbix/zabbix_proxy.log
 
 OpenBSD:
-  version_repo: 2.4
+  version_repo: 5.5
   user: _zabbix
   group: _zabbix
   shell: /sbin/nologin
@@ -217,7 +217,7 @@ Windows:
   user: Administrator
   group: Administrators
   agent:
-    version: 3.0
+    version: 5.5
     pkgs:
       - zabbix-agent
     service: Zabbix Agent
