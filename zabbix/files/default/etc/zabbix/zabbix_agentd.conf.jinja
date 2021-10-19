@@ -228,6 +228,34 @@ HostMetadata={{ settings.get('hostmetadata', defaults.hostmetadata) }}
 {% if settings.get('hostmetadataitem', defaults.get('hostmetadataitem', False)) -%}
 HostMetadataItem={{ settings.get('hostmetadataitem', defaults.hostmetadataitem) }}
 {% endif %}
+{% if zabbix.version_repo|float >= 4.4 -%}
+### Option: HostInterface
+#       Optional parameter that defines host interface.
+#       Host interface is used at host auto-registration process.
+#       An agent will issue an error and not start if the value is over limit of 255 characters.
+#       If not defined, value will be acquired from HostInterfaceItem.
+#
+# Mandatory: no
+# Range: 0-255 characters
+# Default:
+# HostInterface=
+{% if settings.get('hostinterface', defaults.get('hostinterface', False)) -%}
+HostInterface={{ settings.get('hostinterface', defaults.hostinterface) }}
+{% endif %}
+### Option: HostInterfaceItem
+#       Optional parameter that defines an item used for getting host interface.
+#       Host interface is used at host auto-registration process.
+#       During an auto-registration request an agent will log a warning message if
+#       the value returned by specified item is over limit of 255 characters.
+#       This option is only used when HostInterface is not defined.
+#
+# Mandatory: no
+# Default:
+# HostInterfaceItem=
+{% if settings.get('hostinterfaceitem', defaults.get('hostinterfaceitem', False)) -%}
+HostInterfaceItem={{ settings.get('hostinterfaceitem', defaults.hostinterfaceitem) }}
+{% endif %}
+{% endif -%}
 ### Option: RefreshActiveChecks
 #	How often list of active checks is refreshed, in seconds.
 #
@@ -340,7 +368,6 @@ User={{ settings.get('user', defaults.user) }}
 {% for include in settings.get('includes', defaults.get('includes', [])) %}
 Include={{ include }}
 {%- endfor %}
-
 ####### USER-DEFINED MONITORED PARAMETERS #######
 
 ### Option: UnsafeUserParameters
