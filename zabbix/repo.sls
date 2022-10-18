@@ -30,7 +30,7 @@
     - clean_file: True
     - aptkey: {{ zabbix.repo_aptkey }}
 {%- elif salt['grains.get']('os_family') == 'RedHat' and
-         salt['grains.get']('osmajorrelease')|int >= 6 %}
+        salt['grains.get']('osmajorrelease')|int >= 6 %}
 {%- if zabbix.version_repo|float > 3.0 %}
 {%-   set gpgkey = 'https://repo.zabbix.com/RPM-GPG-KEY-ZABBIX-A14FE591' %}
 {%- else %}
