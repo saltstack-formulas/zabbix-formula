@@ -11,13 +11,35 @@
 # osfingermap: {}
 ---
 # os: Debian
-Debian-10: {}
-Debian-9: {}
-Debian-8: {}
+Debian-12:
+  repo_signedby: signedby=/etc/apt/keyrings/zabbix.gpg
+  repo_aptkey: false
+Debian-11:
+  repo_signedby: ""
+  repo_aptkey: true
+Debian-10:
+  repo_signedby: ""
+  repo_aptkey: true
+Debian-9:
+  repo_signedby: ""
+  repo_aptkey: true
+Debian-8:
+  repo_signedby: ""
+  repo_aptkey: true
 
 # os: Ubuntu
-Ubuntu-18.04: {}
-Ubuntu-16.04: {}
+Ubuntu-22.04:
+  repo_signedby: signedby=/etc/apt/keyrings/zabbix.gpg
+  repo_aptkey: false
+Ubuntu-20.04:
+  repo_signedby: ""
+  repo_aptkey: true
+Ubuntu-18.04:
+  repo_signedby: ""
+  repo_aptkey: true
+Ubuntu-16.04:
+  repo_signedby: ""
+  repo_aptkey: true
 
 # os: Fedora
 Fedora-31: {}
