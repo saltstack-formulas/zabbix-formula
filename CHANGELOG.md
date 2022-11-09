@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/saltstack-formulas/zabbix-formula/compare/v1.3.1...v1.3.2) (2022-11-09)
+
+
+### Bug Fixes
+
+* **repo:** update repo config for keyring ([5a12da9](https://github.com/saltstack-formulas/zabbix-formula/commit/5a12da962a48be903201f7ddf886e6090e69533d))
+
 ## [1.3.1](https://github.com/saltstack-formulas/zabbix-formula/compare/v1.3.0...v1.3.1) (2022-07-19)
 
 

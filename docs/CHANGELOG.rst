@@ -2,6 +2,42 @@
 Changelog
 =========
 
+`1.3.2 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.3.1...v1.3.2>`_ (2022-11-09)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **repo:** update repo config for keyring (\ `5a12da9 <https://github.com/saltstack-formulas/zabbix-formula/commit/5a12da962a48be903201f7ddf886e6090e69533d>`_\ )
+
+`1.3.1 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.3.0...v1.3.1>`_ (2022-07-19)
+--------------------------------------------------------------------------------------------------------
+
+Bug Fixes
+^^^^^^^^^
+
+
+* **agent:** don't set Hostname when HostnameItem is set (\ `e832b6d <https://github.com/saltstack-formulas/zabbix-formula/commit/e832b6d61ca63950c77b07ebda4a4bc789a2bea6>`_\ )
+
+Continuous Integration
+^^^^^^^^^^^^^^^^^^^^^^
+
+
+* update ``pre-commit`` configuration inc. for pre-commit.ci [skip ci] (\ `8a8dee9 <https://github.com/saltstack-formulas/zabbix-formula/commit/8a8dee91da94c61eb167c05c2c73100afe05080d>`_\ )
+* **kitchen+gitlab:** update for new pre-salted images [skip ci] (\ `443a9f0 <https://github.com/saltstack-formulas/zabbix-formula/commit/443a9f027b242d49f397e64bfcec513301bd03e2>`_\ )
+* update linters to latest versions [skip ci] (\ `2f0819d <https://github.com/saltstack-formulas/zabbix-formula/commit/2f0819dc70484bc2f088ddf5b2c371b98e5a9e00>`_\ )
+* **gemfile:** allow rubygems proxy to be provided as an env var [skip ci] (\ `58c978b <https://github.com/saltstack-formulas/zabbix-formula/commit/58c978bd8acf3a476f5e454844f1948de55ba618>`_\ )
+* **kitchen+ci:** update with ``3004`` pre-salted images/boxes [skip ci] (\ `d058299 <https://github.com/saltstack-formulas/zabbix-formula/commit/d058299a86936ae0a0b76d31bf0cce21d9433574>`_\ )
+* **kitchen+gitlab:** update for new pre-salted images [skip ci] (\ `0e9a50a <https://github.com/saltstack-formulas/zabbix-formula/commit/0e9a50a8456511ea3cb28e033c9755450fe8a6df>`_\ )
+
+Tests
+^^^^^
+
+
+* **system:** add ``build_platform_codename`` [skip ci] (\ `67eba9c <https://github.com/saltstack-formulas/zabbix-formula/commit/67eba9ccae6ef196c62c1fda91fec309f850a78e>`_\ )
+* **system.rb:** add support for ``mac_os_x`` [skip ci] (\ `68e9f94 <https://github.com/saltstack-formulas/zabbix-formula/commit/68e9f94289ad7961e611e04a273e1bbefbcad33a>`_\ )
+
 `1.3.0 <https://github.com/saltstack-formulas/zabbix-formula/compare/v1.2.1...v1.3.0>`_ (2021-10-19)
 --------------------------------------------------------------------------------------------------------
 
