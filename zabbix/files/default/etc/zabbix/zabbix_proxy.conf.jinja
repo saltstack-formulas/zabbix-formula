@@ -143,9 +143,9 @@
 
 {% if zabbix.version_repo|float >= 3.4 -%}
 ### Option: EnableRemoteCommands
-#       Whether remote commands from Zabbix server are allowed.
-#       0 - not allowed
-#       1 - allowed
+#		Whether remote commands from Zabbix server are allowed.
+#		0 - not allowed
+#		1 - allowed
 #
 # Mandatory: no
 # Default:
@@ -153,9 +153,9 @@
 {% if settings.get('enableremotecommands', defaults.get('enableremotecommands', False)) %}EnableRemoteCommands={{ settings.get('enableremotecommands', defaults.enableremotecommands) }}{% endif %}
 
 ### Option: LogRemoteCommands
-#       Enable logging of executed shell commands as warnings.
-#       0 - disabled
-#       1 - enabled
+#		Enable logging of executed shell commands as warnings.
+#		0 - disabled
+#		1 - enabled
 #
 # Mandatory: no
 # Default:
@@ -203,7 +203,7 @@
 {% if settings.get('dbname', defaults.get('dbname', False)) %}DBName={{ settings.get('dbname', defaults.dbname) }}{% endif %}
 
 ### Option: DBSchema
-#	Schema name. Used for IBM DB2 and PostgreSQL.
+#	Schema name. Used for PostgreSQL.
 #
 # Mandatory: no
 # Default:
@@ -309,7 +309,7 @@
 
 ### Option: StartIPMIPollers
 #	Number of pre-forked instances of IPMI pollers.
-#       The IPMI manager process is automatically started when at least one IPMI poller is started.
+#		The IPMI manager process is automatically started when at least one IPMI poller is started.
 #
 # Mandatory: no
 # Range: 0-1000
@@ -516,7 +516,7 @@ StartJavaPollers={{ settings.get('startjavapollers', defaults.startjavapollers) 
 #	Shared memory size, for storing hosts and items data.
 #
 # Mandatory: no
-# Range: 128K-8G
+# Range: 128K-64G
 # Default:
 # CacheSize=8M
 {% if settings.get('cachesize', defaults.get('cachesize', False)) %}CacheSize={{ settings.get('cachesize', defaults.cachesize) }}{% endif %}
@@ -822,7 +822,7 @@ LoadModule={{ loadmodule }}
 {% if settings.get('tlscrlfile', defaults.get('tlscrlfile', False)) %}TLSCRLFile={{ settings.get('tlscrlfile', defaults.tlscrlfile) }}{% endif %}
 
 ### Option: TLSServerCertIssuer
-#      Allowed server certificate issuer.
+#		Allowed server certificate issuer.
 #
 # Mandatory: no
 # Default:
@@ -830,7 +830,7 @@ LoadModule={{ loadmodule }}
 {% if settings.get('tlsservercertissuer', defaults.get('tlsservercertissuer', False)) %}TLSServerCertIssuer={{ settings.get('tlsservercertissuer', defaults.tlsservercertissuer) }}{% endif %}
 
 ### Option: TLSServerCertSubject
-#      Allowed server certificate subject.
+#		Allowed server certificate subject.
 #
 # Mandatory: no
 # Default:
@@ -869,4 +869,153 @@ LoadModule={{ loadmodule }}
 # TLSPSKFile=
 {% if settings.get('tlspskfile', defaults.get('tlspskfile', False)) %}TLSPSKFile={{ settings.get('tlspskfile', defaults.tlspskfile) }}{% endif %}
 {% endif %}
+
+{% if zabbix.version_repo|float >= 5.0 -%}
+####### For advanced users - TLS ciphersuite selection criteria #######
+
+### Option: TLSCipherCert13
+#	Cipher string for OpenSSL 1.1.1 or newer in TLS 1.3.
+#	Override the default ciphersuite selection criteria for certificate-based encryption.
+#
+# Mandatory: no
+# Default:
+# TLSCipherCert13=
+{% if settings.get('tlsciphercert13', defaults.get('tlsciphercert13', False)) %}TLSCipherCert13={{ settings.get('tlsciphercert13', defaults.tlsciphercert13) }}{% endif %}
+
+### Option: TLSCipherCert
+#	GnuTLS priority string or OpenSSL (TLS 1.2) cipher string.
+#	Override the default ciphersuite selection criteria for certificate-based encryption.
+#	Example for GnuTLS:
+#		NONE:+VERS-TLS1.2:+ECDHE-RSA:+RSA:+AES-128-GCM:+AES-128-CBC:+AEAD:+SHA256:+SHA1:+CURVE-ALL:+COMP-NULL:+SIGN-ALL:+CTYPE-X.509
+#	Example for OpenSSL:
+#		EECDH+aRSA+AES128:RSA+aRSA+AES128
+#
+# Mandatory: no
+# Default:
+# TLSCipherCert=
+{% if settings.get('tlsciphercert', defaults.get('tlsciphercert', False)) %}TLSCipherCert={{ settings.get('tlsciphercert', defaults.tlsciphercert) }}{% endif %}
+
+### Option: TLSCipherPSK13
+#	Cipher string for OpenSSL 1.1.1 or newer in TLS 1.3.
+#	Override the default ciphersuite selection criteria for PSK-based encryption.
+#	Example:
+#		TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256
+#
+# Mandatory: no
+# Default:
+# TLSCipherPSK13=
+{% if settings.get('tlscipherpsk13', defaults.get('tlscipherpsk13', False)) %}TLSCipherPSK13={{ settings.get('tlscipherpsk13', defaults.tlscipherpsk13) }}{% endif %}
+
+### Option: TLSCipherPSK
+#	GnuTLS priority string or OpenSSL (TLS 1.2) cipher string.
+#	Override the default ciphersuite selection criteria for PSK-based encryption.
+#	Example for GnuTLS:
+#		NONE:+VERS-TLS1.2:+ECDHE-PSK:+PSK:+AES-128-GCM:+AES-128-CBC:+AEAD:+SHA256:+SHA1:+CURVE-ALL:+COMP-NULL:+SIGN-ALL
+#	Example for OpenSSL:
+#		kECDHEPSK+AES128:kPSK+AES128
+#
+# Mandatory: no
+# Default:
+# TLSCipherPSK=
+{% if settings.get('tlscipherpsk', defaults.get('tlscipherpsk', False)) %}TLSCipherPSK={{ settings.get('tlscipherpsk', defaults.tlscipherpsk) }}{% endif %}
+
+### Option: TLSCipherAll13
+#	Cipher string for OpenSSL 1.1.1 or newer in TLS 1.3.
+#	Override the default ciphersuite selection criteria for certificate- and PSK-based encryption.
+#	Example:
+#		TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256
+#
+# Mandatory: no
+# Default:
+# TLSCipherAll13=
+{% if settings.get('tlscipherall13', defaults.get('tlscipherall13', False)) %}TLSCipherAll13={{ settings.get('tlscipherall13', defaults.tlscipherall13) }}{% endif %}
+
+### Option: TLSCipherAll
+#	GnuTLS priority string or OpenSSL (TLS 1.2) cipher string.
+#	Override the default ciphersuite selection criteria for certificate- and PSK-based encryption.
+#	Example for GnuTLS:
+#		NONE:+VERS-TLS1.2:+ECDHE-RSA:+RSA:+ECDHE-PSK:+PSK:+AES-128-GCM:+AES-128-CBC:+AEAD:+SHA256:+SHA1:+CURVE-ALL:+COMP-NULL:+SIGN-ALL:+CTYPE-X.509
+#	Example for OpenSSL:
+#		EECDH+aRSA+AES128:RSA+aRSA+AES128:kECDHEPSK+AES128:kPSK+AES128
+#
+# Mandatory: no
+# Default:
+# TLSCipherAll=
+{% if settings.get('tlscipherall', defaults.get('tlscipherall', False)) %}TLSCipherAll={{ settings.get('tlscipherall', defaults.tlscipherall) }}{% endif %}
+
+### Option: DBTLSConnect
+#	Setting this option enforces to use TLS connection to database.
+#	required    - connect using TLS
+#	verify_ca   - connect using TLS and verify certificate
+#	verify_full - connect using TLS, verify certificate and verify that database identity specified by DBHost
+#	              matches its certificate
+#	On MySQL starting from 5.7.11 and PostgreSQL following values are supported: "required", "verify_ca" and
+#	"verify_full".
+#	On MariaDB starting from version 10.2.6 "required" and "verify_full" values are supported.
+#	Default is not to set any option and behavior depends on database configuration
+#
+# Mandatory: no
+# Default:
+# DBTLSConnect=
+{% if settings.get('dbtlsconnect', defaults.get('dbtlsconnect', False)) %}DBTLSConnect={{ settings.get('dbtlsconnect', defaults.dbtlsconnect) }}{% endif %}
+
+### Option: DBTLSCAFile
+#	Full pathname of a file containing the top-level CA(s) certificates for database certificate verification.
+#	Supported only for MySQL and PostgreSQL
+#
+# Mandatory: no
+#	(yes, if DBTLSConnect set to one of: verify_ca, verify_full)
+# Default:
+# DBTLSCAFile=
+{% if settings.get('dbtlscafile', defaults.get('dbtlscafile', False)) %}DBTLSCAFile={{ settings.get('dbtlscafile', defaults.dbtlscafile) }}{% endif %}
+
+### Option: DBTLSCertFile
+#	Full pathname of file containing Zabbix proxy certificate for authenticating to database.
+#	Supported only for MySQL and PostgreSQL
+#
+# Mandatory: no
+# Default:
+# DBTLSCertFile=
+{% if settings.get('dbtlscertfile', defaults.get('dbtlscertfile', False)) %}DBTLSCertFile={{ settings.get('dbtlscertfile', defaults.dbtlscertfile) }}{% endif %}
+
+### Option: DBTLSKeyFile
+#	Full pathname of file containing the private key for authenticating to database.
+#	Supported only for MySQL and PostgreSQL
+#
+# Mandatory: no
+# Default:
+# DBTLSKeyFile=
+{% if settings.get('dbtlskeyfile', defaults.get('dbtlskeyfile', False)) %}DBTLSKeyFile={{ settings.get('dbtlskeyfile', defaults.dbtlskeyfile) }}{% endif %}
+
+### Option: DBTLSCipher
+#	The list of encryption ciphers that Zabbix proxy permits for TLS protocols up through TLSv1.2
+#	Supported only for MySQL
+#
+# Mandatory no
+# Default:
+# DBTLSCipher=
+{% if settings.get('dbtlscipher', defaults.get('dbtlscipher', False)) %}DBTLSCipher={{ settings.get('dbtlscipher', defaults.dbtlscipher) }}{% endif %}
+
+### Option: DBTLSCipher13
+#	The list of encryption ciphersuites that Zabbix proxy permits for TLSv1.3 protocol
+#	Supported only for MySQL, starting from version 8.0.16
+#
+# Mandatory no
+# Default:
+# DBTLSCipher13=
+{% if settings.get('dbtlscipher13', defaults.get('dbtlscipher13', False)) %}DBTLSCipher13={{ settings.get('dbtlscipher13', defaults.dbtlscipher13) }}{% endif %}
+
+####### For advanced users - TCP-related fine-tuning parameters #######
+
+## Option: ListenBacklog
+#       The maximum number of pending connections in the queue. This parameter is passed to
+#       listen() function as argument 'backlog' (see "man listen").
+#
+# Mandatory: no
+# Range: 0 - INT_MAX (depends on system, too large values may be silently truncated to implementation-specified maximum)
+# Default: SOMAXCONN (hard-coded constant, depends on system)
+# ListenBacklog=
+{% if settings.get('listenbacklog', defaults.get('listenbacklog', False)) %}ListenBacklog={{ settings.get('listenbacklog', defaults.listenbacklog) }}{% endif %}
+{% endif %}
+
 {{ settings.get('extra_conf','') }}
