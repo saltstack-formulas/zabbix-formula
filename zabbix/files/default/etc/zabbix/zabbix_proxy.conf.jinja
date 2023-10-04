@@ -384,7 +384,7 @@
 # Mandatory: no
 # Default:
 # JavaGateway=
-{% if settings.get('starthttppollers', defaults.get('starthttppollers', False)) %}
+{% if settings.get('javagateway', defaults.get('javagateway', False)) %}
 JavaGateway={{ settings.get('javagateway', defaults.javagateway) }}
 
 ### Option: JavaGatewayPort
