@@ -39,6 +39,7 @@
 # Server=
 {% if settings.get('server', defaults.get('server', False)) %}Server={{ settings.get('server', defaults.server) }}{% endif %}
 
+{% if zabbix.version_repo|float <= 6.0 -%}
 ### Option: ServerPort
 #	Port of Zabbix trapper on Zabbix server.
 #	For a proxy in the passive mode this parameter will be ignored.
@@ -48,6 +49,7 @@
 # Default:
 # ServerPort=10051
 {% if settings.get('serverport', defaults.get('serverport', False)) %}ServerPort={{ settings.get('serverport', defaults.serverport) }}{% endif %}
+{% endif %}
 
 ### Option: Hostname
 #	Unique, case sensitive Proxy name. Make sure the Proxy name is known to the server!
