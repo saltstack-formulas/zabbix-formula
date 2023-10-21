@@ -23,7 +23,9 @@
 
 ### Option: Server
 #	If ProxyMode is set to active mode:
-#		IP address or DNS name of Zabbix server to get configuration data from and send data to.
+#		IP address or DNS name (address:port) or cluster (address:port;address2:port) of Zabbix server to get configuration data from and send data to.
+#		If port is not specified, default port is used.
+#		Cluster nodes need to be separated by semicolon.
 #	If ProxyMode is set to passive mode:
 #		List of comma delimited IP addresses, optionally in CIDR notation, or DNS names of Zabbix server.
 #		Incoming connections will be accepted only from the addresses listed here.
@@ -174,7 +176,7 @@
 {% if zabbix.version_repo|float >= 3.4 -%}
 ### Option: SocketDir
 #	IPC socket directory.
-#       Directory to store IPC sockets used by internal Zabbix services.
+#		Directory to store IPC sockets used by internal Zabbix services.
 #
 # Mandatory: no
 # Default:
@@ -186,6 +188,8 @@
 #	Database host name.
 #	If set to localhost, socket is used for MySQL.
 #	If set to empty string, socket is used for PostgreSQL.
+#	If set to empty string, the Net Service Name connection method is used to connect to Oracle database; also see
+#	the TNS_ADMIN environment variable to specify the directory where the tnsnames.ora file is located.
 #
 # Mandatory: no
 # Default:
@@ -195,6 +199,9 @@
 ### Option: DBName
 #	Database name.
 #	For SQLite3 path to database file must be provided. DBUser and DBPassword are ignored.
+#	If the Net Service Name connection method is used to connect to Oracle database, specify the service name from
+#	the tnsnames.ora file or set to empty string; also see the TWO_TASK environment variable if DBName is set to
+#	empty string.
 #	Warning: do not attempt to use the same database Zabbix server is using.
 #
 # Mandatory: yes
@@ -236,11 +243,25 @@
 
 # Option: DBPort
 #	Database port when not using local socket. Ignored for SQLite.
+#	If the Net Service Name connection method is used to connect to Oracle database, the port number from the
+#	tnsnames.ora file will be used. The port number set here will be ignored.
 #
 # Mandatory: no
 # Default:
 # DBPort=
 {% if settings.get('dbport', defaults.get('dbport', False)) %}DBPort={{ settings.get('dbport', defaults.dbport) }}{% endif %}
+
+{% if zabbix.version_repo|float >= 6.0 -%}
+### Option: AllowUnsupportedDBVersions
+#	Allow proxy to work with unsupported database versions.
+#       0 - do not allow
+#       1 - allow
+#
+# Mandatory: no
+# Default:
+# AllowUnsupportedDBVersions=0
+{% if settings.get('allowunsupporteddbversions', defaults.get('allowunsupporteddbversions', False)) %}AllowUnsupportedDBVersions={{ settings.get('allowunsupporteddbversions', defaults.allowunsupporteddbversions) }}{% endif %}
+{% endif %}
 
 ######### PROXY SPECIFIC PARAMETERS #############
 
@@ -339,6 +360,19 @@
 # Default:
 # StartPollersUnreachable=1
 {% if settings.get('startpollersunreachable', defaults.get('startpollersunreachable', False)) %}StartPollersUnreachable={{ settings.get('startpollersunreachable', defaults.startpollersunreachable) }}{% endif %}
+
+{% if zabbix.version_repo|float >= 6.0 -%}
+### Option: StartHistoryPollers
+#	Number of pre-forked instances of history pollers.
+#	Only required for internal checks.
+#	A database connection is required for each history poller instance.
+#
+# Mandatory: no
+# Range: 0-1000
+# Default:
+# StartHistoryPollers=1
+{% if settings.get('starthistorypollers', defaults.get('starthistorypollers', False)) %}StartHistoryPollers={{ settings.get('starthistorypollers', defaults.starthistorypollers) }}{% endif %}
+{% endif %}
 
 ### Option: StartTrappers
 #	Number of pre-forked instances of trappers.
@@ -605,6 +639,17 @@ StartJavaPollers={{ settings.get('startjavapollers', defaults.startjavapollers) 
 # UnreachableDelay=15
 {% if settings.get('unreachabedelay', defaults.get('unreachabedelay', False)) %}UnreachableDelay={{ settings.get('unreachabedelay', defaults.unreachabedelay) }}{% endif %}
 
+{% if zabbix.version_repo|float >= 6.0 -%}
+## Option: StartODBCPollers
+#	Number of pre-forked ODBC poller instances.
+#
+# Mandatory: no
+# Range: 0-1000
+# Default:
+# StartODBCPollers=1
+{% if settings.get('startodbcpollers', defaults.get('startodbcpollers', False)) %}StartODBCPollers={{ settings.get('startodbcpollers', defaults.startodbcpollers) }}{% endif %}
+{% endif %}
+
 ### Option: ExternalScripts
 #	Full path to location of external scripts.
 #	Default depends on compilation options.
@@ -724,7 +769,7 @@ Include={{ include }}
 ### Option: SSLCALocation
 #	Location of certificate authority (CA) files for SSL server certificate verification.
 #	If not set, system-wide directory will be used.
-#	This parameter is used only in web monitoring.
+#	This parameter is used in web monitoring, HTTP agent items and for communication with Vault.
 #
 # Mandatory: no
 # Default:
@@ -1004,6 +1049,36 @@ LoadModule={{ loadmodule }}
 # Default:
 # DBTLSCipher13=
 {% if settings.get('dbtlscipher13', defaults.get('dbtlscipher13', False)) %}DBTLSCipher13={{ settings.get('dbtlscipher13', defaults.dbtlscipher13) }}{% endif %}
+
+{% if zabbix.version_repo|float >= 6.0 -%}
+### Option: VaultToken
+#	Vault authentication token that should have been generated exclusively for Zabbix proxy with read only permission to path
+#	specified in optional VaultDBPath configuration parameter.
+#	It is an error if VaultToken and VAULT_TOKEN environment variable are defined at the same time.
+#
+# Mandatory: no
+# Default:
+# VaultToken=
+{% if settings.get('vaulttoken', defaults.get('vaulttoken', False)) %}VaultToken={{ settings.get('vaulttoken', defaults.vaulttoken) }}{% endif %}
+
+### Option: VaultURL
+#	Vault server HTTP[S] URL. System-wide CA certificates directory will be used if SSLCALocation is not specified.
+#
+# Mandatory: no
+# Default:
+# VaultURL=https://127.0.0.1:8200
+{% if settings.get('vaulturl', defaults.get('vaulturl', False)) %}VaultURL={{ settings.get('vaulturl', defaults.vaulturl) }}{% endif %}
+
+### Option: VaultDBPath
+#	Vault path from where credentials for database will be retrieved by keys 'password' and 'username'.
+#	Example: secret/zabbix/database
+#	This option can only be used if DBUser and DBPassword are not specified.
+#
+# Mandatory: no
+# Default:
+# VaultDBPath=
+{% if settings.get('vaultdbpath', defaults.get('vaultdbpath', False)) %}VaultDBPath={{ settings.get('vaultdbpath', defaults.vaultdbpath) }}{% endif %}
+{% endif %}
 
 ####### For advanced users - TCP-related fine-tuning parameters #######
 
