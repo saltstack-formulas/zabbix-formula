@@ -24,6 +24,8 @@ zabbix-proxy:
       {% for include in settings.get('includes', defaults.get('includes', [])) %}
       - file: {{ include }}
       {%- endfor %}
+    - watch:
+      - pkg: zabbix-proxy
 
 zabbix-proxy-logdir:
   file.directory:
