@@ -77,3 +77,4 @@ zabbix:
     dbname: zabbix
     dbuser: zabbix
     dbpassword: zabbix
+    sql_file: /usr/share/doc/zabbix-server-pgsql/create.sql.gz

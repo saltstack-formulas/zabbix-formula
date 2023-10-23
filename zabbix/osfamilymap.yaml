@@ -167,6 +167,7 @@ Suse:
   pgsql:
     pkgs:
       - postgresql
+      - gzip
     sql_file: /usr/share/doc/packages/zabbix-server-pgsql/create.sql.gz
 
 
