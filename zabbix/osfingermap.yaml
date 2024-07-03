@@ -28,6 +28,9 @@ Debian-8:
   repo_aptkey: true
 
 # os: Ubuntu
+Ubuntu-24.04:
+  repo_signedby: signedby=/etc/apt/keyrings/zabbix.gpg
+  repo_aptkey: false
 Ubuntu-22.04:
   repo_signedby: signedby=/etc/apt/keyrings/zabbix.gpg
   repo_aptkey: false
