@@ -8,34 +8,26 @@
 {% set dbuser = settings.get('dbuser', defaults.dbuser) -%}
 {% set dbpassword = settings.get('dbpassword', defaults.dbpassword) -%}
 
-{% set dbroot_user = settings.get('dbroot_user') -%}
-{% set dbroot_pass = settings.get('dbroot_pass') -%}
+{% set sql_file = settings.get('sql_file', defaults.sql_file) -%}
 
-{% set sql_file = settings.get('sql_file', '/usr/share/doc/zabbix-server-pgsql/create.sql.gz') -%}
-
-# Connection args required only if dbroot_user and dbroot_pass defined.
-{% set connection_args = {} -%}
-{% if dbroot_user and dbroot_pass -%}
-{%  set connection_args = {'runas': 'nobody', 'host': dbhost, 'user': dbroot_user, 'password': dbroot_pass} -%}
-{% endif -%}
-
-# Check is there any tables in database.
-# salt.postgres.psql_query return empty result if there is no tables or 'False' on any error i.e. failed auth.
-{% set list_tables = "SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema' LIMIT 1;" %}
-{% set is_db_empty = True -%}
-{% if salt.postgres.psql_query(query=list_tables, maintenance_db=dbname, **connection_args) -%}
-{%  set is_db_empty = False -%}
-{% endif -%}
+{% set table_query = "SELECT count(tablename) FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema';" %}
+{% set psql_cmd = "$(psql -X -A -t -c \\\"" + table_query + "\\\" || echo \\\"-1\\\") -eq \\\"0\\\" " %}
 
 include:
   - zabbix.pgsql.pkgs
 
+# Check is there any tables in database.
+# returns changed if there are zero tables in the db
 check_db_pgsql:
-  test.configurable_test_state:
-    - name: Is there any tables in '{{ dbname }}' database?
-    - changes: {{ is_db_empty }}
-    - result: True
-    - comment: If changes is 'True' data import required.
+  cmd.run:
+    - name: "[[ {{ psql_cmd }} ]] && echo \"changed=yes comment='DB needs schema import.'\" || echo \"changed=no comment='No DB import needed or possible.'\""
+    - runas: {{ zabbix.user }}
+    - stateful: True
+    - env:
+      - PGUSER: {{ dbuser }}
+      - PGPASSWORD: {{ dbpassword }}
+      - PGDATABASE: {{ dbname }}
+      - PGHOST: {{ dbhost }}
 
 {% if 'sql_file' in settings -%}
 upload_sql_dump:
@@ -51,7 +43,7 @@ upload_sql_dump:
 
 import_sql:
   cmd.run:
-    - name: zcat {{ sql_file }} | psql | head -5
+    - name: zcat {{ sql_file }} | psql | { head -5; cat >/dev/null; }
     - runas: {{ zabbix.user }}
     - env:
       - PGUSER: {{ dbuser }}
@@ -61,4 +53,4 @@ import_sql:
     - require:
       - pkg: zabbix-server
     - onchanges:
-      - test: check_db_pgsql
+      - cmd: check_db_pgsql
