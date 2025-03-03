@@ -287,6 +287,7 @@
 # ProxyOfflineBuffer=1
 {% if settings.get('proxyofflinebuffer', defaults.get('proxyofflinebuffer', False)) %}ProxyOfflineBuffer={{ settings.get('proxyofflinebuffer', defaults.proxyofflinebuffer) }}{% endif %}
 
+{% if zabbix.version_repo|float <= 6.2 -%}
 ### Option: HeartbeatFrequency
 #	Frequency of heartbeat messages in seconds.
 #	Used for monitoring availability of Proxy on server side.
@@ -298,7 +299,9 @@
 # Default:
 # HeartbeatFrequency=60
 {% if settings.get('heartbeatfrequency', defaults.get('heartbeatfrequency', False)) %}HeartbeatFrequency={{ settings.get('heartbeatfrequency', defaults.heartbeatfrequency) }}{% endif %}
+{% endif %}
 
+{% if zabbix.version_repo|float <= 6.2 -%}
 ### Option: ConfigFrequency
 #	How often proxy retrieves configuration data from Zabbix Server in seconds.
 #	For a proxy in the passive mode this parameter will be ignored.
@@ -308,6 +311,24 @@
 # Default:
 # ConfigFrequency=300
 {% if settings.get('configfrequency', defaults.get('configfrequency', False)) %}ConfigFrequency={{ settings.get('configfrequency', defaults.configfrequency) }}{% endif %}
+{% endif %}
+
+{% if zabbix.version_repo|float >= 6.4 -%}
+### Option: ConfigFrequency - Deprecated, use ProxyConfigFrequency
+#	How often proxy retrieves configuration data from Zabbix Server in seconds.
+#	For a proxy in the passive mode this parameter will be ignored.
+# Mandatory: no
+
+### Option: ProxyConfigFrequency
+#	How often proxy retrieves configuration data from Zabbix Server in seconds.
+#	For a proxy in the passive mode this parameter will be ignored.
+#
+# Mandatory: no
+# Range: 1-3600*24*7
+# Default:
+# ProxyConfigFrequency=10
+{% if settings.get('proxyconfigfrequency', defaults.get('proxyconfigfrequency', False)) %}ProxyConfigFrequency={{ settings.get('proxyconfigfrequency', defaults.proxyconfigfrequency) }}{% endif %}
+{% endif %}
 
 ### Option: DataSenderFrequency
 #	Proxy will send collected data to the Server every N seconds.
@@ -342,8 +363,7 @@
 
 {% if zabbix.version_repo|float >= 4.2 -%}
 ### Option: StartPreprocessors
-#	Number of pre-forked instances of preprocessing workers.
-#		The preprocessing manager process is automatically started when preprocessor worker is started.
+#	Number of pre-started instances of preprocessing workers.
 #
 # Mandatory: no
 # Range: 1-1000
