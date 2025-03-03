@@ -39,6 +39,7 @@
 # Server=
 {% if settings.get('server', defaults.get('server', False)) %}Server={{ settings.get('server', defaults.server) }}{% endif %}
 
+{% if zabbix.version_repo|float <= 6.0 -%}
 ### Option: ServerPort
 #	Port of Zabbix trapper on Zabbix server.
 #	For a proxy in the passive mode this parameter will be ignored.
@@ -48,6 +49,7 @@
 # Default:
 # ServerPort=10051
 {% if settings.get('serverport', defaults.get('serverport', False)) %}ServerPort={{ settings.get('serverport', defaults.serverport) }}{% endif %}
+{% endif %}
 
 ### Option: Hostname
 #	Unique, case sensitive Proxy name. Make sure the Proxy name is known to the server!
@@ -304,7 +306,7 @@
 # Mandatory: no
 # Range: 1-3600*24*7
 # Default:
-# ConfigFrequency=3600
+# ConfigFrequency=300
 {% if settings.get('configfrequency', defaults.get('configfrequency', False)) %}ConfigFrequency={{ settings.get('configfrequency', defaults.configfrequency) }}{% endif %}
 
 ### Option: DataSenderFrequency
@@ -1050,6 +1052,18 @@ LoadModule={{ loadmodule }}
 # DBTLSCipher13=
 {% if settings.get('dbtlscipher13', defaults.get('dbtlscipher13', False)) %}DBTLSCipher13={{ settings.get('dbtlscipher13', defaults.dbtlscipher13) }}{% endif %}
 
+{% if zabbix.version_repo|float >= 6.2 -%}
+### Option: Vault
+#	Specifies vault:
+#		HashiCorp - HashiCorp KV Secrets Engine - Version 2
+#		CyberArk  - CyberArk Central Credential Provider
+#
+# Mandatory: no
+# Default:
+# Vault=HashiCorp
+{% if settings.get('vault', defaults.get('vault', False)) %}Vault={{ settings.get('vault', defaults.vault) }}{% endif %}
+{% endif %}
+
 {% if zabbix.version_repo|float >= 6.0 -%}
 ### Option: VaultToken
 #	Vault authentication token that should have been generated exclusively for Zabbix proxy with read only permission to path
@@ -1057,6 +1071,7 @@ LoadModule={{ loadmodule }}
 #	It is an error if VaultToken and VAULT_TOKEN environment variable are defined at the same time.
 #
 # Mandatory: no
+#	(yes, if Vault is explicitly set to HashiCorp)
 # Default:
 # VaultToken=
 {% if settings.get('vaulttoken', defaults.get('vaulttoken', False)) %}VaultToken={{ settings.get('vaulttoken', defaults.vaulttoken) }}{% endif %}
@@ -1070,14 +1085,40 @@ LoadModule={{ loadmodule }}
 {% if settings.get('vaulturl', defaults.get('vaulturl', False)) %}VaultURL={{ settings.get('vaulturl', defaults.vaulturl) }}{% endif %}
 
 ### Option: VaultDBPath
-#	Vault path from where credentials for database will be retrieved by keys 'password' and 'username'.
-#	Example: secret/zabbix/database
+#	Vault path or query depending on the Vault from where credentials for database will be retrieved by keys.
+#	Keys used for HashiCorp are 'password' and 'username'.
+#	Example path:
+#		secret/zabbix/database
+#	Keys used for CyberArk are 'Content' and 'UserName'.
+#	Example query:
+#		AppID=zabbix_server&Query=Safe=passwordSafe;Object=zabbix_proxy_database
 #	This option can only be used if DBUser and DBPassword are not specified.
 #
 # Mandatory: no
 # Default:
 # VaultDBPath=
 {% if settings.get('vaultdbpath', defaults.get('vaultdbpath', False)) %}VaultDBPath={{ settings.get('vaultdbpath', defaults.vaultdbpath) }}{% endif %}
+{% endif %}
+
+{% if zabbix.version_repo|float >= 6.2 -%}
+### Option: VaultTLSCertFile
+#	Name of the SSL certificate file used for client authentication. The certificate file must be in PEM1 format.
+#	If the certificate file contains also the private key, leave the SSL key file field empty. The directory
+#	containing this file is specified by configuration parameter SSLCertLocation.
+#
+# Mandatory: no
+# Default:
+# VaultTLSCertFile=
+{% if settings.get('vaulttlscertfile', defaults.get('vaulttlscertfile', False)) %}VaultTLSCertFile={{ settings.get('vaulttlscertfile', defaults.vaulttlscertfile) }}{% endif %}
+
+### Option: VaultTLSKeyFile
+#	Name of the SSL private key file used for client authentication. The private key file must be in PEM1 format.
+#	The directory containing this file is specified by configuration parameter SSLKeyLocation.
+#
+# Mandatory: no
+# Default:
+# VaultTLSKeyFile=
+{% if settings.get('vaulttlskeyfile', defaults.get('vaulttlskeyfile', False)) %}VaultTLSKeyFile={{ settings.get('vaulttlskeyfile', defaults.vaulttlskeyfile) }}{% endif %}
 {% endif %}
 
 ####### For advanced users - TCP-related fine-tuning parameters #######
