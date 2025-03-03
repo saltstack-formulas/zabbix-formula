@@ -55,6 +55,7 @@ zabbix:
     zbxserver: localhost
     zbxserverport: '10051'
     zbxservername: Zabbix installed with SaltStack
+    historyupgraded: false
   proxy:
     pkgs:
       - zabbix-proxy-sqlite3
