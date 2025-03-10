@@ -27,6 +27,8 @@ zabbix-agent:
 {% if salt['grains.get']('os') != 'Windows' %}
       - file: zabbix-agent-piddir
 {% endif %}
+    - watch:
+      - pkg: zabbix-agent
 
 zabbix-agent-restart:
   module.wait:
