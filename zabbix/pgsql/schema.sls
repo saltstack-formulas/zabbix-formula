@@ -11,7 +11,7 @@
 {% set dbroot_user = settings.get('dbroot_user') -%}
 {% set dbroot_pass = settings.get('dbroot_pass') -%}
 
-{% set sql_file = settings.get('sql_file', '/usr/share/doc/zabbix-server-pgsql/create.sql.gz') -%}
+{% set sql_file = settings.get('sql_file', defaults.sql_file) -%}
 
 # Connection args required only if dbroot_user and dbroot_pass defined.
 {% set connection_args = {} -%}
@@ -51,7 +51,7 @@ upload_sql_dump:
 
 import_sql:
   cmd.run:
-    - name: zcat {{ sql_file }} | psql | head -5
+    - name: zcat {{ sql_file }} | psql | { head -5; cat >/dev/null; }
     - runas: {{ zabbix.user }}
     - env:
       - PGUSER: {{ dbuser }}
