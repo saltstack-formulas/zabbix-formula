@@ -154,7 +154,6 @@
 # Mandatory: no
 # Default:
 # EnableRemoteCommands=0
-{% if settings.get('enableremotecommands', defaults.get('enableremotecommands', False)) %}EnableRemoteCommands={{ settings.get('enableremotecommands', defaults.enableremotecommands) }}{% endif %}
 
 ### Option: LogRemoteCommands
 #		Enable logging of executed shell commands as warnings.
